@@ -1,16 +1,14 @@
 # HUNAR — Bandlik platformasi
 
-**Hududiy bandlik va ishlab chiqarish hamkorlik platformasi.**
-Nurafshon shahri (Toshkent viloyati) pilot loyihasi — ishlaydigan demo versiya.
+**Ish qidirayotgan fuqarolar va ishchi qidirayotgan korxonalarni bog'laydigan platforma.**
+Nurafshon shahri (Toshkent viloyati) pilot loyihasi — ishlaydigan demo.
 
-> Bu **demo**: build-tool, paket va internet talab qilmaydi.
+> Build-tool, paket va internet talab qilmaydi.
 > `index.html` ni brauzerda ochsangiz — ishlaydi.
 
 ---
 
 ## Nima uchun bu platforma
-
-Ikki tomonlama muammo, bitta yechim:
 
 | Muammo | Hozirgi holat |
 |---|---|
@@ -26,7 +24,7 @@ buyurtmadan oldin shu maqomni oladi: daromadidan soliq olinmaydi, u rasman
 
 ---
 
-## Demoni ishga tushirish
+## Ishga tushirish
 
 `index.html` ni brauzerda oching. Yoki lokal server orqali:
 
@@ -34,71 +32,96 @@ buyurtmadan oldin shu maqomni oladi: daromadidan soliq olinmaydi, u rasman
 cd ~/Documents/bandlik_project && python3 -m http.server 8000
 ```
 
-Yuqori o'ng burchakdagi **↻** tugmasi demoni boshlang'ich holatga qaytaradi.
+Yuqori o'ngdagi **↻** tugmasi demoni boshidan boshlaydi (kirish oqimi bilan).
 
 ---
 
-## Demo stsenariysi (5 daqiqada ko'rsatish uchun)
+## Foydalanuvchi tajribasi
 
-Yuqoridagi rol almashtirgich orqali bir foydalanuvchidan boshqasiga o'tasiz.
+Auditoriya — **mahalladagi oddiy odam**: arzon Android telefon, sekin internet,
+raqamli savodxonlik turlicha. Butun interfeys shunga moslangan.
 
-### 1. Fuqaro — maqom gate'i
-Demo **Dilnoza Karimova** nomidan ochiladi. U hali maqom olmagan, shuning uchun
-**ishlar ro'yxati ko'rinmaydi** — bu qasddan qilingan:
+### Kirish oqimi
 
-> Maqom olinmaguncha to'lovli vazifa qabul qilib bo'lmaydi.
+Saytga kirgan odam birinchi bo'lib **"Nima qilmoqchisiz?"** savolini ko'radi —
+ro'yxatdan o'tishdan ham oldin:
 
-"Ariza berish" → "Maqomni tasdiqlash" bosing. Endi 4 ta vazifa ochiladi,
-har birida **moslik foizi** ko'rsatiladi (ko'nikma + mahalla + ishonch + tajriba).
+```
+Xush kelibsiz → Ish qidiryapman / Ishchi qidiryapman → telefon → SMS kod
+→ ism (yoki korxona) → mahalla → ko'nikma → Tayyor
+```
 
-### 2. Fuqaro → "Olaman"
-Biror vazifaga ariza bering.
+Har ekranda **bitta savol**, katta tugma, aniq qadam ko'rsatkichi va orqaga
+qaytish imkoni. Telefon raqami va STIR yozilayotganda avtomatik formatlanadi.
+SMS kodi demo rejimida ekranda ko'rsatiladi.
 
-### 3. Korxona — nomzodni biriktirish
-**Korxona** roliga o'ting. Vazifa ostida nomzodlar ko'rinadi (ishonch bali va
-moslik bilan). "Biriktirish" bosing.
+### Asosiy qarorlar
 
-### 4. Fuqaro — ishni bajarish
-**Fuqaro** → "Mening ishlarim" → "Ishni boshlash" → "Foto qo'shish" →
-"Ishni topshirish".
+| Qaror | Sabab |
+|---|---|
+| Yorqin, iliq ranglar (ko'k → binafsha, zarg'aldoq CTA) | Bandlik — umid mavzusi. Qorong'i, rasmiy interfeys begonalashtiradi |
+| Tugma balandligi kamida **52px** | Barmoq bilan bosish uchun; keksa foydalanuvchi ham adashmaydi |
+| Summa — eng katta element | Foydalanuvchi birinchi navbatda "qancha pul?" deb qaraydi |
+| Telefonda **pastki navigatsiya** | Bosh barmoq yetadigan joy; yuqori tablar telefonda noqulay |
+| Jargon yo'q: "Nechta?", "Necha kunda?" | "Miqdor", "deadline" o'rniga kundalik til |
+| Foto qo'shilmaguncha topshirish tugmasi **o'chiq** | Xatoni oldindan to'sish — bosgandan keyin xato chiqarishdan yaxshiroq |
 
-> Fotosiz topshirishga urinib ko'ring — tizim rad etadi.
+### Rasmlar haqida
 
-### 5. Korxona — sifat va to'lov
-**Korxona** → "Qabul qilish va to'lash". Eskrou ochiladi, komissiya ushlab
-qolinadi, qolgan summa fuqaro hamyoniga tushadi.
+Barcha vizual element — **ichki SVG**. Sabab: sekin internetda tashqi foto
+yuklanmaydi va "singan rasm" ko'rinadi. SVG bir zumda chiziladi, tarmoq talab
+qilmaydi va hech qachon buzilmaydi.
 
-### 6. Boshqarma — monitoring
-**Boshqarma** roli: KPI'lar, oylik dinamika, **ijtimoiy registrdan chiqqanlar**
-va mahalla kesimi. Diqqat qiling:
+Haqiqiy foto qo'shmoqchi bo'lsangiz — [`js/rasmlar.js`](js/rasmlar.js)
+faylining boshidagi `FOTO` obyektiga URL yozing:
 
-- Shaxsiy ma'lumot, telefon, hujjat va to'lov tafsiloti **ko'rinmaydi**
-- 5 tadan kam yozuvli mahalla `<5` deb yashiriladi (k-anonimlik)
-- CSV eksport ishlaydi va audit jurnaliga yoziladi
+```js
+const FOTO = {
+  tikuvchilik: 'https://images.unsplash.com/photo-XXXX?w=600&q=70',
+  qadoqlash:   '',   // bo'sh qoldirilsa — gradient + ikonka
+  ...
+};
+```
 
-### 7. Moderator — nizo
-**Moderator** roli: ochiq nizo, tomonlar yozishmasi va uchta qaror varianti.
-"Bo'lib berish (50/50)" ni tanlang — eskrou aniq bo'linadi, daftar mutanosib qoladi.
+Foto yuklanmasa avtomatik illyustratsiyaga qaytadi — sayt buzilmaydi.
 
 ---
 
-## Nima ishlaydi (demo qamrovi)
+## Demo stsenariysi (5 daqiqa)
+
+Yuqoridagi **Demo** panelidan rollar orasida o'tasiz.
+
+1. **Kirish oqimi** — "Ish qidiryapman" ni tanlang, ro'yxatdan o'ting.
+2. **Maqom gate'i** — ishlar ro'yxati ko'rinmaydi. Bu qasddan: maqom olinmaguncha
+   to'lovli ish qabul qilib bo'lmaydi. "Ariza berish" → "Tasdiqni olish".
+3. **Ish tanlash** — 4 ta vazifa, har birida **moslik foizi**
+   (ko'nikma + mahalla + ishonch + tajriba). "Olaman" bosing.
+4. **Korxona** roliga o'ting → nomzodni "Tanlash".
+5. **Fuqaro** → "Mening ishlarim" → boshlash → foto → topshirish.
+6. **Korxona** → sifat ro'yxatini tekshirib "Qabul qilish va to'lash".
+   Eskrou ochiladi, komissiya ushlanadi, qolgani hamyonga tushadi.
+7. **Boshqarma** → KPI'lar, registrdan chiqqanlar, k-anonimlik, CSV eksport.
+8. **Moderator** → nizo, tomonlar izohi, "Bo'lib berish (50/50)" qarori.
+
+---
+
+## Nima ishlaydi
 
 | Modul | Holat |
 |---|---|
+| Kirish oqimi: rol tanlash + ro'yxatdan o'tish | ✅ |
 | "O'zini o'zi band qilish" majburiy gate | ✅ |
 | Vazifa holat mashinasi (12 holat) | ✅ |
 | Moslik algoritmi (izohlangan ball) | ✅ |
-| Foto dalil majburiyligi | ✅ |
-| Sifat nazorati: qabul / qayta ishlash / rad | ✅ |
+| Sifat nazorati: qabul / tuzatish / rad | ✅ |
 | Eskrou: HELD → RELEASED / REFUNDED / SPLIT | ✅ |
 | Double-entry buxgalteriya daftari | ✅ |
-| Komissiya (5%, min 20 000 so'm) | ✅ |
+| Komissiya (5%, eng kami 20 000 so'm) | ✅ |
 | Ishonch bali + avtomatik cheklovlar | ✅ |
 | Nizo va moderator qarori | ✅ |
 | Boshqarma paneli + k-anonimlik + CSV | ✅ |
 | Audit jurnali | ✅ |
-| Logistika: 3 pog'onali tarmoq ko'rinishi | ✅ (ko'rsatma) |
+| Logistika: 3 pog'onali tarmoq | ✅ (ko'rsatma) |
 | KYC / liveness / SMS / to'lov provayderi | ⬜ mock |
 | B2B bozori (RFQ), Agro modul | ⬜ keyingi bosqich |
 
@@ -110,65 +133,60 @@ va mahalla kesimi. Diqqat qiling:
 bandlik_project/
 ├── index.html
 ├── css/
-│   ├── style.css          ranglar, layout, mavzu
-│   └── components.css     vazifa kartasi, hamyon, panel, nizo
+│   ├── style.css          ranglar, layout, tugma, pastki navigatsiya
+│   ├── components.css     vazifa kartasi, hamyon, panel, nizo
+│   └── onboarding.css     kirish oqimi
 ├── js/
 │   ├── data.js            seed: mahallalar, korxonalar, 27 fuqaro, vazifalar
 │   ├── core.js            ★ holat mashinasi, eskrou, komissiya, ishonch bali
+│   ├── rasmlar.js         SVG illyustratsiyalar + foto sozlamasi
 │   ├── store.js           holat + localStorage + amallar
+│   ├── onboarding.js      kirish oqimi
 │   ├── charts.js          SVG grafiklar
 │   ├── views.js           4 rol uchun ko'rinishlar
-│   └── app.js             router va amallar
-└── docs/                  to'liq texnik loyiha (quyida)
+│   └── app.js             router, pastki navigatsiya, amallar
+└── docs/                  to'liq texnik loyiha
 ```
 
 ### `js/core.js` — eng muhim fayl
 
-Bu yerda uch narsa bor va ular UI'dan mustaqil:
+UI'dan butunlay mustaqil uch narsa:
 
 1. **`OTISHLAR`** — deklarativ holat jadvali: qaysi holatdan qaysisiga, kim
-   huquqli, qanday shart bilan. Holatni to'g'ridan-to'g'ri o'zgartirib
-   bo'lmaydi — faqat `otish()` orqali.
-2. **`Eskrou`** — pul hayot sikli. Har amal ikki yozuvli (double-entry)
-   daftarga tushadi va yozuvlar hech qachon o'chirilmaydi.
-3. **`trustHisobla` / `moslikBali`** — ishonch bali va moslik, komponentlarga
-   ajratilgan holda (foydalanuvchiga "nega shunday" deb ko'rsatish uchun).
+   huquqli, qanday shart bilan. Holat faqat `otish()` orqali o'zgaradi.
+2. **`Eskrou`** — pul hayot sikli. Har amal ikki yozuvli daftarga tushadi,
+   yozuvlar hech qachon o'chirilmaydi.
+3. **`trustHisobla` / `moslikBali`** — komponentlarga ajratilgan holda, chunki
+   foydalanuvchiga "nega shunday" deb ko'rsatish kerak.
 
 ---
 
 ## Texnik loyiha (`docs/`)
 
-Demo — bu to'liq platformaning ko'rinadigan qismi. To'liq texnik loyiha:
-
 | Fayl | Mazmuni |
 |---|---|
-| [`docs/PROMPTS.md`](docs/PROMPTS.md) | Loyihaning manba brifi va 11 bosqichli reja |
-| [`docs/00-kontekst.md`](docs/00-kontekst.md) | Kontekst, qabul qilingan taxminlar, eskrou/litsenziya chegarasi |
-| [`docs/01-arxitektura.md`](docs/01-arxitektura.md) | Monorepo tuzilmasi, qatlam qoidalari, RBAC matritsasi |
-| [`docs/schema.draft.prisma`](docs/schema.draft.prisma) | Ma'lumotlar modeli: 64 model, 38 enum |
+| [`docs/PROMPTS.md`](docs/PROMPTS.md) | Manba brif va 11 bosqichli reja |
+| [`docs/00-kontekst.md`](docs/00-kontekst.md) | Kontekst, taxminlar, eskrou/litsenziya chegarasi |
+| [`docs/01-arxitektura.md`](docs/01-arxitektura.md) | Monorepo, qatlam qoidalari, RBAC matritsasi |
+| [`docs/schema.draft.prisma`](docs/schema.draft.prisma) | 64 model, 38 enum |
 
-> **Eslatma:** `schema.draft.prisma` hali `prisma validate` dan o'tkazilmagan
-> (tarmoqqa ulanish bo'lmadi). 1-bosqichda birinchi ish — uni tekshirish.
+> `schema.draft.prisma` hali `prisma validate` dan o'tkazilmagan (tarmoq yo'q edi).
+> Ishlab chiqarish bosqichida birinchi ish — uni tekshirish.
 
-Ishlab chiqarish versiyasi uchun mo'ljallangan stek: Next.js 15 + TypeScript +
+Ishlab chiqarish uchun mo'ljallangan stek: Next.js 15 + TypeScript +
 PostgreSQL/Prisma + Redis/BullMQ.
 
 ---
 
-## Muhim texnik qaror: eskrou va litsenziya
+## Eskrou va litsenziya
 
-Haqiqiy eskrou (uchinchi shaxs pulini ushlab turish) O'zbekistonda bank yoki
-to'lov tashkiloti litsenziyasini talab qiladi.
-
-Shuning uchun pul harakati **`Eskrou` + ledger abstraksiyasi** orqali
-ajratilgan:
+Haqiqiy eskrou O'zbekistonda bank yoki to'lov tashkiloti litsenziyasini talab
+qiladi. Shuning uchun pul harakati abstraksiya orqali ajratilgan:
 
 - **Demoda:** virtual hamyon, haqiqiy pul harakati yo'q
-- **Ishlab chiqarishda:** `escrow` hisobi hamkor bank/PSP hisobiga bog'lanadi
+- **Ishlab chiqarishda:** `eskrou` hisobi hamkor bank/PSP hisobiga bog'lanadi
 
-Ledger mantig'i o'zgarmaydi — faqat provayder almashadi. Demak litsenziya
-masalasi hal bo'lgunga qadar ham platformani to'liq qurib, sinovdan
-o'tkazib bo'ladi.
+Ledger mantig'i o'zgarmaydi — faqat provayder almashadi.
 
 ---
 
@@ -178,5 +196,5 @@ o'tkazib bo'ladi.
 |---|---|
 | Hudud | Nurafshon shahri, 1 mahalladan boshlab |
 | Muddat | 3 oy |
-| Maqsad | 50–100 fuqaro, 2–3 korxona (to'qimachilik/qadoqlash) |
-| Byudjet | **Talab qilinmaydi** — platforma korxona komissiyasi hisobidan ishlaydi |
+| Maqsad | 50–100 fuqaro, 2–3 korxona |
+| Byudjet | **Talab qilinmaydi** — korxona komissiyasi hisobidan |

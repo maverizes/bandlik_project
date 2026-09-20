@@ -20,6 +20,7 @@ const Store = (function () {
     });
 
     const st = {
+      onboardingTugadi: false,
       rol: 'fuqaro',
       menFuqaro: 'w1',          // Dilnoza — maqomi hali yo'q (gate demosi)
       menKorxona: 'c1',
@@ -249,6 +250,53 @@ const Store = (function () {
       audit('VAZIFA_ELON', v.nom, 'DRAFT', 'PUBLISHED');
       saqla();
       return { ok: true, vazifa: v };
+    },
+
+    /* --- Kirish oqimidan keyin hisob yaratish --- */
+    royxatdanOtish(ma) {
+      const st = yukla();
+      st.onboardingTugadi = true;
+      st.rol = ma.rol;
+
+      if (ma.rol === 'fuqaro') {
+        const id = 'w' + (st.fuqarolar.length + 1);
+        st.fuqarolar.push({
+          id,
+          nom: ma.ism || 'Yangi foydalanuvchi',
+          mahalla: ma.mahalla || MAHALLALAR[0].id,
+          yosh: null,
+          jins: null,
+          konikma: ma.konikma && ma.konikma.length ? ma.konikma.slice() : ['k2'],
+          trust: 50,
+          selfEmployment: 'NOT_STARTED',
+          registry: [],
+          bajargan: 0,
+          daromad: 0,
+          telefon: ma.telefon,
+          yangi: true
+        });
+        st.menFuqaro = id;
+        audit('ROYXATDAN_OTDI', ma.ism || id, '-', 'fuqaro');
+
+      } else {
+        const id = 'c' + (st.korxonalar.length + 1);
+        st.korxonalar.push({
+          id,
+          nom: ma.korxonaNom || 'Yangi korxona',
+          stir: ma.stir || '000 000 000',
+          soha: 'Ishlab chiqarish',
+          manzil: 'Nurafshon sh.',
+          masul: '—',
+          tel: '+998 ' + (ma.telefon || ''),
+          kyb: 'VERIFIED',
+          balans: 30_000_000,
+          yangi: true
+        });
+        st.menKorxona = id;
+        audit('ROYXATDAN_OTDI', ma.korxonaNom || id, '-', 'korxona');
+      }
+
+      saqla();
     },
 
     tozala() {

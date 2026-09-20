@@ -1,168 +1,305 @@
 /* ===========================================================================
-   Komponentlar: vazifa kartasi, hamyon, dashboard, nizo, wizard
+   Komponentlar: vazifa kartasi, hamyon, panel, nizo, forma
    =========================================================================== */
 
-/* -------------------------------------------------------------- vazifa karta */
+/* ==================================================== KASB RASMI ======== */
+
+.kasb-zamin {
+  position: relative; overflow: hidden;
+  display: grid; place-items: center;
+  border-radius: var(--r) var(--r) 0 0;
+}
+.kasb-naqsh { position: absolute; inset: 0; width: 100%; height: 100%; }
+.kasb-ikon { position: relative; font-size: 42px; filter: drop-shadow(0 3px 8px rgba(0,0,0,.22)); }
+.kasb-foto {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; mix-blend-mode: overlay; opacity: .85;
+}
+
+.avatar {
+  display: inline-grid; place-items: center; border-radius: 50%;
+  color: #fff; font-weight: 800; flex-shrink: 0; letter-spacing: -.02em;
+}
+
+/* ================================================== VAZIFA KARTASI ====== */
 
 .vazifa {
   background: var(--panel); border: 1px solid var(--chiziq);
-  border-radius: var(--r); box-shadow: var(--soya);
-  padding: 16px; transition: border-color .14s, transform .14s, box-shadow .14s;
+  border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--soya-s);
+  transition: transform var(--orta), box-shadow var(--orta), border-color var(--orta);
+  display: flex; flex-direction: column;
 }
-.vazifa:hover { border-color: var(--asos); transform: translateY(-2px); box-shadow: var(--soya-k); }
+.vazifa:hover { transform: translateY(-4px); box-shadow: var(--soya-k); border-color: var(--kok-yum); }
 
-.vazifa-yuqori { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
-.vazifa-yuqori h3 { font-size: 16px; flex: 1; }
+.vazifa-tana { padding: 16px; display: flex; flex-direction: column; flex: 1; }
+
+.vazifa-yuqori { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 7px; }
+.vazifa-yuqori h3 { font-size: 17px; flex: 1; line-height: 1.3; }
 
 .vazifa-tavsif {
-  font-size: 14px; color: var(--matn-2); margin: 0 0 12px;
+  font-size: 14.5px; color: var(--matn-2); margin-bottom: 14px; line-height: 1.5;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 
-/* Summa va muddat — eng ko'zga tashlanadigan element */
-.vazifa-pul {
-  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  padding: 11px 13px; background: var(--sunken); border-radius: var(--r-s);
-  margin-bottom: 12px;
+/* Summa — eng ko'zga tashlanadigan element */
+.pul-quti {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; border-radius: var(--r-s);
+  background: linear-gradient(135deg, var(--yashil-och), #f0fdf7);
+  border: 1px solid #c7ebdb; margin-bottom: 14px;
 }
-.vazifa-summa { font-size: 21px; font-weight: 740; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-.vazifa-hisob { font-size: 12.5px; color: var(--matn-3); }
-.vazifa-muddat { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--sariq); }
+.pul-summa {
+  font-size: 24px; font-weight: 820; letter-spacing: -.03em;
+  color: var(--yashil); font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.pul-hisob { font-size: 12.5px; color: var(--matn-2); margin-top: 2px; }
+.pul-muddat {
+  margin-left: auto; text-align: center; flex-shrink: 0;
+  background: var(--panel); border-radius: var(--r-xs); padding: 7px 11px;
+}
+.pul-muddat .pm-son { font-size: 18px; font-weight: 800; color: var(--sariq); line-height: 1; }
+.pul-muddat .pm-mat { font-size: 11px; color: var(--matn-3); margin-top: 2px; }
 
-.vazifa-qator { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--matn-2); margin-bottom: 12px; }
+.vazifa-qator {
+  display: flex; flex-wrap: wrap; gap: 7px 14px;
+  font-size: 13.5px; color: var(--matn-2); margin-bottom: 14px;
+}
 .vazifa-qator span { display: inline-flex; align-items: center; gap: 5px; }
 
-.moslik {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 12.5px; color: var(--matn-2);
-  padding: 8px 11px; background: var(--asos-yum); border-radius: var(--r-s); margin-bottom: 12px;
-}
-.moslik b { color: var(--asos); }
-.moslik-chiziq { flex: 1; height: 5px; background: var(--panel); border-radius: 99px; overflow: hidden; }
-.moslik-chiziq i { display: block; height: 100%; background: var(--asos); border-radius: 99px; }
+.vazifa-tana .tugma { margin-top: auto; }
 
-/* ------------------------------------------------------------------- gate */
+/* Moslik ko'rsatkichi */
+.moslik {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--matn-2);
+  padding: 9px 12px; background: var(--kok-och); border-radius: var(--r-xs);
+  margin-bottom: 14px;
+}
+.moslik b { color: var(--kok-tim); font-size: 14px; }
+.moslik-chiziq { flex: 1; height: 6px; background: #fff; border-radius: 99px; overflow: hidden; }
+.moslik-chiziq i {
+  display: block; height: 100%; border-radius: 99px;
+  background: var(--grad-kok); transition: width var(--sekin);
+}
+
+/* ========================================================= GATE ========= */
 
 .gate {
-  border: 2px dashed var(--sariq); background: var(--sariq-y);
-  border-radius: var(--r); padding: 20px; text-align: center;
+  background: var(--panel); border: 1px solid var(--chiziq);
+  border-radius: var(--r-xl); padding: 30px 24px; text-align: center;
+  box-shadow: var(--soya);
 }
-.gate .belgicha { font-size: 32px; margin-bottom: 8px; }
-.gate h3 { font-size: 17px; margin-bottom: 6px; color: var(--sariq); }
-.gate p { font-size: 14.5px; color: var(--matn-2); margin: 0 auto 16px; max-width: 460px; }
+.gate .g-rasm { margin-bottom: 18px; }
+.gate h2 { font-size: 22px; margin-bottom: 9px; }
+.gate > p { font-size: 15.5px; color: var(--matn-2); max-width: 420px; margin: 0 auto 24px; line-height: 1.55; }
 
-.qadamlar { display: grid; gap: 8px; max-width: 420px; margin: 0 auto 18px; text-align: left; }
+.qadamlar { display: grid; gap: 10px; max-width: 400px; margin: 0 auto 24px; text-align: left; }
 .qadam {
-  display: flex; align-items: center; gap: 11px;
-  padding: 10px 13px; background: var(--panel); border: 1px solid var(--chiziq); border-radius: var(--r-s);
-  font-size: 14px;
+  display: flex; align-items: center; gap: 13px;
+  padding: 13px 15px; border-radius: var(--r-s);
+  background: var(--panel-2); border: 1.5px solid var(--chiziq);
+  font-size: 15px; transition: all var(--orta);
 }
 .qadam .n {
-  width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%;
-  background: var(--sunken); color: var(--matn-2);
-  display: grid; place-items: center; font-size: 12px; font-weight: 700;
+  width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%;
+  background: var(--chuqur); color: var(--matn-3);
+  display: grid; place-items: center; font-size: 13px; font-weight: 800;
 }
-.qadam.tayyor { border-color: var(--yashil); }
+.qadam.tayyor { border-color: #bfe9d7; background: var(--yashil-och); }
 .qadam.tayyor .n { background: var(--yashil); color: #fff; }
-.qadam.joriy .n { background: var(--asos); color: #fff; }
+.qadam.joriy { border-color: var(--kok); background: var(--kok-och); }
+.qadam.joriy .n { background: var(--kok); color: #fff; animation: puls 2s ease-in-out infinite; }
 
-/* ----------------------------------------------------------------- hamyon */
+/* Ish bosqichi (progress) */
+.bosqich { display: flex; align-items: center; margin-bottom: 16px; }
+.bosqich-nuqta { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+.bosqich-nuqta .bn {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--chuqur); color: var(--matn-3);
+  display: grid; place-items: center; font-size: 13px; font-weight: 800;
+  transition: all var(--orta);
+}
+.bosqich-nuqta .bm { font-size: 11px; color: var(--matn-3); white-space: nowrap; }
+.bosqich-nuqta.tayyor .bn { background: var(--yashil); color: #fff; }
+.bosqich-nuqta.tayyor .bm { color: var(--yashil); font-weight: 650; }
+.bosqich-nuqta.joriy .bn { background: var(--kok); color: #fff; box-shadow: 0 0 0 4px var(--kok-och); }
+.bosqich-nuqta.joriy .bm { color: var(--kok); font-weight: 700; }
+.bosqich-chiziq { flex: 1; height: 2.5px; background: var(--chiziq); margin: 0 6px; margin-bottom: 18px; border-radius: 2px; }
+.bosqich-chiziq.tayyor { background: var(--yashil); }
+
+/* ======================================================== HAMYON ======== */
 
 .hamyon {
-  background: linear-gradient(135deg, var(--asos), #7c4dff);
-  color: #fff; border-radius: var(--r); padding: 22px;
+  background: var(--grad-kok); color: #fff;
+  border-radius: var(--r-xl); padding: 26px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--soya-kok);
 }
-.hamyon .yorliq { font-size: 13px; opacity: .85; }
-.hamyon .summa { font-size: 32px; font-weight: 760; letter-spacing: -.02em; margin: 2px 0 14px; font-variant-numeric: tabular-nums; }
-.hamyon-qator { display: flex; gap: 22px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.22); }
-.hamyon-qator .b { font-size: 12px; opacity: .85; }
-.hamyon-qator .q { font-size: 16px; font-weight: 640; font-variant-numeric: tabular-nums; }
+.hamyon::before {
+  content: ''; position: absolute; top: -60px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,.10);
+}
+.hamyon::after {
+  content: ''; position: absolute; bottom: -70px; left: -30px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(255,255,255,.07);
+}
+.hamyon > * { position: relative; }
+.hamyon .h-yorliq { font-size: 14px; opacity: .9; }
+.hamyon .h-summa {
+  font-size: 38px; font-weight: 840; letter-spacing: -.035em;
+  margin: 4px 0 18px; font-variant-numeric: tabular-nums; line-height: 1.05;
+}
+.hamyon-qator { display: flex; gap: 24px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.22); }
+.hamyon-qator .b { font-size: 12.5px; opacity: .85; }
+.hamyon-qator .q { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
 
-/* ----------------------------------------------------------------- statlar */
+/* ========================================================= STAT ========= */
 
-.stat { background: var(--panel); border: 1px solid var(--chiziq); border-radius: var(--r); padding: 15px; box-shadow: var(--soya); }
-.stat .q { font-size: 25px; font-weight: 750; letter-spacing: -.02em; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.stat .y { font-size: 12.5px; color: var(--matn-2); margin-top: 3px; }
-.stat .k { font-size: 11.5px; color: var(--matn-3); margin-top: 5px; }
-.stat .o { font-size: 12px; font-weight: 640; margin-top: 5px; }
+.stat {
+  background: var(--panel); border: 1px solid var(--chiziq);
+  border-radius: var(--r); padding: 17px; box-shadow: var(--soya-s);
+  transition: transform var(--orta), box-shadow var(--orta);
+}
+.stat:hover { transform: translateY(-2px); box-shadow: var(--soya); }
+.stat .q { font-size: 27px; font-weight: 820; letter-spacing: -.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat .y { font-size: 13px; color: var(--matn-2); margin-top: 4px; font-weight: 550; }
+.stat .k { font-size: 12px; color: var(--matn-3); margin-top: 6px; }
+.stat .o { font-size: 12.5px; font-weight: 700; margin-top: 7px; display: inline-flex; align-items: center; gap: 4px; }
 .stat .o.yuqori { color: var(--yashil); }
 .stat .o.past   { color: var(--qizil); }
 
-/* --------------------------------------------------------------- grafiklar */
+/* ======================================================= GRAFIK ========= */
 
-.grafik { background: var(--panel); border: 1px solid var(--chiziq); border-radius: var(--r); padding: 16px; box-shadow: var(--soya); }
-.grafik h3 { font-size: 15px; margin-bottom: 14px; }
+.grafik {
+  background: var(--panel); border: 1px solid var(--chiziq);
+  border-radius: var(--r); padding: 18px; box-shadow: var(--soya-s);
+}
+.grafik h3 { font-size: 16px; margin-bottom: 16px; }
 .grafik svg { width: 100%; height: auto; display: block; }
 
-.ustun-qator { display: flex; align-items: center; gap: 11px; margin-bottom: 9px; font-size: 13.5px; }
-.ustun-nom { width: 108px; flex: 0 0 108px; color: var(--matn-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ustun-yolak { flex: 1; height: 22px; background: var(--sunken); border-radius: 5px; overflow: hidden; }
-.ustun-yolak i { display: block; height: 100%; background: var(--asos); border-radius: 5px; transition: width .5s cubic-bezier(.4,0,.2,1); }
-.ustun-qiymat { width: 58px; text-align: right; font-weight: 640; font-variant-numeric: tabular-nums; }
-
-/* ------------------------------------------------------------------- nizo */
-
-.xabar { display: flex; gap: 10px; margin-bottom: 11px; }
-.xabar-avatar {
-  width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%;
-  background: var(--sunken); display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--matn-2);
+.ustun-qator { display: flex; align-items: center; gap: 12px; margin-bottom: 11px; font-size: 14px; }
+.ustun-nom { width: 112px; flex-shrink: 0; color: var(--matn-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ustun-yolak { flex: 1; height: 24px; background: var(--chuqur); border-radius: 7px; overflow: hidden; }
+.ustun-yolak i {
+  display: block; height: 100%; border-radius: 7px;
+  background: var(--grad-kok); transition: width var(--sekin);
 }
-.xabar-ich { flex: 1; background: var(--sunken); border-radius: var(--r-s); padding: 10px 13px; }
-.xabar-kim { font-size: 12.5px; font-weight: 650; margin-bottom: 2px; }
-.xabar-matn { font-size: 14px; color: var(--matn-2); }
-.xabar-vaqt { font-size: 11.5px; color: var(--matn-3); margin-top: 4px; }
-.xabar.korxona .xabar-ich { background: var(--asos-yum); }
+.ustun-qiymat { width: 56px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
 
-.ulush-tanlov { display: grid; gap: 8px; }
+/* ========================================================= NIZO ========= */
+
+.xabar { display: flex; gap: 11px; margin-bottom: 12px; }
+.xabar-ich { flex: 1; background: var(--panel-2); border-radius: var(--r-s); padding: 12px 15px; }
+.xabar-kim { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.xabar-matn { font-size: 14.5px; color: var(--matn-2); line-height: 1.5; }
+.xabar-vaqt { font-size: 12px; color: var(--matn-3); margin-top: 5px; }
+.xabar.korxona .xabar-ich { background: var(--kok-och); }
+
+.ulush-tanlov { display: grid; gap: 10px; }
 .ulush {
-  display: flex; align-items: center; gap: 11px; padding: 12px 14px;
-  border: 1.5px solid var(--chiziq); border-radius: var(--r-s);
+  display: flex; align-items: center; gap: 13px; padding: 15px 17px;
+  border: 2px solid var(--chiziq); border-radius: var(--r-s);
   background: var(--panel); text-align: left; width: 100%;
+  transition: all var(--tez);
 }
-.ulush:hover { border-color: var(--asos); background: var(--asos-yum); }
-.ulush .u-nom { font-weight: 600; font-size: 14.5px; }
-.ulush .u-izoh { font-size: 12.5px; color: var(--matn-3); }
-.ulush .u-summa { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; font-size: 14px; }
+.ulush:hover { border-color: var(--kok); background: var(--kok-och); transform: translateX(3px); }
+.ulush .u-nom { font-weight: 700; font-size: 15.5px; display: block; }
+.ulush .u-izoh { font-size: 13px; color: var(--matn-3); display: block; margin-top: 2px; }
+.ulush .u-summa { margin-left: auto; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; font-size: 15px; flex-shrink: 0; }
+.ulush .u-summa small { display: block; font-size: 11px; color: var(--matn-3); font-weight: 600; }
 
-/* ----------------------------------------------------------------- wizard */
+/* ==================================================== NOMZOD QATORI ===== */
 
-.wizard-qadam { display: flex; gap: 6px; margin-bottom: 20px; }
-.wq { flex: 1; height: 4px; background: var(--sunken); border-radius: 99px; }
-.wq.tayyor { background: var(--asos); }
+.nomzod {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: var(--r-s);
+  border: 1.5px solid var(--chiziq); background: var(--panel); margin-bottom: 9px;
+  transition: border-color var(--tez);
+}
+.nomzod:hover { border-color: var(--kok-yum); }
+.nomzod-matn { flex: 1; min-width: 0; }
+.nomzod-nom { font-weight: 650; font-size: 15px; }
+.nomzod-izoh { font-size: 12.5px; color: var(--matn-3); margin-top: 2px; }
 
-/* ----------------------------------------------------------------- ledger */
+/* ================================================== HISOB OYNASI ======== */
+
+.hisob-oyna {
+  background: var(--panel-2); border: 1px solid var(--chiziq);
+  border-radius: var(--r-s); padding: 6px 16px; margin-top: 4px;
+}
+.ho-qator {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 11px 0; font-size: 15px; border-bottom: 1px solid var(--chiziq-och);
+}
+.ho-qator:last-child { border-bottom: none; }
+.ho-qator.kichik { font-size: 13.5px; color: var(--matn-3); }
+.ho-qator.jami { font-size: 16px; font-weight: 700; }
+.ho-qator.jami b { color: var(--kok); font-size: 19px; }
+.ho-qator b { font-variant-numeric: tabular-nums; }
+
+/* ======================================================= LEDGER ========= */
 
 .ledger-yozuv {
   border: 1px solid var(--chiziq); border-radius: var(--r-s);
-  background: var(--panel); padding: 12px 14px; margin-bottom: 8px;
+  background: var(--panel); padding: 14px 16px; margin-bottom: 9px;
 }
-.ledger-bosh { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
-.ledger-tur { font-size: 12px; font-weight: 700; color: var(--asos); letter-spacing: .03em; }
-.ledger-izoh { font-size: 13px; color: var(--matn-2); margin-left: auto; }
-.ledger-qator { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; font-family: var(--mono); }
-.ledger-qator .d { color: var(--yashil); }
-.ledger-qator .c { color: var(--qizil); }
+.ledger-bosh { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; flex-wrap: wrap; }
+.ledger-tur {
+  font-size: 11px; font-weight: 800; color: var(--kok); letter-spacing: .05em;
+  background: var(--kok-och); padding: 3px 8px; border-radius: 6px;
+}
+.ledger-izoh { font-size: 13.5px; color: var(--matn-2); }
+.ledger-qator {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 13.5px; padding: 4px 0; font-variant-numeric: tabular-nums;
+}
+.ledger-qator .d { color: var(--yashil); font-weight: 650; }
+.ledger-qator .c { color: var(--qizil); font-weight: 650; }
 
-/* ------------------------------------------------------------ logistika */
+/* ===================================================== LOGISTIKA ======== */
 
-.pogona { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pogona { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .pogona-nuqta {
-  flex: 1; min-width: 130px; padding: 12px; border-radius: var(--r-s);
-  border: 1px solid var(--chiziq); background: var(--panel); text-align: center;
+  flex: 1; min-width: 140px; padding: 15px 13px; border-radius: var(--r-s);
+  border: 1.5px solid #bfe9d7; background: var(--yashil-och); text-align: center;
 }
-.pogona-nuqta.faol { border-color: var(--yashil); background: var(--yashil-y); }
-.pogona-nuqta .t { font-size: 11px; color: var(--matn-3); text-transform: uppercase; letter-spacing: .05em; }
-.pogona-nuqta .n { font-size: 13.5px; font-weight: 600; margin-top: 2px; }
-.pogona-strelka { color: var(--matn-3); flex: 0 0 auto; }
+.pogona-nuqta .pi { font-size: 24px; margin-bottom: 5px; }
+.pogona-nuqta .t { font-size: 11px; color: var(--matn-3); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+.pogona-nuqta .n { font-size: 14px; font-weight: 650; margin-top: 3px; }
+.pogona-strelka { color: var(--matn-3); font-size: 18px; flex-shrink: 0; }
 
-/* --------------------------------------------------------------- maxfiylik */
+/* ===================================================== MAXFIYLIK ======== */
 
 .maxfiy {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px; color: var(--matn-3);
-  padding: 5px 10px; background: var(--sunken); border-radius: 99px;
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13.5px; color: var(--matn-2); line-height: 1.5;
+  padding: 13px 16px; background: var(--panel); border: 1px solid var(--chiziq);
+  border-radius: var(--r-s);
 }
+.maxfiy .mi { font-size: 16px; flex-shrink: 0; }
 
-@media print {
-  .top, .tablar, .tugma { display: none !important; }
+/* ========================================================= CHECKBOX ===== */
+
+/* .maydon > label { display:block } dan ustun turishi uchun aniqroq selektor */
+.belgilash,
+.maydon > label.belgilash {
+  display: flex; align-items: center; gap: 11px;
+  cursor: pointer; font-size: 15px; font-weight: 550;
+}
+.belgilash input { position: absolute; opacity: 0; width: 0; height: 0; }
+.belgilash .quti {
+  width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+  border: 2px solid var(--chiziq); background: var(--panel);
+  display: grid; place-items: center; font-size: 14px; color: transparent;
+  transition: all var(--tez);
+}
+.belgilash input:checked + .quti { background: var(--kok); border-color: var(--kok); color: #fff; }
+
+@media (max-width: 760px) {
+  .hamyon .h-summa { font-size: 32px; }
+  .pul-summa { font-size: 22px; }
+  .gate { padding: 24px 18px; }
 }

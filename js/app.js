@@ -1,19 +1,32 @@
 /* =============================================================================
-   APP — router, rollar, amallar
+   APP — kirish oqimi darvozasi, router, rollar, amallar
    ============================================================================= */
 
-(function () {
+const App = (function () {
   'use strict';
 
+  /* Rol → bo'limlar. Ikonka mobil pastki navigatsiya uchun. */
   const ROLLAR = {
-    fuqaro:    { nom: 'Fuqaro',    belgicha: '👤',
-      tablar: [['ishlar','Ishlar'], ['meningIshlarim','Mening ishlarim'], ['hamyon','Hamyon'], ['profil','Profil']] },
-    korxona:   { nom: 'Korxona',   belgicha: '🏢',
-      tablar: [['vazifalar','Vazifalar'], ['yangi',"Yangi e'lon"], ['hisobKitob','Hisob-kitob']] },
-    boshqarma: { nom: 'Boshqarma', belgicha: '📊',
-      tablar: [['dashboard','Monitoring'], ['hisobot','Hisobotlar']] },
-    moderator: { nom: 'Moderator', belgicha: '⚖️',
-      tablar: [['nizolar','Nizolar'], ['logistika','Logistika'], ['audit','Audit']] }
+    fuqaro: { nom: 'Fuqaro', belgicha: '👤', tablar: [
+      ['ishlar',         'Ishlar',         '🔍'],
+      ['meningIshlarim', 'Mening ishlarim','📋'],
+      ['hamyon',         'Hamyon',         '💳'],
+      ['profil',         'Profil',         '👤']
+    ]},
+    korxona: { nom: 'Korxona', belgicha: '🏢', tablar: [
+      ['vazifalar',  'Vazifalar',   '📦'],
+      ['yangi',      "Yangi e'lon", '➕'],
+      ['hisobKitob', 'Hisob-kitob', '💰']
+    ]},
+    boshqarma: { nom: 'Boshqarma', belgicha: '📊', tablar: [
+      ['dashboard', 'Monitoring', '📊'],
+      ['hisobot',   'Hisobotlar', '📄']
+    ]},
+    moderator: { nom: 'Moderator', belgicha: '⚖️', tablar: [
+      ['nizolar',   'Nizolar',   '⚖️'],
+      ['logistika', 'Logistika', '🚚'],
+      ['audit',     'Audit',     '📜']
+    ]}
   };
 
   const KORINISHLAR = {
@@ -22,37 +35,31 @@
   };
 
   let joriyTab = null;
-
   const el = id => document.getElementById(id);
 
-  /* -------------------------------------------------------------- mavzu */
-
-  function mavzuQoy(m) {
-    document.documentElement.setAttribute('data-mavzu', m);
-    const b = el('mavzu-btn');
-    if (b) b.textContent = m === 'dark' ? '☀️' : '🌙';
-  }
-
-  /* -------------------------------------------------------------- toast */
+  /* ---------------------------------------------------------------- toast */
 
   let toastTimer;
-  function toast(matn, xato) {
+  function toast(matn, tur) {
     let t = document.querySelector('.toast');
     if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
-    t.textContent = matn;
-    t.classList.toggle('xato', !!xato);
+    const ikon = tur === 'xato' ? '⚠️' : tur === 'yaxshi' ? '✓' : '';
+    t.innerHTML = (ikon ? `<span>${ikon}</span>` : '') + `<span>${esc(matn)}</span>`;
+    t.className = 'toast' + (tur ? ' ' + tur : '');
     requestAnimationFrame(() => t.classList.add('kor'));
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('kor'), 2600);
+    toastTimer = setTimeout(() => t.classList.remove('kor'), 2800);
   }
 
-  /* ------------------------------------------------------------- chizish */
+  /* -------------------------------------------------------------- chizish */
 
   function rollarChiz() {
     const st = Store.get();
     el('rol-tanlov').innerHTML = Object.keys(ROLLAR).map(k =>
-      `<button class="rol-btn ${st.rol === k ? 'faol' : ''}" data-rol="${k}">
-         <span>${ROLLAR[k].belgicha}</span><span>${ROLLAR[k].nom}</span></button>`).join('');
+      `<button class="rol-btn ${st.rol === k ? 'faol' : ''}" data-rol="${k}"
+               title="${ROLLAR[k].nom} ko'rinishi">
+         <span>${ROLLAR[k].belgicha}</span><span>${ROLLAR[k].nom}</span>
+       </button>`).join('');
   }
 
   function tablarChiz() {
@@ -65,16 +72,22 @@
       return `<button class="tab ${joriyTab === kalit ? 'faol' : ''}" data-tab="${kalit}">
         ${nom}${son ? `<span class="son">${son}</span>` : ''}</button>`;
     }).join('');
+
+    el('past-nav').innerHTML = r.tablar.map(([kalit, nom, ikon]) => {
+      const son = tabSoni(st.rol, kalit);
+      return `<button class="${joriyTab === kalit ? 'faol' : ''}" data-tab="${kalit}">
+        <span class="pn-ikon">${ikon}</span>
+        <span>${nom.split(' ')[0]}</span>
+        ${son ? `<span class="pn-son">${son}</span>` : ''}</button>`;
+    }).join('');
   }
 
   function tabSoni(rol, tab) {
     const st = Store.get();
-    if (rol === 'korxona' && tab === 'vazifalar') {
+    if (rol === 'korxona' && tab === 'vazifalar')
       return st.vazifalar.filter(v => v.korxona === st.menKorxona && v.holat === 'UNDER_REVIEW').length;
-    }
-    if (rol === 'moderator' && tab === 'nizolar') {
+    if (rol === 'moderator' && tab === 'nizolar')
       return st.nizolar.filter(n => n.holat === 'OCHIQ').length;
-    }
     if (rol === 'fuqaro' && tab === 'meningIshlarim') {
       const men = Store.menFuqaro();
       return st.vazifalar.filter(v => v.ijrochi === men.id &&
@@ -106,97 +119,113 @@
     const yetarli = k.balans >= jami;
 
     oyna.innerHTML = `
-      <div class="vazifa-pul" style="margin-bottom:0">
-        <div>
-          <div class="vazifa-summa">${pul(jami)}</div>
-          <div class="vazifa-hisob">${pul(narx)} × ${miqdor} — eskrouga bloklanadi</div>
+      <div class="hisob-oyna">
+        <div class="ho-qator">
+          <span>Ijrochilarga jami</span>
+          <b>${pul(jami)}</b>
         </div>
-        <div style="margin-left:auto;text-align:right">
-          <div style="font-size:12.5px;color:var(--matn-3)">Platforma komissiyasi</div>
-          <div style="font-weight:680">${pul(kom)}</div>
+        <div class="ho-qator kichik">
+          <span>Platforma komissiyasi (${KOMISSIYA.foiz}%)</span>
+          <span>${pul(kom)}</span>
+        </div>
+        <div class="ho-qator jami">
+          <span>Hisobingizdan bloklanadi</span>
+          <b>${pul(jami)}</b>
         </div>
       </div>
-      ${!yetarli ? `<div class="eslatma xato" style="margin-top:10px;padding:10px 12px">
-        <p>Hisobingizda mablag' yetarli emas (mavjud: ${pul(k.balans)})</p></div>` : ''}`;
+      ${!yetarli
+        ? `<div class="eslatma xato" style="margin-top:12px">
+             <span class="ikon">⚠️</span>
+             <div><h4>Mablag' yetarli emas</h4>
+               <p>Hisobingizda ${pul(k.balans)} bor. Miqdorni kamaytiring.</p></div></div>`
+        : ''}`;
   }
 
-  /* ------------------------------------------------------------- amallar */
+  /* -------------------------------------------------------------- amallar */
 
   const AMALLAR = {
-    'maqom-ariza'() {
-      Store.maqomArizaBer();
-      toast('Ariza yuborildi — tekshirilmoqda');
-      chiz();
-    },
+    'maqom-ariza'() { Store.maqomArizaBer(); toast('Ariza yuborildi'); chiz(); },
+
     'maqom-tasdiq'() {
       Store.maqomTasdiqla();
-      toast("✓ Maqom berildi — endi ish olishingiz mumkin");
+      toast('Maqom berildi — endi ish olishingiz mumkin', 'yaxshi');
       chiz();
     },
+
     'ariza'(t) {
       const r = Store.arizaBer(t.dataset.id);
-      toast(r.ok ? 'Ariza yuborildi' : r.xato, !r.ok);
+      toast(r.ok ? 'Ariza yuborildi — korxona javobini kuting' : r.xato, r.ok ? 'yaxshi' : 'xato');
       chiz();
     },
+
     'biriktir'(t) {
       const r = Store.biriktir(t.dataset.id, t.dataset.fuqaro);
-      toast(r.ok ? 'Ijrochi biriktirildi' : r.xato, !r.ok);
+      toast(r.ok ? 'Ijrochi biriktirildi' : r.xato, r.ok ? 'yaxshi' : 'xato');
       chiz();
     },
+
     'boshla'(t) {
       const r = Store.boshla(t.dataset.id);
-      toast(r.ok ? 'Ish boshlandi' : r.xato, !r.ok);
+      toast(r.ok ? 'Ish boshlandi' : r.xato, r.ok ? null : 'xato');
       chiz();
     },
+
     'foto'(t) {
       const v = Store.vazifa(t.dataset.id);
-      v.foto = (v.foto && v.foto.length) ? v.foto : ['dalil-1.jpg', 'dalil-2.jpg'];
+      v.foto = (v.foto && v.foto.length) ? [] : ['dalil-1.jpg', 'dalil-2.jpg'];
       Store.saqla();
-      toast('2 ta foto qo\'shildi (demo)');
+      toast(v.foto.length ? '2 ta foto qo\'shildi' : 'Fotolar olib tashlandi');
       chiz();
     },
+
     'topshir'(t) {
       const v = Store.vazifa(t.dataset.id);
       const r = Store.topshir(t.dataset.id, v.foto || []);
-      toast(r.ok ? 'Ish topshirildi — korxona tekshiradi' : r.xato, !r.ok);
+      toast(r.ok ? 'Ish topshirildi — korxona tekshiradi' : r.xato, r.ok ? 'yaxshi' : 'xato');
       chiz();
     },
+
     'qabul'(t) {
       const r = Store.sifatQabul(t.dataset.id);
-      if (r.ok) toast(`To'lov amalga oshdi: ${pul(r.natija.ijrochiga)} ijrochiga`);
-      else toast(r.xato, true);
+      if (r.ok) toast(`To'landi: ${pul(r.natija.ijrochiga)} ijrochiga`, 'yaxshi');
+      else toast(r.xato, 'xato');
       chiz();
     },
+
     'qayta'(t) {
-      const sabab = prompt('Qayta ishlash sababi:', 'Sifat mezoniga to\'liq mos emas');
+      const sabab = prompt('Nima to\'g\'rilanishi kerak?', 'Sifat mezoniga to\'liq mos emas');
       if (sabab === null) return;
       const r = Store.qaytaIshlash(t.dataset.id, sabab);
-      toast(r.ok ? 'Qayta ishlashga qaytarildi' : r.xato, !r.ok);
+      toast(r.ok ? 'Qayta ishlashga qaytarildi' : r.xato, r.ok ? null : 'xato');
       chiz();
     },
+
     'nizo'(t) {
       const sabab = prompt('Rad etish sababi:', 'Sifat talabga javob bermaydi');
       if (sabab === null) return;
       const r = Store.nizoOch(t.dataset.id, sabab);
-      toast(r.ok ? 'Nizo ochildi — moderator ko\'rib chiqadi' : r.xato, !r.ok);
+      toast(r.ok ? 'Nizo ochildi — moderator ko\'rib chiqadi' : r.xato, r.ok ? null : 'xato');
       chiz();
     },
+
     'nizo-hal'(t) {
       const r = Store.nizoHal(t.dataset.id, +t.dataset.ulush);
-      toast(`Qaror qabul qilindi — ijrochiga ${pul(r.natija.ijrochiga)}`);
+      toast(`Qaror qabul qilindi — ijrochiga ${pul(r.natija.ijrochiga)}`, 'yaxshi');
       chiz();
     },
+
     'pul-yech'() {
-      toast('Yuz orqali tekshirish talab qilinadi (demo: o\'tkazib yuborildi)');
       const men = Store.menFuqaro();
       const b = Store.balans(men.id);
+      toast('Yuz orqali tekshirish (demo: o\'tkazib yuborildi)');
       Store.balansQosh(men.id, -b);
       Store.saqla();
-      setTimeout(() => { toast(`${pul(b)} kartangizga yuborildi`); chiz(); }, 900);
+      setTimeout(() => { toast(`${pul(b)} kartangizga yuborildi`, 'yaxshi'); chiz(); }, 1000);
     },
+
     'vazifa-yarat'() {
       const nom = el('f-nom').value.trim();
-      if (!nom) return toast('Vazifa nomini kiriting', true);
+      if (!nom) { toast('Vazifa nomini kiriting', 'xato'); el('f-nom').focus(); return; }
       const sifat = el('f-sifat').value.split('\n').map(s => s.trim()).filter(Boolean);
 
       const r = Store.vazifaYarat({
@@ -215,16 +244,16 @@
         minTrust: 0
       });
 
-      if (!r.ok) return toast(r.xato, true);
-      toast("Vazifa e'lon qilindi va eskrouga pul bloklandi");
+      if (!r.ok) { toast(r.xato, 'xato'); return; }
+      toast("E'lon qilindi va pul eskrouga bloklandi", 'yaxshi');
       joriyTab = 'vazifalar';
       chiz();
     },
+
     'eksport-csv'() {
-      const qatorlar = [['Davr','Royxatdan otgan','Maqom olgan','Vazifa','Bajarilgan','Tolov','Registrdan chiqdi','Kuryer']];
-      TARIX.forEach(t => qatorlar.push([t.oy + ' 2026', t.royxat, t.maqom, t.vazifa, t.bajarilgan, t.tolov, t.registrChiqdi, t.kuryer]));
-      const csv = '﻿' + qatorlar.map(q => q.join(';')).join('\n');
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const q = [['Davr','Royxatdan otgan','Maqom olgan','Vazifa','Bajarilgan','Tolov','Registrdan chiqdi','Kuryer']];
+      TARIX.forEach(t => q.push([t.oy + ' 2026', t.royxat, t.maqom, t.vazifa, t.bajarilgan, t.tolov, t.registrChiqdi, t.kuryer]));
+      const blob = new Blob(['﻿' + q.map(r => r.join(';')).join('\n')], { type: 'text/csv;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'nurafshon-bandlik-hisobot.csv';
@@ -232,21 +261,26 @@
       URL.revokeObjectURL(a.href);
       Store.audit('HISOBOT_EKSPORT', 'Oylik hisobot CSV', '-', 'yuklandi');
       Store.saqla();
-      toast('Hisobot yuklab olindi');
+      toast('Hisobot yuklab olindi', 'yaxshi');
     },
+
     'eksport-pdf'() { window.print(); },
+
+    'tab'(t) { joriyTab = t.dataset.tab; chiz(); },
+
     'tozala'() {
-      if (!confirm('Demo ma\'lumotlari boshlang\'ich holatga qaytarilsinmi?')) return;
+      if (!confirm('Demo boshidan boshlansinmi? Kirish oqimi ham qaytadan ko\'rsatiladi.')) return;
       Store.tozala();
       joriyTab = null;
-      chiz();
-      toast('Demo qayta boshlandi');
+      boshla();
     }
   };
 
   /* --------------------------------------------------------------- hodisa */
 
   document.addEventListener('click', function (e) {
+    if (Onboarding.faolmi()) return;
+
     const rol = e.target.closest('[data-rol]');
     if (rol) { Store.rolOzgartir(rol.dataset.rol); joriyTab = null; chiz(); return; }
 
@@ -263,17 +297,28 @@
 
   /* ---------------------------------------------------------- ishga tushirish */
 
-  const st = Store.get();
-  mavzuQoy(st.mavzu || (window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  function boshla() {
+    const st = Store.get();
+    if (!st.onboardingTugadi) {
+      document.body.classList.add('ob-ochiq');
+      Onboarding.boshla(function (ma) {
+        document.body.classList.remove('ob-ochiq');
+        joriyTab = ma.rol === 'korxona' ? 'yangi' : 'ishlar';
+        chiz();
+        setTimeout(() => toast('Xush kelibsiz!', 'yaxshi'), 400);
+      });
+    } else {
+      chiz();
+    }
+  }
 
-  el('mavzu-btn').addEventListener('click', function () {
-    const yangi = document.documentElement.getAttribute('data-mavzu') === 'dark' ? 'light' : 'dark';
-    mavzuQoy(yangi);
-    Store.mavzuOzgartir(yangi);
-  });
-
-  el('tozala-btn').addEventListener('click', () => AMALLAR['tozala']());
-
-  chiz();
+  return { boshla, chiz, toast };
 })();
+
+document.getElementById('tozala-btn').addEventListener('click', function () {
+  if (!confirm('Demo boshidan boshlansinmi? Kirish oqimi ham qaytadan ko\'rsatiladi.')) return;
+  Store.tozala();
+  App.boshla();
+});
+
+App.boshla();

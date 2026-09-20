@@ -1,0 +1,218 @@
+/* ===========================================================================
+   KIRISH OQIMI (onboarding)
+   Tamoyil: bitta ekran — bitta savol. Katta tugma, katta matn, aniq qadam.
+   =========================================================================== */
+
+.ob {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--fon);
+  display: flex; flex-direction: column;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+
+/* orqa fon bezagi */
+.ob::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(760px 420px at 12% -8%,  rgba(37,99,235,.13), transparent 62%),
+    radial-gradient(660px 380px at 92% 8%,   rgba(249,115,22,.13), transparent 60%),
+    radial-gradient(700px 400px at 48% 108%, rgba(124,58,237,.11), transparent 62%);
+}
+
+.ob-ich {
+  position: relative; width: 100%; max-width: 470px;
+  margin: auto; padding: 26px 20px 40px;
+}
+
+/* ------------------------------------------------------------- yuqori */
+
+.ob-yuqori {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 26px; min-height: 42px;
+}
+
+.ob-orqaga {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: var(--panel); border: 1px solid var(--chiziq);
+  display: grid; place-items: center; font-size: 17px; color: var(--matn-2);
+  transition: all var(--tez); flex-shrink: 0;
+}
+.ob-orqaga:hover { background: var(--chuqur); }
+.ob-orqaga:active { transform: scale(.94); }
+.ob-orqaga[hidden] { display: none; }
+
+.ob-nuqtalar { display: flex; gap: 6px; margin-left: auto; }
+.ob-nuqta {
+  width: 26px; height: 5px; border-radius: 99px; background: var(--chiziq);
+  transition: background var(--orta), width var(--orta);
+}
+.ob-nuqta.tayyor { background: var(--kok); }
+.ob-nuqta.joriy  { background: var(--kok); width: 34px; }
+
+/* --------------------------------------------------------------- matn */
+
+.ob-qadam { animation: obKir var(--sekin) both; }
+@keyframes obKir {
+  from { opacity: 0; transform: translateX(26px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.ob-rasm { text-align: center; margin-bottom: 22px; }
+.ob-rasm svg { margin: 0 auto; }
+
+.ob-sarlavha {
+  font-size: 27px; font-weight: 800; letter-spacing: -.03em;
+  margin-bottom: 9px; line-height: 1.2;
+}
+.ob-izoh {
+  font-size: 16px; color: var(--matn-2); line-height: 1.55;
+  margin-bottom: 26px;
+}
+
+.ob-pastki { margin-top: 26px; }
+.ob-eslatma {
+  text-align: center; font-size: 13.5px; color: var(--matn-3);
+  margin-top: 14px; line-height: 1.5;
+}
+
+/* ------------------------------------------------------- rol kartasi */
+
+.rol-kartalar { display: grid; gap: 14px; }
+
+.rol-karta {
+  width: 100%; text-align: left;
+  background: var(--panel); border: 2px solid var(--chiziq);
+  border-radius: var(--r-xl); padding: 20px;
+  display: flex; align-items: center; gap: 16px;
+  transition: all var(--orta); position: relative; overflow: hidden;
+}
+.rol-karta::after {
+  content: ''; position: absolute; inset: 0; opacity: 0;
+  background: linear-gradient(135deg, rgba(37,99,235,.05), rgba(124,58,237,.05));
+  transition: opacity var(--orta); pointer-events: none;
+}
+.rol-karta:hover { border-color: var(--kok); transform: translateY(-3px); box-shadow: var(--soya-k); }
+.rol-karta:hover::after { opacity: 1; }
+.rol-karta:active { transform: translateY(-1px) scale(.99); }
+
+.rol-karta.iliq:hover { border-color: var(--zarg); }
+.rol-karta.iliq:hover::after { background: linear-gradient(135deg, rgba(249,115,22,.06), rgba(244,63,94,.06)); }
+
+.rol-karta-rasm { flex-shrink: 0; width: 96px; }
+.rol-karta-rasm svg { width: 100%; height: auto; }
+.rol-karta-matn { flex: 1; min-width: 0; }
+.rol-karta h3 { font-size: 19px; margin-bottom: 5px; }
+.rol-karta p { font-size: 14.5px; color: var(--matn-2); line-height: 1.5; }
+.rol-karta .strelka {
+  flex-shrink: 0; font-size: 20px; color: var(--matn-3);
+  transition: transform var(--orta), color var(--orta);
+}
+.rol-karta:hover .strelka { transform: translateX(5px); color: var(--kok); }
+
+/* ----------------------------------------------------------- telefon */
+
+.tel-kirit { display: flex; align-items: center; gap: 0; }
+.tel-prefiks {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 14px; min-height: 60px;
+  background: var(--chuqur); border: 1.5px solid var(--chiziq); border-right: none;
+  border-radius: var(--r-s) 0 0 var(--r-s);
+  font-size: 17px; font-weight: 650; color: var(--matn-2); white-space: nowrap;
+}
+.tel-kirit .kirit {
+  min-height: 60px; font-size: 20px; font-weight: 650;
+  border-radius: 0 var(--r-s) var(--r-s) 0; letter-spacing: .04em;
+}
+
+/* --------------------------------------------------------------- OTP */
+
+.otp-qator { display: flex; gap: 10px; justify-content: center; margin-bottom: 8px; }
+.otp-xona {
+  width: 56px; height: 68px; text-align: center;
+  font-size: 27px; font-weight: 800;
+  border: 2px solid var(--chiziq); border-radius: 14px;
+  background: var(--panel); color: var(--matn);
+  transition: all var(--tez);
+}
+.otp-xona:focus { outline: none; border-color: var(--kok); box-shadow: 0 0 0 4px var(--kok-och); }
+.otp-xona.toldi { border-color: var(--kok); background: var(--kok-och); }
+
+.demo-kod {
+  text-align: center; padding: 13px; border-radius: var(--r-s);
+  background: var(--sariq-och); border: 1px dashed #f0c98a;
+  font-size: 14px; color: var(--sariq); margin-bottom: 20px;
+}
+.demo-kod b { font-size: 19px; letter-spacing: .3em; display: block; margin-top: 3px; color: var(--matn); }
+
+/* ------------------------------------------------------ tanlov kartalari */
+
+.tanlov-setka { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+
+.tanlov {
+  background: var(--panel); border: 2px solid var(--chiziq);
+  border-radius: var(--r); padding: 16px 12px; text-align: center;
+  transition: all var(--tez); position: relative;
+}
+.tanlov:hover { border-color: var(--kok); transform: translateY(-2px); }
+.tanlov.tanlangan { border-color: var(--kok); background: var(--kok-och); }
+.tanlov.tanlangan::after {
+  content: '✓'; position: absolute; top: 8px; right: 8px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--kok); color: #fff; font-size: 12.5px; font-weight: 800;
+  display: grid; place-items: center;
+}
+.tanlov-ikon {
+  width: 52px; height: 52px; margin: 0 auto 9px; border-radius: 15px;
+  display: grid; place-items: center; font-size: 25px;
+}
+.tanlov-nom { font-size: 14px; font-weight: 650; line-height: 1.35; }
+
+/* --------------------------------------------------------- mahalla ro'yxat */
+
+.royxat-tanlov { display: grid; gap: 9px; }
+.royxat-element {
+  width: 100%; display: flex; align-items: center; gap: 13px;
+  padding: 15px 17px; border-radius: var(--r-s);
+  background: var(--panel); border: 2px solid var(--chiziq);
+  text-align: left; font-size: 16px; font-weight: 550;
+  transition: all var(--tez);
+}
+.royxat-element:hover { border-color: var(--kok); }
+.royxat-element.tanlangan { border-color: var(--kok); background: var(--kok-och); color: var(--kok-tim); font-weight: 650; }
+.royxat-element .re-belgi {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid var(--chiziq); display: grid; place-items: center;
+  font-size: 12px; color: transparent;
+}
+.royxat-element.tanlangan .re-belgi { background: var(--kok); border-color: var(--kok); color: #fff; }
+
+/* --------------------------------------------------------------- tayyor */
+
+.ob-tayyor { text-align: center; }
+.ob-tayyor .ob-rasm { margin-bottom: 20px; }
+
+.xulosa {
+  background: var(--panel); border: 1px solid var(--chiziq);
+  border-radius: var(--r); padding: 4px 18px; margin-bottom: 24px; text-align: left;
+}
+.xulosa-qator {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 0; border-bottom: 1px solid var(--chiziq-och);
+  font-size: 15px;
+}
+.xulosa-qator:last-child { border-bottom: none; }
+.xulosa-qator .x-yorliq { color: var(--matn-3); font-size: 13.5px; }
+.xulosa-qator .x-qiymat { margin-left: auto; font-weight: 650; text-align: right; }
+
+/* ---------------------------------------------------------- mobil moslash */
+
+@media (max-width: 460px) {
+  .ob-ich { padding: 20px 16px 36px; }
+  .ob-sarlavha { font-size: 24px; }
+  .ob-izoh { font-size: 15px; margin-bottom: 22px; }
+  .rol-karta { padding: 16px; gap: 12px; }
+  .rol-karta-rasm { width: 78px; }
+  .rol-karta h3 { font-size: 17px; }
+  .otp-xona { width: 48px; height: 60px; font-size: 24px; }
+  .tel-kirit .kirit { font-size: 18px; }
+}
