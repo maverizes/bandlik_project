@@ -1,0 +1,1650 @@
+// =============================================================================
+// HUNAR — Bandlik platformasi
+// Prisma schema LOYIHASI (draft). 1-bosqichda packages/db/prisma/schema.prisma
+// ga ko'chiriladi va migratsiya yaratiladi.
+//
+// KELISHUV: "kim qildi" turidagi aktyor maydonlari (decidedByUserId,
+// reviewerUserId, ...) oddiy String sifatida saqlanadi — Prisma relation emas.
+// Sabab: User modelini 40+ teskari bog'lanishdan saqlash. Kim nima qilgani
+// AuditLog orqali to'liq kuzatiladi.
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// ENUMLAR
+// =============================================================================
+
+enum UserRole {
+  WORKER
+  COMPANY_OWNER
+  COMPANY_MANAGER
+  COURIER
+  HUB_OPERATOR
+  MAHALLA_COORDINATOR
+  DEPT_ANALYST
+  DEPT_ADMIN
+  MODERATOR
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  BLOCKED
+}
+
+enum Locale {
+  UZ_LATN
+  UZ_CYRL
+  RU
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Sector {
+  MANUFACTURING
+  FOOD_HOSPITALITY
+  RETAIL_TRADE
+  AGRICULTURE
+  CONSTRUCTION
+  TRANSPORT_DELIVERY
+  CORPORATE_OFFICE
+  IT_DIGITAL
+}
+
+enum SkillLevel {
+  BOSHLANGICH
+  ORTA
+  TAJRIBALI
+}
+
+enum VerificationStatus {
+  NOT_STARTED
+  PENDING
+  VERIFIED
+  REJECTED
+  EXPIRED
+}
+
+enum LivenessReason {
+  PAYOUT
+  BIG_ORDER
+  NEW_DEVICE
+}
+
+enum LivenessResult {
+  PASS
+  FAIL
+  INCONCLUSIVE
+}
+
+enum RegistryType {
+  TEMIR_DAFTAR
+  AYOLLAR_DAFTARI
+  YOSHLAR_DAFTARI
+}
+
+enum ConsentPurpose {
+  PERSONAL_DATA
+  BIOMETRIC
+  TAX_SHARING
+  MARKETING
+}
+
+// --- Vazifa oqimi ---
+
+enum TaskStatus {
+  DRAFT
+  PUBLISHED
+  ASSIGNED
+  IN_PROGRESS
+  SUBMITTED
+  UNDER_REVIEW
+  REWORK
+  ACCEPTED
+  REJECTED
+  DISPUTED
+  PAID
+  CANCELLED
+}
+
+enum TaskUnit {
+  DONA
+  KG
+  METR
+  KOMPLEKT
+  SOAT
+}
+
+enum MaterialSource {
+  COMPANY_PROVIDES
+  WORKER_PROVIDES
+  NOT_REQUIRED
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum QcDecision {
+  ACCEPT
+  REWORK
+  REJECT
+}
+
+enum DisputeStatus {
+  OPEN
+  UNDER_REVIEW
+  RESOLVED
+  CANCELLED
+}
+
+enum DisputeOutcome {
+  RESOLVED_WORKER
+  RESOLVED_COMPANY
+  SPLIT
+}
+
+// --- Pul ---
+
+enum EscrowStatus {
+  PENDING
+  FUNDED
+  HELD
+  RELEASED
+  REFUNDED
+  SPLIT
+}
+
+enum LedgerAccount {
+  COMPANY_WALLET
+  WORKER_WALLET
+  COURIER_WALLET
+  ESCROW
+  PLATFORM_COMMISSION
+  GATEWAY
+}
+
+enum LedgerDirection {
+  DEBIT
+  CREDIT
+}
+
+enum TransactionType {
+  DEPOSIT
+  ESCROW_FUND
+  ESCROW_RELEASE
+  ESCROW_REFUND
+  ESCROW_SPLIT
+  COMMISSION
+  PAYOUT
+  ADJUSTMENT
+  REVERSAL
+}
+
+enum PayoutStatus {
+  REQUESTED
+  LIVENESS_REQUIRED
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+// --- Ishonch ---
+
+enum BlacklistScope {
+  PLATFORM
+  PAYOUTS
+  BIG_TASKS
+}
+
+enum AppealStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum FraudSignalType {
+  MULTI_ACCOUNT_DEVICE
+  MULTI_ACCOUNT_IP
+  ABNORMAL_SPEED
+  DUPLICATE_PHOTO
+  PRICE_ANOMALY
+  NEW_ACCOUNT_BIG_AMOUNT
+}
+
+// --- Logistika ---
+
+enum HubType {
+  REGION_WAREHOUSE
+  DISTRICT_POINT
+  MAHALLA_POINT
+}
+
+enum ShipmentKind {
+  MATERIAL_OUT
+  PRODUCT_IN
+  B2B_DELIVERY
+  AGRO_DELIVERY
+}
+
+enum ShipmentStatus {
+  CREATED
+  PICKED_UP
+  AT_MAHALLA_POINT
+  AT_DISTRICT_HUB
+  AT_REGION_HUB
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CONFIRMED
+  CANCELLED
+}
+
+enum RouteStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// --- B2B / Agro ---
+
+enum RfqStatus {
+  OPEN
+  QUOTED
+  AWARDED
+  CLOSED
+  CANCELLED
+}
+
+enum QuoteStatus {
+  SUBMITTED
+  SHORTLISTED
+  AWARDED
+  REJECTED
+  WITHDRAWN
+}
+
+enum PurchaseOrderStatus {
+  CREATED
+  FUNDED
+  SHIPPED
+  DELIVERED
+  ACCEPTED
+  PAID
+  CANCELLED
+}
+
+enum AgroListingStatus {
+  DRAFT
+  ACTIVE
+  MATCHED
+  CLOSED
+}
+
+enum AgroContractStatus {
+  DRAFT
+  SIGNED
+  PREPAID
+  DELIVERING
+  COMPLETED
+  CANCELLED
+}
+
+// --- Tizim ---
+
+enum NotificationChannel {
+  IN_APP
+  SMS
+  TELEGRAM
+  PUSH
+}
+
+enum NotificationStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  FAILED
+  SKIPPED
+}
+
+enum FileKind {
+  KYC_DOCUMENT
+  QC_PROOF
+  DISPUTE_EVIDENCE
+  HANDOVER_PHOTO
+  AGRO_PHOTO
+  REPORT
+  OTHER
+}
+
+// =============================================================================
+// GEOGRAFIYA — ko'p-hududlilik asosi
+// =============================================================================
+
+model Region {
+  id        String     @id @default(cuid())
+  code      String     @unique
+  nameUz    String
+  nameUzCyrl String?
+  nameRu    String?
+  districts District[]
+  mahallas  Mahalla[]
+  users     User[]
+  hubs      Hub[]
+  tasks     Task[]
+  createdAt DateTime   @default(now())
+}
+
+model District {
+  id        String    @id @default(cuid())
+  regionId  String
+  region    Region    @relation(fields: [regionId], references: [id])
+  code      String    @unique
+  nameUz    String
+  nameUzCyrl String?
+  nameRu    String?
+  mahallas  Mahalla[]
+  users     User[]
+  hubs      Hub[]
+  tasks     Task[]
+  createdAt DateTime  @default(now())
+
+  @@index([regionId])
+}
+
+model Mahalla {
+  id         String   @id @default(cuid())
+  districtId String
+  district   District @relation(fields: [districtId], references: [id])
+  regionId   String
+  region     Region   @relation(fields: [regionId], references: [id])
+  code       String   @unique
+  nameUz     String
+  nameUzCyrl String?
+  nameRu     String?
+  users      User[]
+  hubs       Hub[]
+  tasks      Task[]
+  createdAt  DateTime @default(now())
+
+  @@index([districtId])
+  @@index([regionId])
+}
+
+// =============================================================================
+// IDENTITY
+// =============================================================================
+
+model User {
+  id         String     @id @default(cuid())
+  phone      String     @unique
+  phoneVerifiedAt DateTime?
+  roles      UserRole[]
+  status     UserStatus @default(ACTIVE)
+  locale     Locale     @default(UZ_LATN)
+
+  fullName   String
+  gender     Gender?
+  birthDate  DateTime?
+
+  regionId   String?
+  region     Region?    @relation(fields: [regionId], references: [id])
+  districtId String?
+  district   District?  @relation(fields: [districtId], references: [id])
+  mahallaId  String?
+  mahalla    Mahalla?   @relation(fields: [mahallaId], references: [id])
+
+  telegramChatId String?
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  // --- bog'lanishlar ---
+  sessions        Session[]
+  devices         Device[]
+  workerProfile   WorkerProfile?
+  companyProfile  CompanyProfile?
+  courierProfile  CourierProfile?
+  kyc             KycVerification?
+  livenessChecks  LivenessCheck[]
+  selfEmployment  SelfEmploymentRegistration?
+  registryFlags   RegistryFlag[]
+  consents        ConsentRecord[]
+  wallet          Wallet?
+  trustScore      TrustScore?
+  tasksCreated    Task[]             @relation("TaskCreator")
+  applications    Application[]
+  assignments     Assignment[]
+  ratingsGiven    Rating[]           @relation("RatingRater")
+  ratingsReceived Rating[]           @relation("RatingRatee")
+  disputesOpened  Dispute[]          @relation("DisputeOpener")
+  disputeMessages DisputeMessage[]
+  payouts         Payout[]
+  blacklistEntry  Blacklist?         @relation("BlacklistTarget")
+  appeals         Appeal[]
+  fraudSignals    FraudSignal[]
+  hubsOperated    Hub[]
+  routes          Route[]
+  shipments       Shipment[]
+  agroListings    AgroListing[]
+  agroContracts   AgroContract[]
+  notifications   Notification[]
+  auditLogs       AuditLog[]
+  filesUploaded   FileObject[]
+
+  @@index([regionId, districtId, mahallaId])
+  @@index([status])
+}
+
+model Session {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokenHash String   @unique
+  deviceId         String?
+  ip               String?
+  userAgent        String?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime @default(now())
+
+  @@index([userId])
+}
+
+model OtpCode {
+  id          String    @id @default(cuid())
+  phone       String
+  codeHash    String
+  purpose     String    @default("LOGIN")
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(5)
+  ip          String?
+  expiresAt   DateTime
+  consumedAt  DateTime?
+  blockedUntil DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([phone, createdAt])
+}
+
+model Device {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fingerprint String
+  platform    String?
+  trusted     Boolean  @default(false)
+  lastSeenAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, fingerprint])
+  @@index([fingerprint])
+}
+
+// =============================================================================
+// PROFILLAR
+// =============================================================================
+
+model WorkerProfile {
+  id               String        @id @default(cuid())
+  userId           String        @unique
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bio              String?
+  weeklyHours      Int?
+  maxLoadKg        Int?
+  hasSewingMachine Boolean       @default(false)
+  workspaceM2      Int?
+  homeConditions   Json?
+  availability     Json?
+
+  completedTasks   Int           @default(0)
+  skills           WorkerSkill[]
+
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model Skill {
+  id           String        @id @default(cuid())
+  code         String        @unique
+  nameUz       String
+  sector       Sector
+  workerSkills WorkerSkill[]
+  taskSkills   TaskSkill[]
+  createdAt    DateTime      @default(now())
+}
+
+model WorkerSkill {
+  id              String        @id @default(cuid())
+  workerProfileId String
+  workerProfile   WorkerProfile @relation(fields: [workerProfileId], references: [id], onDelete: Cascade)
+  skillId         String
+  skill           Skill         @relation(fields: [skillId], references: [id])
+  level           SkillLevel    @default(BOSHLANGICH)
+  yearsExp        Int?
+  verifiedByUserId String?
+
+  @@unique([workerProfileId, skillId])
+}
+
+model CompanyProfile {
+  id            String            @id @default(cuid())
+  userId        String            @unique
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  legalName     String
+  brandName     String?
+  stir          String            @unique
+  sector        Sector
+  legalAddress  String
+  contactName   String
+  contactPhone  String
+
+  regionId      String
+  districtId    String
+  mahallaId     String?
+
+  kyb           KybVerification?
+  wallet        Wallet?
+  tasks         Task[]
+  rfqsAsBuyer   Rfq[]             @relation("RfqBuyer")
+  quotes        Quote[]           @relation("QuoteSupplier")
+  ordersAsBuyer PurchaseOrder[]   @relation("OrderBuyer")
+  ordersAsSupplier PurchaseOrder[] @relation("OrderSupplier")
+  agroDemands   AgroDemand[]
+  agroContracts AgroContract[]
+
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([regionId, districtId])
+}
+
+model CourierProfile {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicleType       String
+  capacityKg        Int
+  serviceRegionId   String
+  serviceDistrictId String?
+  createdAt         DateTime @default(now())
+}
+
+// =============================================================================
+// TEKSHIRUV VA MAQOM
+// =============================================================================
+
+model KycVerification {
+  id              String             @id @default(cuid())
+  userId          String             @unique
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status          VerificationStatus @default(NOT_STARTED)
+
+  // Nozik maydonlar — application-level encryption bilan saqlanadi
+  passportSeriesEnc String?
+  passportNumberEnc String?
+  pinflEnc          String?
+
+  // PINFL OCHIQ SAQLANMAYDI. pinflHash = HMAC-SHA256(pinfl, SERVER_SECRET)
+  pinflHash       String?            @unique
+
+  provider        String?
+  providerRef     String?
+  providerPayload Json?
+  rejectionReason String?
+  verifiedAt      DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([status])
+}
+
+model KybVerification {
+  id               String             @id @default(cuid())
+  companyProfileId String             @unique
+  companyProfile   CompanyProfile     @relation(fields: [companyProfileId], references: [id], onDelete: Cascade)
+  status           VerificationStatus @default(NOT_STARTED)
+  stir             String
+  provider         String?
+  providerRef      String?
+  providerPayload  Json?
+  rejectionReason  String?
+  verifiedAt       DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model LivenessCheck {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reason      LivenessReason
+  result      LivenessResult
+  score       Float?
+  provider    String?
+  providerRef String?
+  deviceId    String?
+  createdAt   DateTime       @default(now())
+
+  payouts     Payout[]
+
+  @@index([userId, createdAt])
+}
+
+/// MAJBURIY GATE: status VERIFIED bo'lmaguncha foydalanuvchi to'lovli
+/// vazifa qabul qila olmaydi (SelfEmploymentGuard, service qatlamida).
+model SelfEmploymentRegistration {
+  id                 String             @id @default(cuid())
+  userId             String             @unique
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status             VerificationStatus @default(NOT_STARTED)
+  applicationNo      String?
+  taxStatusCode      String?
+  documentFileId     String?
+  approvedByUserId   String?
+
+  submittedAt        DateTime?
+  verifiedAt         DateTime?
+  expiresAt          DateTime?
+  rejectionReason    String?
+
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([status])
+}
+
+model RegistryFlag {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      RegistryType
+  enteredAt DateTime
+  exitedAt  DateTime?
+  source    String?
+  note      String?
+  createdAt DateTime     @default(now())
+
+  @@unique([userId, type, enteredAt])
+  @@index([type, exitedAt])
+}
+
+model ConsentRecord {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purpose     ConsentPurpose
+  textVersion String
+  acceptedAt  DateTime       @default(now())
+  revokedAt   DateTime?
+  ip          String?
+
+  @@index([userId, purpose])
+}
+
+// =============================================================================
+// P1 — VAZIFALAR (ishlab chiqarish autsorsingi)
+// =============================================================================
+
+model Task {
+  id               String         @id @default(cuid())
+  companyProfileId String
+  companyProfile   CompanyProfile @relation(fields: [companyProfileId], references: [id])
+  createdByUserId  String
+  createdBy        User           @relation("TaskCreator", fields: [createdByUserId], references: [id])
+
+  title            String
+  description      String
+  sector           Sector
+  status           TaskStatus     @default(DRAFT)
+
+  unit             TaskUnit
+  unitPrice        Decimal        @db.Decimal(18, 2)
+  quantity         Int
+  totalAmount      Decimal        @db.Decimal(18, 2)
+  currency         String         @default("UZS")
+
+  deadlineAt       DateTime
+  startAt          DateTime?
+
+  materialSource   MaterialSource @default(COMPANY_PROVIDES)
+  pickupHubId      String?
+  pickupHub        Hub?           @relation("TaskPickupHub", fields: [pickupHubId], references: [id])
+  deliveryHubId    String?
+  deliveryHub      Hub?           @relation("TaskDeliveryHub", fields: [deliveryHubId], references: [id])
+
+  qualityChecklist Json?
+  requirePhotoProof Boolean       @default(true)
+  minTrustScore    Int?
+
+  regionId         String
+  region           Region         @relation(fields: [regionId], references: [id])
+  districtId       String
+  district         District       @relation(fields: [districtId], references: [id])
+  mahallaId        String?
+  mahalla          Mahalla?       @relation(fields: [mahallaId], references: [id])
+
+  publishedAt      DateTime?
+  completedAt      DateTime?
+  cancelledAt      DateTime?
+  cancelReason     String?
+
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  requiredSkills   TaskSkill[]
+  batches          TaskBatch[]
+  escrow           EscrowHold?
+  disputes         Dispute[]
+  ratings          Rating[]
+  shipments        Shipment[]
+  commissionCharges CommissionCharge[]
+
+  @@index([status, sector])
+  @@index([regionId, districtId, mahallaId])
+  @@index([companyProfileId, status])
+}
+
+model TaskSkill {
+  id       String     @id @default(cuid())
+  taskId   String
+  task     Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  skillId  String
+  skill    Skill      @relation(fields: [skillId], references: [id])
+  minLevel SkillLevel @default(BOSHLANGICH)
+
+  @@unique([taskId, skillId])
+}
+
+/// Katta buyurtmaning biriktiriladigan bo'lagi.
+/// Masalan: 10 000 dona qadoq → 100 tadan 100 ta TaskBatch.
+model TaskBatch {
+  id          String        @id @default(cuid())
+  taskId      String
+  task        Task          @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  batchNo     Int
+  quantity    Int
+  unitPrice   Decimal       @db.Decimal(18, 2)
+  amount      Decimal       @db.Decimal(18, 2)
+  status      TaskStatus    @default(PUBLISHED)
+  dueAt       DateTime?
+
+  applications Application[]
+  assignment   Assignment?
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([taskId, batchNo])
+  @@index([status])
+}
+
+model Application {
+  id               String            @id @default(cuid())
+  taskBatchId      String
+  taskBatch        TaskBatch         @relation(fields: [taskBatchId], references: [id], onDelete: Cascade)
+  workerUserId     String
+  worker           User              @relation(fields: [workerUserId], references: [id], onDelete: Cascade)
+
+  status           ApplicationStatus @default(PENDING)
+  message          String?
+  matchScore       Float?
+  matchBreakdown   Json?
+
+  decidedByUserId  String?
+  decidedAt        DateTime?
+  createdAt        DateTime          @default(now())
+
+  @@unique([taskBatchId, workerUserId])
+  @@index([workerUserId, status])
+}
+
+model Assignment {
+  id           String       @id @default(cuid())
+  taskBatchId  String       @unique
+  taskBatch    TaskBatch    @relation(fields: [taskBatchId], references: [id], onDelete: Cascade)
+  workerUserId String
+  worker       User         @relation(fields: [workerUserId], references: [id])
+
+  status       TaskStatus   @default(ASSIGNED)
+  assignedAt   DateTime     @default(now())
+  startedAt    DateTime?
+  dueAt        DateTime
+  completedAt  DateTime?
+  reworkCount  Int          @default(0)
+
+  contract     Contract?
+  submissions  Submission[]
+  disputes     Dispute[]
+  ratings      Rating[]
+
+  @@index([workerUserId, status])
+}
+
+model Contract {
+  id            String     @id @default(cuid())
+  assignmentId  String     @unique
+  assignment    Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  termsSnapshot Json
+  acceptedAt    DateTime   @default(now())
+  signatureHash String?
+}
+
+model Submission {
+  id           String       @id @default(cuid())
+  assignmentId String
+  assignment   Assignment   @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  attempt      Int          @default(1)
+  quantity     Int
+  note         String?
+  submittedAt  DateTime     @default(now())
+
+  files        FileObject[]
+  qcReview     QcReview?
+
+  @@unique([assignmentId, attempt])
+}
+
+model QcReview {
+  id              String     @id @default(cuid())
+  submissionId    String     @unique
+  submission      Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  reviewerUserId  String?
+  decision        QcDecision
+  reasonCode      String?
+  comment         String?
+  autoAccepted    Boolean    @default(false)
+  reviewedAt      DateTime   @default(now())
+
+  @@index([decision])
+}
+
+// =============================================================================
+// NIZOLAR
+// =============================================================================
+
+model Dispute {
+  id             String           @id @default(cuid())
+  taskId         String?
+  task           Task?            @relation(fields: [taskId], references: [id])
+  assignmentId   String?
+  assignment     Assignment?      @relation(fields: [assignmentId], references: [id])
+
+  openedByUserId String
+  openedBy       User             @relation("DisputeOpener", fields: [openedByUserId], references: [id])
+
+  status         DisputeStatus    @default(OPEN)
+  reason         String
+  openedAt       DateTime         @default(now())
+  closedAt       DateTime?
+
+  messages       DisputeMessage[]
+  decision       DisputeDecision?
+
+  @@index([status])
+}
+
+model DisputeMessage {
+  id           String       @id @default(cuid())
+  disputeId    String
+  dispute      Dispute      @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  authorUserId String
+  author       User         @relation(fields: [authorUserId], references: [id])
+  body         String
+  files        FileObject[]
+  createdAt    DateTime     @default(now())
+
+  @@index([disputeId])
+}
+
+model DisputeDecision {
+  id                String         @id @default(cuid())
+  disputeId         String         @unique
+  dispute           Dispute        @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  moderatorUserId   String
+  outcome           DisputeOutcome
+  /// SPLIT bo'lsa: ijrochiga tegadigan ulush, bazis punktda (10000 = 100%)
+  workerShareBp     Int            @default(10000)
+  note              String?
+  decidedAt         DateTime       @default(now())
+}
+
+// =============================================================================
+// PUL — double-entry ledger
+// LedgerEntry HECH QACHON o'chirilmaydi/o'zgartirilmaydi.
+// Xato tuzatish faqat qarama-qarshi tranzaksiya (REVERSAL) orqali.
+// =============================================================================
+
+model Wallet {
+  id               String          @id @default(cuid())
+  userId           String?         @unique
+  user             User?           @relation(fields: [userId], references: [id])
+  companyProfileId String?         @unique
+  companyProfile   CompanyProfile? @relation(fields: [companyProfileId], references: [id])
+
+  accountType      LedgerAccount
+  currency         String          @default("UZS")
+  /// Keshlangan balans. Haqiqat manbai — LedgerEntry yig'indisi.
+  balanceCached    Decimal         @default(0) @db.Decimal(18, 2)
+
+  entries          LedgerEntry[]
+  payouts          Payout[]
+
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
+model Transaction {
+  id                    String          @id @default(cuid())
+  type                  TransactionType
+  /// Takroriy so'rov ikki marta pul harakatlantirmasligi uchun
+  idempotencyKey        String          @unique
+  refType               String?
+  refId                 String?
+  description           String?
+  createdByUserId       String?
+  reversedByTransactionId String?
+
+  entries               LedgerEntry[]
+  commissionCharges     CommissionCharge[]
+  createdAt             DateTime        @default(now())
+
+  @@index([refType, refId])
+  @@index([type, createdAt])
+}
+
+model LedgerEntry {
+  id            String          @id @default(cuid())
+  transactionId String
+  transaction   Transaction     @relation(fields: [transactionId], references: [id])
+
+  walletId      String?
+  wallet        Wallet?         @relation(fields: [walletId], references: [id])
+  /// Hamyonsiz tizim hisoblari uchun (ESCROW, PLATFORM_COMMISSION, GATEWAY)
+  systemAccount LedgerAccount?
+
+  direction     LedgerDirection
+  amount        Decimal         @db.Decimal(18, 2)
+  currency      String          @default("UZS")
+  createdAt     DateTime        @default(now())
+
+  @@index([walletId, createdAt])
+  @@index([transactionId])
+}
+
+model EscrowHold {
+  id             String       @id @default(cuid())
+  taskId         String?      @unique
+  task           Task?        @relation(fields: [taskId], references: [id])
+  purchaseOrderId String?     @unique
+  purchaseOrder  PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id])
+  agroContractId String?      @unique
+  agroContract   AgroContract? @relation(fields: [agroContractId], references: [id])
+
+  status         EscrowStatus @default(PENDING)
+  totalAmount    Decimal      @db.Decimal(18, 2)
+  releasedAmount Decimal      @default(0) @db.Decimal(18, 2)
+  refundedAmount Decimal      @default(0) @db.Decimal(18, 2)
+  currency       String       @default("UZS")
+
+  /// Korxona javob bermasa — shu vaqtdan keyin avtomatik ijrochi foydasiga
+  autoReleaseAt  DateTime?
+
+  fundedAt       DateTime?
+  heldAt         DateTime?
+  releasedAt     DateTime?
+  refundedAt     DateTime?
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([status, autoReleaseAt])
+}
+
+model CommissionPolicy {
+  id          String             @id @default(cuid())
+  sector      Sector?
+  /// Bazis punkt: 500 = 5%
+  percentBp   Int
+  minAmount   Decimal            @default(0) @db.Decimal(18, 2)
+  activeFrom  DateTime           @default(now())
+  activeTo    DateTime?
+  charges     CommissionCharge[]
+  createdAt   DateTime           @default(now())
+
+  @@index([sector, activeFrom])
+}
+
+model CommissionCharge {
+  id              String           @id @default(cuid())
+  policyId        String
+  policy          CommissionPolicy @relation(fields: [policyId], references: [id])
+  taskId          String?
+  task            Task?            @relation(fields: [taskId], references: [id])
+  purchaseOrderId String?
+  purchaseOrder   PurchaseOrder?   @relation(fields: [purchaseOrderId], references: [id])
+  transactionId   String?
+  transaction     Transaction?     @relation(fields: [transactionId], references: [id])
+
+  baseAmount      Decimal          @db.Decimal(18, 2)
+  amount          Decimal          @db.Decimal(18, 2)
+  chargedAt       DateTime         @default(now())
+}
+
+model Payout {
+  id              String         @id @default(cuid())
+  walletId        String
+  wallet          Wallet         @relation(fields: [walletId], references: [id])
+  userId          String
+  user            User           @relation(fields: [userId], references: [id])
+
+  amount          Decimal        @db.Decimal(18, 2)
+  currency        String         @default("UZS")
+  status          PayoutStatus   @default(REQUESTED)
+
+  livenessCheckId String?
+  livenessCheck   LivenessCheck? @relation(fields: [livenessCheckId], references: [id])
+
+  provider        String?
+  providerRef     String?
+  failureReason   String?
+  idempotencyKey  String         @unique
+
+  requestedAt     DateTime       @default(now())
+  processedAt     DateTime?
+
+  @@index([userId, status])
+}
+
+model PaymentProviderEvent {
+  id          String    @id @default(cuid())
+  provider    String
+  eventId     String
+  type        String
+  payload     Json
+  receivedAt  DateTime  @default(now())
+  processedAt DateTime?
+  error       String?
+
+  @@unique([provider, eventId])
+}
+
+// =============================================================================
+// ISHONCH
+// =============================================================================
+
+model Rating {
+  id            String      @id @default(cuid())
+  taskId        String?
+  task          Task?       @relation(fields: [taskId], references: [id])
+  assignmentId  String?
+  assignment    Assignment? @relation(fields: [assignmentId], references: [id])
+
+  raterUserId   String
+  rater         User        @relation("RatingRater", fields: [raterUserId], references: [id])
+  rateeUserId   String
+  ratee         User        @relation("RatingRatee", fields: [rateeUserId], references: [id])
+
+  score         Int
+  quality       Int?
+  timeliness    Int?
+  communication Int?
+  comment       String?
+
+  hidden        Boolean     @default(false)
+  moderatedAt   DateTime?
+  createdAt     DateTime    @default(now())
+
+  @@unique([assignmentId, raterUserId])
+  @@index([rateeUserId])
+}
+
+model TrustScore {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score      Int      @default(50)
+  /// Har komponent alohida saqlanadi — "qanday oshirish mumkin" uchun
+  components Json?
+  computedAt DateTime @default(now())
+
+  @@index([score])
+}
+
+/// Blok PINFL HASH bo'yicha — yangi hisob ochish bilan chetlab o'tib bo'lmaydi.
+model Blacklist {
+  id              String         @id @default(cuid())
+  pinflHash       String         @unique
+  userId          String?        @unique
+  user            User?          @relation("BlacklistTarget", fields: [userId], references: [id])
+  scope           BlacklistScope @default(PLATFORM)
+  reason          String
+  addedByUserId   String
+  addedAt         DateTime       @default(now())
+  expiresAt       DateTime?
+  liftedAt        DateTime?
+  appeals         Appeal[]
+}
+
+model Appeal {
+  id              String       @id @default(cuid())
+  blacklistId     String
+  blacklist       Blacklist    @relation(fields: [blacklistId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User         @relation(fields: [userId], references: [id])
+  body            String
+  status          AppealStatus @default(PENDING)
+  decidedByUserId String?
+  decidedAt       DateTime?
+  createdAt       DateTime     @default(now())
+}
+
+model FraudSignal {
+  id               String          @id @default(cuid())
+  userId           String?
+  user             User?           @relation(fields: [userId], references: [id])
+  deviceFingerprint String?
+  type             FraudSignalType
+  score            Int
+  details          Json?
+  resolvedAt       DateTime?
+  resolvedByUserId String?
+  createdAt        DateTime        @default(now())
+
+  @@index([userId, createdAt])
+  @@index([type, resolvedAt])
+}
+
+// =============================================================================
+// LOGISTIKA — uch pog'onali tarmoq
+// =============================================================================
+
+model Hub {
+  id              String      @id @default(cuid())
+  type            HubType
+  name            String
+  regionId        String
+  region          Region      @relation(fields: [regionId], references: [id])
+  districtId      String?
+  district        District?   @relation(fields: [districtId], references: [id])
+  mahallaId       String?
+  mahalla         Mahalla?    @relation(fields: [mahallaId], references: [id])
+
+  address         String
+  lat             Float?
+  lng             Float?
+  capacityKg      Int?
+  workingHours    Json?
+  active          Boolean     @default(true)
+
+  operatorUserId  String?
+  operator        User?       @relation(fields: [operatorUserId], references: [id])
+
+  tasksPickup     Task[]      @relation("TaskPickupHub")
+  tasksDelivery   Task[]      @relation("TaskDeliveryHub")
+  shipmentsFrom   Shipment[]  @relation("ShipmentFromHub")
+  shipmentsTo     Shipment[]  @relation("ShipmentToHub")
+  legsFrom        ShipmentLeg[] @relation("LegFromHub")
+  legsTo          ShipmentLeg[] @relation("LegToHub")
+  routeStops      RouteStop[]
+  handovers       Handover[]
+
+  createdAt       DateTime    @default(now())
+
+  @@index([type, regionId, districtId])
+}
+
+model Shipment {
+  id             String         @id @default(cuid())
+  kind           ShipmentKind
+  status         ShipmentStatus @default(CREATED)
+
+  taskId         String?
+  task           Task?          @relation(fields: [taskId], references: [id])
+  purchaseOrderId String?
+  purchaseOrder  PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id])
+  agroContractId String?
+  agroContract   AgroContract?  @relation(fields: [agroContractId], references: [id])
+
+  fromHubId      String?
+  fromHub        Hub?           @relation("ShipmentFromHub", fields: [fromHubId], references: [id])
+  toHubId        String?
+  toHub          Hub?           @relation("ShipmentToHub", fields: [toHubId], references: [id])
+
+  courierUserId  String?
+  courier        User?          @relation(fields: [courierUserId], references: [id])
+  routeId        String?
+  route          Route?         @relation(fields: [routeId], references: [id])
+
+  weightKg       Float?
+  legs           ShipmentLeg[]
+  handovers      Handover[]
+  routeStops     RouteStop[]
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([status])
+  @@index([courierUserId, status])
+}
+
+model ShipmentLeg {
+  id         String         @id @default(cuid())
+  shipmentId String
+  shipment   Shipment       @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  seq        Int
+  fromHubId  String?
+  fromHub    Hub?           @relation("LegFromHub", fields: [fromHubId], references: [id])
+  toHubId    String?
+  toHub      Hub?           @relation("LegToHub", fields: [toHubId], references: [id])
+  status     ShipmentStatus @default(CREATED)
+  departedAt DateTime?
+  arrivedAt  DateTime?
+
+  @@unique([shipmentId, seq])
+}
+
+/// Bir hududdagi BARCHA buyurtmalar (autsorsing + B2B + agro) bitta marshrutga
+/// birlashtiriladi — RouteBatchingService.
+model Route {
+  id              String      @id @default(cuid())
+  courierUserId   String
+  courier         User        @relation(fields: [courierUserId], references: [id])
+  date            DateTime
+  regionId        String
+  districtId      String?
+  status          RouteStatus @default(PLANNED)
+  totalDistanceKm Float?
+
+  stops           RouteStop[]
+  shipments       Shipment[]
+
+  createdAt       DateTime    @default(now())
+
+  @@index([courierUserId, date])
+  @@index([regionId, date])
+}
+
+model RouteStop {
+  id          String    @id @default(cuid())
+  routeId     String
+  route       Route     @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  seq         Int
+  hubId       String?
+  hub         Hub?      @relation(fields: [hubId], references: [id])
+  shipmentId  String?
+  shipment    Shipment? @relation(fields: [shipmentId], references: [id])
+  address     String?
+  lat         Float?
+  lng         Float?
+  arrivedAt   DateTime?
+  completedAt DateTime?
+
+  @@unique([routeId, seq])
+}
+
+/// Har topshirish nuqtasida QR skan + foto + GPS + vaqt + mas'ul shaxs
+model Handover {
+  id            String      @id @default(cuid())
+  shipmentId    String
+  shipment      Shipment    @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  hubId         String?
+  hub           Hub?        @relation(fields: [hubId], references: [id])
+  fromUserId    String?
+  toUserId      String?
+  qrCode        String
+  photoFileId   String?
+  lat           Float?
+  lng           Float?
+  note          String?
+  at            DateTime    @default(now())
+
+  @@index([shipmentId, at])
+}
+
+// =============================================================================
+// P2 — B2B BOZORI (ochiq narx raqobati)
+// =============================================================================
+
+model B2bProduct {
+  id          String       @id @default(cuid())
+  code        String       @unique
+  name        String
+  unit        TaskUnit
+  category    String
+  sector      Sector
+  rfqs        Rfq[]
+  agroListings AgroListing[]
+  agroDemands AgroDemand[]
+  createdAt   DateTime     @default(now())
+}
+
+model Rfq {
+  id             String         @id @default(cuid())
+  buyerCompanyId String
+  buyer          CompanyProfile @relation("RfqBuyer", fields: [buyerCompanyId], references: [id])
+  productId      String
+  product        B2bProduct     @relation(fields: [productId], references: [id])
+
+  quantity       Decimal        @db.Decimal(18, 3)
+  unit           TaskUnit
+  neededBy       DateTime
+  notes          String?
+  status         RfqStatus      @default(OPEN)
+
+  regionId       String
+  districtId     String?
+
+  quotes         Quote[]
+  purchaseOrders PurchaseOrder[]
+
+  closesAt       DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([status, regionId])
+}
+
+model Quote {
+  id                String         @id @default(cuid())
+  rfqId             String
+  rfq               Rfq            @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+  supplierCompanyId String
+  supplier          CompanyProfile @relation("QuoteSupplier", fields: [supplierCompanyId], references: [id])
+
+  unitPrice         Decimal        @db.Decimal(18, 2)
+  totalAmount       Decimal        @db.Decimal(18, 2)
+  leadTimeDays      Int
+  qualityTerms      String?
+  status            QuoteStatus    @default(SUBMITTED)
+
+  purchaseOrder     PurchaseOrder?
+
+  createdAt         DateTime       @default(now())
+
+  @@unique([rfqId, supplierCompanyId])
+  @@index([status])
+}
+
+model PurchaseOrder {
+  id                String              @id @default(cuid())
+  rfqId             String?
+  rfq               Rfq?                @relation(fields: [rfqId], references: [id])
+  quoteId           String?             @unique
+  quote             Quote?              @relation(fields: [quoteId], references: [id])
+
+  buyerCompanyId    String
+  buyer             CompanyProfile      @relation("OrderBuyer", fields: [buyerCompanyId], references: [id])
+  supplierCompanyId String
+  supplier          CompanyProfile      @relation("OrderSupplier", fields: [supplierCompanyId], references: [id])
+
+  totalAmount       Decimal             @db.Decimal(18, 2)
+  currency          String              @default("UZS")
+  status            PurchaseOrderStatus @default(CREATED)
+
+  escrow            EscrowHold?
+  invoice           Invoice?
+  shipments         Shipment[]
+  commissionCharges CommissionCharge[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([buyerCompanyId, status])
+  @@index([supplierCompanyId, status])
+}
+
+model Invoice {
+  id              String        @id @default(cuid())
+  purchaseOrderId String        @unique
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  number          String        @unique
+  amount          Decimal       @db.Decimal(18, 2)
+  fileId          String?
+  issuedAt        DateTime      @default(now())
+  paidAt          DateTime?
+}
+
+// =============================================================================
+// P3 — AGRO (kafolatlangan xarid)
+// =============================================================================
+
+model AgroListing {
+  id           String            @id @default(cuid())
+  ownerUserId  String
+  owner        User              @relation(fields: [ownerUserId], references: [id])
+  productId    String?
+  product      B2bProduct?       @relation(fields: [productId], references: [id])
+
+  title        String
+  category     String
+  quantity     Decimal           @db.Decimal(18, 3)
+  unit         TaskUnit
+  harvestAt    DateTime
+  qualityGrade String?
+  pricePerUnit Decimal?          @db.Decimal(18, 2)
+  status       AgroListingStatus @default(DRAFT)
+
+  regionId     String
+  districtId   String
+  mahallaId    String?
+
+  files        FileObject[]
+  contracts    AgroContract[]
+
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([status, regionId, harvestAt])
+}
+
+model AgroDemand {
+  id               String         @id @default(cuid())
+  buyerCompanyId   String
+  buyer            CompanyProfile @relation(fields: [buyerCompanyId], references: [id])
+  productId        String?
+  product          B2bProduct?    @relation(fields: [productId], references: [id])
+
+  title            String
+  quantity         Decimal        @db.Decimal(18, 3)
+  unit             TaskUnit
+  neededBy         DateTime
+  maxPricePerUnit  Decimal?       @db.Decimal(18, 2)
+  regionId         String?
+  status           RfqStatus      @default(OPEN)
+
+  contracts        AgroContract[]
+
+  createdAt        DateTime       @default(now())
+
+  @@index([status, regionId])
+}
+
+model AgroContract {
+  id                String             @id @default(cuid())
+  listingId         String?
+  listing           AgroListing?       @relation(fields: [listingId], references: [id])
+  demandId          String?
+  demand            AgroDemand?        @relation(fields: [demandId], references: [id])
+
+  buyerCompanyId    String
+  buyer             CompanyProfile     @relation(fields: [buyerCompanyId], references: [id])
+  sellerUserId      String
+  seller            User               @relation(fields: [sellerUserId], references: [id])
+
+  quantity          Decimal            @db.Decimal(18, 3)
+  unit              TaskUnit
+  pricePerUnit      Decimal            @db.Decimal(18, 2)
+  totalAmount       Decimal            @db.Decimal(18, 2)
+  prepaymentAmount  Decimal            @default(0) @db.Decimal(18, 2)
+  status            AgroContractStatus @default(DRAFT)
+
+  escrow            EscrowHold?
+  harvestBatches    HarvestBatch[]
+  shipments         Shipment[]
+
+  signedAt          DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@index([status])
+}
+
+model HarvestBatch {
+  id           String       @id @default(cuid())
+  contractId   String
+  contract     AgroContract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  quantity     Decimal      @db.Decimal(18, 3)
+  qualityGrade String?
+  deliveredAt  DateTime?
+  acceptedAt   DateTime?
+  note         String?
+
+  @@index([contractId])
+}
+
+// =============================================================================
+// TIZIM
+// =============================================================================
+
+model NotificationTemplate {
+  id      String              @id @default(cuid())
+  code    String
+  locale  Locale
+  channel NotificationChannel
+  subject String?
+  body    String
+  active  Boolean             @default(true)
+
+  @@unique([code, locale, channel])
+}
+
+model Notification {
+  id           String              @id @default(cuid())
+  userId       String
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templateCode String
+  channel      NotificationChannel
+  status       NotificationStatus  @default(QUEUED)
+  payload      Json?
+  error        String?
+
+  sentAt       DateTime?
+  readAt       DateTime?
+  createdAt    DateTime            @default(now())
+
+  @@index([userId, createdAt])
+  @@index([status, channel])
+}
+
+/// APPEND-ONLY. O'chirish va yangilash taqiqlanadi (DB darajasida ham).
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  actor       User?    @relation(fields: [actorUserId], references: [id])
+  action      String
+  entityType  String
+  entityId    String
+  before      Json?
+  after       Json?
+  ip          String?
+  userAgent   String?
+  at          DateTime @default(now())
+
+  @@index([entityType, entityId, at])
+  @@index([actorUserId, at])
+  @@index([action, at])
+}
+
+model Setting {
+  id              String   @id @default(cuid())
+  key             String   @unique
+  value           Json
+  description     String?
+  updatedByUserId String?
+  updatedAt       DateTime @updatedAt
+}
+
+/// Oylik avtomatik snapshot — o'zgarmas tarixiy nusxa (BullMQ cron)
+model ReportSnapshot {
+  id                String   @id @default(cuid())
+  scope             String
+  periodStart       DateTime
+  periodEnd         DateTime
+  regionId          String?
+  districtId        String?
+  data              Json
+  fileId            String?
+  generatedByUserId String?
+  generatedAt       DateTime @default(now())
+
+  @@unique([scope, periodStart, periodEnd, regionId, districtId])
+}
+
+model FileObject {
+  id               String      @id @default(cuid())
+  key              String      @unique
+  bucket           String
+  mime             String
+  sizeBytes        Int
+  sha256           String
+  /// Takroriy sifat fotosini aniqlash uchun (fraud signali)
+  perceptualHash   String?
+  kind             FileKind    @default(OTHER)
+  uploadedByUserId String?
+  uploadedBy       User?       @relation(fields: [uploadedByUserId], references: [id])
+
+  scannedAt        DateTime?
+  safe             Boolean     @default(false)
+
+  submissionId     String?
+  submission       Submission? @relation(fields: [submissionId], references: [id])
+  disputeMessageId String?
+  disputeMessage   DisputeMessage? @relation(fields: [disputeMessageId], references: [id])
+  agroListingId    String?
+  agroListing      AgroListing? @relation(fields: [agroListingId], references: [id])
+
+  createdAt        DateTime    @default(now())
+
+  @@index([perceptualHash])
+  @@index([kind])
+}
+
+/// Hudud × soha × ko'nikma kesimida taklif/talab balansi.
+/// Kelajakda "ortiqcha ishchi kuchi hududi ↔ talab hududi"ni bog'lash uchun.
+model LaborSupplyDemandIndex {
+  id          String   @id @default(cuid())
+  regionId    String
+  districtId  String?
+  sector      Sector
+  skillId     String?
+  period      DateTime
+  supplyCount Int      @default(0)
+  demandCount Int      @default(0)
+  balance     Int      @default(0)
+  computedAt  DateTime @default(now())
+
+  @@unique([regionId, districtId, sector, skillId, period])
+  @@index([period])
+}
