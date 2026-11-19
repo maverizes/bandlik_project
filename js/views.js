@@ -689,7 +689,7 @@ const V_Boshqarma = {
       <div class="sahifa-bosh">
         <h1>Bandlik monitoringi</h1>
         <p>Toshkent viloyati Kambag'allikni qisqartirish va bandlik boshqarmasi,
-           Nurafshon shahar bo'limi · Sentabr 2026</p>
+           Oʻrtachirchiq tuman bo'limi · Sentabr 2026</p>
       </div>
 
       <div class="maxfiy" style="margin-bottom:18px">
@@ -922,7 +922,7 @@ const V_Moderator = {
             <div class="n">Toshkent viloyat omborxonasi</div></div>
           <span class="pogona-strelka">→</span>
           <div class="pogona-nuqta"><div class="pi">🏬</div><div class="t">Shahar</div>
-            <div class="n">Nurafshon punkti</div></div>
+            <div class="n">Oʻrtachirchiq punkti</div></div>
           <span class="pogona-strelka">→</span>
           <div class="pogona-nuqta"><div class="pi">🏠</div><div class="t">Mahalla</div>
             <div class="n">FYG binosi</div></div>

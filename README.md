@@ -1,7 +1,7 @@
 # HUNAR — Bandlik platformasi
 
 **Ish qidirayotgan fuqarolar va ishchi qidirayotgan korxonalarni bog'laydigan platforma.**
-Nurafshon shahri (Toshkent viloyati) pilot loyihasi — ishlaydigan demo.
+Oʻrtachirchiq tumani (Toshkent viloyati) pilot loyihasi — ishlaydigan demo.
 
 > Build-tool, paket va internet talab qilmaydi.
 > `index.html` ni brauzerda ochsangiz — ishlaydi.
@@ -194,7 +194,7 @@ Ledger mantig'i o'zgarmaydi — faqat provayder almashadi.
 
 | | |
 |---|---|
-| Hudud | Nurafshon shahri, 1 mahalladan boshlab |
+| Hudud | Oʻrtachirchiq tumani, 1 mahalladan boshlab |
 | Muddat | 3 oy |
 | Maqsad | 50–100 fuqaro, 2–3 korxona |
 | Byudjet | **Talab qilinmaydi** — korxona komissiyasi hisobidan |

@@ -1,6 +1,6 @@
 /* =============================================================================
    HUNAR — demo ma'lumotlari (seed)
-   Pilot: Nurafshon shahri, Toshkent viloyati
+   Pilot: Oʻrtachirchiq tumani, Toshkent viloyati
    ============================================================================= */
 
 const MAHALLALAR = [
@@ -22,14 +22,14 @@ const KONIKMALAR = [
 
 const KORXONALAR = [
   {
-    id: 'c1', nom: 'Nurafshon Teks', stir: '301 456 789',
-    soha: 'To\'qimachilik', manzil: "Nurafshon sh., Sanoat ko'chasi 12",
+    id: 'c1', nom: 'Toʻytepa Teks', stir: '301 456 789',
+    soha: 'To\'qimachilik', manzil: "Toʻytepa sh., Sanoat ko'chasi 12",
     masul: 'Rustam Ochilov', tel: '+998 90 123 45 67',
     kyb: 'VERIFIED', balans: 48_500_000
   },
   {
     id: 'c2', nom: 'Oq Qadoq', stir: '302 778 114',
-    soha: 'Qadoqlash', manzil: "Nurafshon sh., Bog' ko'chasi 4",
+    soha: 'Qadoqlash', manzil: "Toʻytepa sh., Bog' ko'chasi 4",
     masul: 'Nodira Ahmedova', tel: '+998 91 220 11 08',
     kyb: 'VERIFIED', balans: 22_100_000
   }
@@ -75,8 +75,8 @@ const KURYERLAR = [
 
 /* Yetkazib berish nuqtalari (3 pog'ona) */
 const HUBLAR = [
-  { id: 'h1', tur: 'VILOYAT',  nom: 'Toshkent viloyat omborxonasi', manzil: 'Nurafshon sh., Sanoat zonasi' },
-  { id: 'h2', tur: 'TUMAN',    nom: 'Nurafshon shahar punkti',      manzil: "Nurafshon sh., Markaziy ko'cha 1" },
+  { id: 'h1', tur: 'VILOYAT',  nom: 'Toshkent viloyat omborxonasi', manzil: 'Toʻytepa sh., Sanoat zonasi' },
+  { id: 'h2', tur: 'TUMAN',    nom: 'Oʻrtachirchiq tuman punkti',   manzil: "Toʻytepa sh., Markaziy ko'cha 1" },
   { id: 'h3', tur: 'MAHALLA',  nom: "Yangi hayot FYG binosi",       manzil: "Yangi hayot MFY" },
   { id: 'h4', tur: 'MAHALLA',  nom: "Do'stlik FYG binosi",          manzil: "Do'stlik MFY" }
 ];

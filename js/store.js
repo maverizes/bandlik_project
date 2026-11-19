@@ -285,7 +285,7 @@ const Store = (function () {
           nom: ma.korxonaNom || 'Yangi korxona',
           stir: ma.stir || '000 000 000',
           soha: 'Ishlab chiqarish',
-          manzil: 'Nurafshon sh.',
+          manzil: 'Toʻytepa sh.',
           masul: '—',
           tel: '+998 ' + (ma.telefon || ''),
           kyb: 'VERIFIED',

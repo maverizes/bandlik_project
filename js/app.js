@@ -256,7 +256,7 @@ const App = (function () {
       const blob = new Blob(['﻿' + q.map(r => r.join(';')).join('\n')], { type: 'text/csv;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'nurafshon-bandlik-hisobot.csv';
+      a.download = 'ortachirchiq-bandlik-hisobot.csv';
       a.click();
       URL.revokeObjectURL(a.href);
       Store.audit('HISOBOT_EKSPORT', 'Oylik hisobot CSV', '-', 'yuklandi');

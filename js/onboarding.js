@@ -210,7 +210,7 @@ const Onboarding = (function () {
 
           <div class="maydon">
             <label for="ob-knom">Korxona nomi</label>
-            <input class="kirit" id="ob-knom" placeholder="Masalan: Nurafshon Teks"
+            <input class="kirit" id="ob-knom" placeholder="Masalan: Toʻytepa Teks"
                    value="${esc(ma.korxonaNom || '')}">
           </div>
 
