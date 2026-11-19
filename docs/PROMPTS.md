@@ -5,21 +5,21 @@
 > shu yerdagi talablarga qaytib tekshiriladi.
 >
 > Ishlatish tartibi: MASTER PROMPT → tasdiqlash → bosqichlar birma-bir (1 → 11).
-> Har bosqichda faqat shu modul yoziladi — bitta so'rovda hamma narsa emas.
+> Har bosqichda faqat shu modul yoziladi — bitta soʻrovda hamma narsa emas.
 
 ---
 
 ## 1. MASTER PROMPT
 
-Sen tajribali full-stack muhandis va solution architektsan. Biz O'zbekiston uchun
+Sen tajribali full-stack muhandis va solution architektsan. Biz Oʻzbekiston uchun
 "Hududiy bandlik va ishlab chiqarish hamkorlik platformasi"ni noldan quramiz.
-Ishchi nomi: HUNAR (nomni keyin o'zgartirsak bo'ladi).
+Ishchi nomi: HUNAR (nomni keyin oʻzgartirsak boʻladi).
 
-Bu xabar — loyihaning to'liq konteksti. Hozircha KOD YOZMA. Avval:
+Bu xabar — loyihaning toʻliq konteksti. Hozircha KOD YOZMA. Avval:
 1) Kontekstni tushunganingni 10 qatorda tasdiqla,
 2) Taklif qilingan arxitektura va papka tuzilmasini chiqar,
 3) Prisma schema (barcha modellar) loyihasini chiqar,
-4) Bosqichlar ro'yxatini (roadmap) chiqar.
+4) Bosqichlar roʻyxatini (roadmap) chiqar.
 
 Men "OK, 1-bosqichni boshla" deganimdan keyingina kod yozishni boshlaysan.
 
@@ -28,94 +28,94 @@ Men "OK, 1-bosqichni boshla" deganimdan keyingina kod yozishni boshlaysan.
 Ikki tomonlama muammo, bitta yechim:
 
 **1) Korxonalarda ishchi kuchi tanqisligi**
-- To'qimachilik, qadoqlash, savdo korxonalari doimiy shtat uchun yotoqxona,
-  ovqat va ijtimoiy sharoit ta'minlashga majbur.
-- Bu xarajat kichik va o'rta korxona uchun og'ir — ishchi yollash sekinlashadi.
-- Natija: buyurtmalar kechikadi, quvvat to'liq ishlamaydi.
+- Toʻqimachilik, qadoqlash, savdo korxonalari doimiy shtat uchun yotoqxona,
+  ovqat va ijtimoiy sharoit taʼminlashga majbur.
+- Bu xarajat kichik va oʻrta korxona uchun ogʻir — ishchi yollash sekinlashadi.
+- Natija: buyurtmalar kechikadi, quvvat toʻliq ishlamaydi.
 
-**2) Band bo'lmagan, ammo hunarli fuqarolar**
+**2) Band boʻlmagan, ammo hunarli fuqarolar**
 - Mahallabay/xonadonbay tizimi orqali aniqlangan uy bekalari, yoshlar,
   tomorqa egalari rasman ishsiz.
 - Ular doimiy fabrika ishiga chiqa olmaydi, lekin uyida qism-qism ish bajaradi.
-- "Temir daftar", "Ayollar daftari", "Yoshlar daftari"da ro'yxatga olingan.
+- "Temir daftar", "Ayollar daftari", "Yoshlar daftari"da roʻyxatga olingan.
 
-**Yechim:** korxona va fuqaroni bevosita bog'laydigan raqamli platforma.
-Asosiy sikl: Vazifa e'lon qilinadi → Fuqaro javob beradi → Sifat tasdiqlanadi
-→ Kafolatlangan (eskrou) to'lov amalga oshadi.
+**Yechim:** korxona va fuqaroni bevosita bogʻlaydigan raqamli platforma.
+Asosiy sikl: Vazifa eʼlon qilinadi → Fuqaro javob beradi → Sifat tasdiqlanadi
+→ Kafolatlangan (eskrou) toʻlov amalga oshadi.
 
 ### B. HUQUQIY ASOS VA INTEGRATSIYA
 
-- Platforma PQ-4742-son qaror asosidagi "O'zini o'zi band qilish" tizimiga
+- Platforma PQ-4742-son qaror asosidagi "Oʻzini oʻzi band qilish" tizimiga
   tayanadi — yangi byurokratiya yaratilmaydi.
-- Fuqaro birinchi buyurtmadan OLDIN shaxsiy kabinet orqali "o'zini o'zi band
+- Fuqaro birinchi buyurtmadan OLDIN shaxsiy kabinet orqali "oʻzini oʻzi band
   qilgan shaxs" maqomini oladi.
-- Bu maqom: (a) daromaddan jismoniy shaxs daromad solig'i olinmaydi,
-  (b) fuqaro rasman "band" hisoblanadi va ishsizlar ro'yxatidan chiqadi,
+- Bu maqom: (a) daromaddan jismoniy shaxs daromad soligʻi olinmaydi,
+  (b) fuqaro rasman "band" hisoblanadi va ishsizlar roʻyxatidan chiqadi,
   (c) raqamli mehnat tarixi (reyting) shakllanadi.
-- Demak platformada `SelfEmploymentRegistration` bosqichi MAJBURIY gate bo'lishi
-  kerak: maqom olinmaguncha fuqaro to'lovli vazifa qabul qila olmaydi.
+- Demak platformada `SelfEmploymentRegistration` bosqichi MAJBURIY gate boʻlishi
+  kerak: maqom olinmaguncha fuqaro toʻlovli vazifa qabul qila olmaydi.
 
 ### C. QAMROV (universal, lekin pilot tor)
 
 Platforma bandlikka aloqador istalgan tashkilot uchun ochiq. Sohalar:
 
 1. Ishlab chiqarish sexlari
-2. Umumiy ovqatlanish va mehmondo'stlik
+2. Umumiy ovqatlanish va mehmondoʻstlik
 3. Savdo va chakana tarmoqlar
-4. Qishloq xo'jaligi va chorvachilik
-5. Qurilish va ta'mirlash ishlari
+4. Qishloq xoʻjaligi va chorvachilik
+5. Qurilish va taʼmirlash ishlari
 6. Transport va yetkazib berish
 7. Korporativ va ofis xizmatlari
 8. IT va raqamli xizmatlar
 
-**Birinchi bosqichda 4 ta pilot yo'nalish (MVP shu 4 tasiga qaratilsin):**
+**Birinchi bosqichda 4 ta pilot yoʻnalish (MVP shu 4 tasiga qaratilsin):**
 
-- **P1. Ishlab chiqarish autsorsingi** — to'qimachilik/qadoqlash vazifalarini
-  kichik qismlarga bo'lib, uy sharoitida bajartirish (piecework).
-- **P2. B2B savdo bozori** — do'konni bir nechta ta'minotchi bilan bog'lash,
+- **P1. Ishlab chiqarish autsorsingi** — toʻqimachilik/qadoqlash vazifalarini
+  kichik qismlarga boʻlib, uy sharoitida bajartirish (piecework).
+- **P2. B2B savdo bozori** — doʻkonni bir nechta taʼminotchi bilan bogʻlash,
   ochiq narx raqobati (RFQ → bir necha taklif → tanlov).
-- **P3. Qishloq xo'jaligi va chorvachilik** — xaridor talabini yer/chorva egalari
+- **P3. Qishloq xoʻjaligi va chorvachilik** — xaridor talabini yer/chorva egalari
   bilan moslashtirish, kafolatlangan xarid shartnomasi.
-- **P4. Bandlik va ijtimoiy himoya** — "o'zini o'zi band qilish"ga ulash,
+- **P4. Bandlik va ijtimoiy himoya** — "oʻzini oʻzi band qilish"ga ulash,
   ishsizlik statistikasini kamaytirish, boshqarma uchun hisobot.
 
 ### D. PILOT LOYIHA PARAMETRLARI
 
 - **Hudud:** Nurafshon shahri, Toshkent viloyati. 1 ta mahalla fuqarolar
-  yig'inidan boshlanadi.
+  yigʻinidan boshlanadi.
 - **Muddat:** 3 oy.
-- **Maqsad:** 50–100 ro'yxatdan o'tgan fuqaro, 2–3 hamkor korxona
-  (to'qimachilik/qadoqlash).
-- **Moliyalashtirish:** davlat byudjetidan mablag' talab qilinmaydi. Platforma
-  korxonalardan olinadigan kichik komissiya hisobidan o'zini moliyalashtiradi.
-  => Kodda `CommissionPolicy` (foiz + minimal summa, soha bo'yicha sozlanadigan).
+- **Maqsad:** 50–100 roʻyxatdan oʻtgan fuqaro, 2–3 hamkor korxona
+  (toʻqimachilik/qadoqlash).
+- **Moliyalashtirish:** davlat byudjetidan mablagʻ talab qilinmaydi. Platforma
+  korxonalardan olinadigan kichik komissiya hisobidan oʻzini moliyalashtiradi.
+  => Kodda `CommissionPolicy` (foiz + minimal summa, soha boʻyicha sozlanadigan).
 
 **Amalga oshirish grafigi:**
 
 | Muddat | Bosqich | Mazmun |
 |---|---|---|
-| 1–2-hafta | Kelishuv | Boshqarma bilan hamkorlik, korxona/fuqaro ro'yxati |
-| 3–4-hafta | Ishga tushirish | Sinov platformasi + o'zini o'zi band qilish ro'yxati |
-| 2-oy | Amaliy ish | Birinchi buyurtmalar, sifat nazorati, to'lov sinovi |
+| 1–2-hafta | Kelishuv | Boshqarma bilan hamkorlik, korxona/fuqaro roʻyxati |
+| 3–4-hafta | Ishga tushirish | Sinov platformasi + oʻzini oʻzi band qilish roʻyxati |
+| 2-oy | Amaliy ish | Birinchi buyurtmalar, sifat nazorati, toʻlov sinovi |
 | 3-oy | Kengaytirish | Natijalarni jamlash, shahar/tuman miqyosiga taklif |
 
 ### E. FOYDALANUVCHI ROLLARI (RBAC)
 
 | Rol | Vazifasi |
 |---|---|
-| `WORKER` | Fuqaro / ijrochi (o'zini o'zi band qilgan shaxs) |
+| `WORKER` | Fuqaro / ijrochi (oʻzini oʻzi band qilgan shaxs) |
 | `COMPANY_OWNER` | Korxona egasi/rahbari |
-| `COMPANY_MANAGER` | Korxona xodimi (vazifa e'lon qiladi, sifat qabul qiladi) |
-| `COURIER` | Kuryer (u ham "o'zini o'zi band qilish" orqali ro'yxatda) |
+| `COMPANY_MANAGER` | Korxona xodimi (vazifa eʼlon qiladi, sifat qabul qiladi) |
+| `COURIER` | Kuryer (u ham "oʻzini oʻzi band qilish" orqali roʻyxatda) |
 | `HUB_OPERATOR` | Ombor/punkt operatori (viloyat, tuman, mahalla) |
-| `MAHALLA_COORDINATOR` | Mahalla koordinatori: fuqarolarni ro'yxatga oladi, tasdiqlaydi |
-| `DEPT_ANALYST` | Boshqarma tahlilchisi (faqat o'qish + hisobot eksporti) |
-| `DEPT_ADMIN` | Boshqarma admini (hudud kesimida to'liq monitoring) |
-| `MODERATOR` | Nizolar, shikoyatlar, qora ro'yxat |
+| `MAHALLA_COORDINATOR` | Mahalla koordinatori: fuqarolarni roʻyxatga oladi, tasdiqlaydi |
+| `DEPT_ANALYST` | Boshqarma tahlilchisi (faqat oʻqish + hisobot eksporti) |
+| `DEPT_ADMIN` | Boshqarma admini (hudud kesimida toʻliq monitoring) |
+| `MODERATOR` | Nizolar, shikoyatlar, qora roʻyxat |
 | `SUPER_ADMIN` | Tizim admini |
 
 Har bir endpoint uchun aniq RBAC matritsasi yoziladi. **Boshqarma rollari HECH
-QACHON to'lov yoki shaxsiy hujjat skanini ko'ra olmaydi — faqat agregat va maqom.**
+QACHON toʻlov yoki shaxsiy hujjat skanini koʻra olmaydi — faqat agregat va maqom.**
 
 ### F. TEXNIK STEK
 
@@ -129,7 +129,7 @@ QACHON to'lov yoki shaxsiy hujjat skanini ko'ra olmaydi — faqat agregat va maq
 - Validatsiya: Zod (har bir input uchun), xatolik formati RFC 7807
 - Auth: telefon raqam + SMS OTP (asosiy), OneID SSO (ixtiyoriy), JWT + refresh
 - i18n: next-intl — uz-Latn (default), uz-Cyrl, ru. Barcha UI matni tarjima
-  fayllarida, **kodda hardcode matn bo'lmasin**
+  fayllarida, **kodda hardcode matn boʻlmasin**
 - Mobil: keyingi bosqichda Expo (React Native), API bir xil
 - Test: Vitest (unit) + Playwright (e2e) + Prisma test DB
 - Deploy: Docker Compose (dev) + GitHub Actions CI
@@ -137,15 +137,15 @@ QACHON to'lov yoki shaxsiy hujjat skanini ko'ra olmaydi — faqat agregat va maq
 **Nofunksional talablar:**
 
 - **Mobile-first.** Foydalanuvchining katta qismi arzon Android telefonda, sekin
-  internetda. Sahifa og'irligi kichik, rasm lazy, offline-tolerant formalar.
+  internetda. Sahifa ogʻirligi kichik, rasm lazy, offline-tolerant formalar.
 - **Past raqamli savodxonlik** hisobga olinsin: katta tugmalar, ikonka + matn,
-  sodda til, har bir qadamda "keyingi qadam nima" ko'rsatilsin.
+  sodda til, har bir qadamda "keyingi qadam nima" koʻrsatilsin.
 - **SMS fallback:** push kelmasa SMS. Telegram bot — ikkinchi kanal.
-- Barcha ma'lumot O'zbekiston hududida saqlanadi (data residency).
-- "Shaxsga doir ma'lumotlar to'g'risida"gi qonun talablariga mos: rozilik
-  (consent) yozuvi, maqsad cheklovi, saqlash muddati, o'chirish so'rovi.
+- Barcha maʼlumot Oʻzbekiston hududida saqlanadi (data residency).
+- "Shaxsga doir maʼlumotlar toʻgʻrisida"gi qonun talablariga mos: rozilik
+  (consent) yozuvi, maqsad cheklovi, saqlash muddati, oʻchirish soʻrovi.
 
-### G. MA'LUMOTLAR MODELI (asosiy entitilar)
+### G. MAʼLUMOTLAR MODELI (asosiy entitilar)
 
 **Identity/profil:** `User`, `Session`, `OtpCode`, `Device`, `WorkerProfile`,
 `CompanyProfile`, `CourierProfile`, `Region`, `District`, `Mahalla`, `Skill`,
@@ -171,7 +171,7 @@ QACHON to'lov yoki shaxsiy hujjat skanini ko'ra olmaydi — faqat agregat va maq
 **Tizim:** `Notification`, `NotificationTemplate`, `AuditLog`, `Setting`,
 `ReportSnapshot`, `FileObject`
 
-### H. HOLAT MASHINALARI (qat'iy amal qilinadi)
+### H. HOLAT MASHINALARI (qatʼiy amal qilinadi)
 
 **Task:**
 ```
@@ -194,86 +194,86 @@ N — sozlanadigan, default 5 kun.
 CREATED → PICKED_UP → AT_MAHALLA_POINT → AT_DISTRICT_HUB → AT_REGION_HUB
         → OUT_FOR_DELIVERY → DELIVERED → CONFIRMED
 ```
-Har o'tish QR skan + vaqt + joylashuv + mas'ul shaxs bilan yoziladi.
+Har oʻtish QR skan + vaqt + joylashuv + masʼul shaxs bilan yoziladi.
 
 **KYC / SelfEmployment:**
 ```
 NOT_STARTED → PENDING → VERIFIED | REJECTED → EXPIRED
 ```
 
-Har bir o'tish uchun: kim huquqli, qanday shart, qanday audit yozuvi — alohida
-`transitions.ts` faylida deklarativ tasvirlanadi. **Holatni to'g'ridan-to'g'ri
+Har bir oʻtish uchun: kim huquqli, qanday shart, qanday audit yozuvi — alohida
+`transitions.ts` faylida deklarativ tasvirlanadi. **Holatni toʻgʻridan-toʻgʻri
 UPDATE qilish taqiqlanadi**, faqat service qatlami orqali.
 
 ### I. XAVFSIZLIK VA ISHONCH TIZIMI (6 qatlam)
 
-1. **Davlat bazasi orqali shaxsni tasdiqlash** — ro'yxatdan o'tishda ma'lumot
-   Soliq qo'mitasi / IIV bazasidan avtomatik tekshiriladi.
+1. **Davlat bazasi orqali shaxsni tasdiqlash** — roʻyxatdan oʻtishda maʼlumot
+   Soliq qoʻmitasi / IIV bazasidan avtomatik tekshiriladi.
 2. **Yuz orqali jonli tekshirish (liveness)** — katta buyurtma qabul qilishda
    yoki pul yechishda qayta biometrik tasdiqlash. Maqsad: hisob "ijarasi"ga qarshi.
-3. **Kafolatlangan to'lov (eskrou)** — pul oldindan platformada saqlanadi, faqat
-   sifat tasdiqlangach ijrochiga o'tkaziladi.
-4. **Ishonch bali / reyting** — har bitim asosida shakllanadi; past ko'rsatkichli
+3. **Kafolatlangan toʻlov (eskrou)** — pul oldindan platformada saqlanadi, faqat
+   sifat tasdiqlangach ijrochiga oʻtkaziladi.
+4. **Ishonch bali / reyting** — har bitim asosida shakllanadi; past koʻrsatkichli
    hisoblar avtomatik cheklanadi (limit, moderatsiya, yangi vazifa taqiqi).
-5. **Qora ro'yxat shaxs darajasida** — blokirovka PINFL (JSHSHIR)
-   identifikatoriga bog'lanadi, yangi hisob bilan qaytib bo'lmaydi. PINFL ochiq
+5. **Qora roʻyxat shaxs darajasida** — blokirovka PINFL (JSHSHIR)
+   identifikatoriga bogʻlanadi, yangi hisob bilan qaytib boʻlmaydi. PINFL ochiq
    saqlanmaydi: `pinflHash = HMAC-SHA256(pinfl, SERVER_SECRET)` — unique indeks.
-6. **Korxonani tekshirish (KYB)** — e'lon beruvchi tashkilotning yuridik maqomi
+6. **Korxonani tekshirish (KYB)** — eʼlon beruvchi tashkilotning yuridik maqomi
    Soliq bazasidan tasdiqlanadi (soxta korxonaga qarshi).
 
-**Qo'shimcha texnik himoya:**
+**Qoʻshimcha texnik himoya:**
 
 - 1 PINFL = 1 faol hisob. Qurilma barmoq izi (device fingerprint) yoziladi.
 - OTP: rate-limit (IP + telefon), 5 urinish, 15 daqiqa blok, kod hash bilan saqlanadi.
 - Barcha pul operatsiyalari idempotent (`Idempotency-Key` header).
 - `AuditLog`: kim, qachon, nima, eski→yangi qiymat. Append-only.
 - Nozik maydonlar (passport seriya, PINFL, karta) — application-level encryption.
-- OWASP Top 10: parametrlashtirilgan so'rovlar, CSRF, CSP, rate limit, fayl
+- OWASP Top 10: parametrlashtirilgan soʻrovlar, CSRF, CSP, rate limit, fayl
   yuklashda MIME+hajm+antivirus tekshiruvi, SSRF himoyasi.
-- Fraud qoidalari dvigateli: bir IP/qurilmadan ko'p hisob, g'ayritabiiy tez
+- Fraud qoidalari dvigateli: bir IP/qurilmadan koʻp hisob, gʻayritabiiy tez
   qabul-topshirish, bir xil foto takrori (perceptual hash), narxdan chetlanish.
 
-### J. LOGISTIKA (uch pog'onali tarmoq)
+### J. LOGISTIKA (uch pogʻonali tarmoq)
 
 ```
 Viloyat markazi      → yirik tarqatish omborxonasi
-Tuman/shahar markazi → kichik yig'ish-tarqatish punkti
+Tuman/shahar markazi → kichik yigʻish-tarqatish punkti
 Mahalla nuqtasi      → MAVJUD bino (alohida qurilish shart emas)
 ```
 
 - **Birlashtirilgan marshrut:** bir hududdagi barcha buyurtmalar (B2B ham,
-  qishloq xo'jaligi ham, xomashyo/tayyor mahsulot ham) BITTA yo'nalishga
+  qishloq xoʻjaligi ham, xomashyo/tayyor mahsulot ham) BITTA yoʻnalishga
   birlashtiriladi → xarajat kamayadi. `RouteBatchingService`: hudud + sana +
-  sig'im bo'yicha guruhlash, oddiy nearest-neighbour marshrut.
-- **Kuryerlik — yangi bandlik manbai:** mahalliy fuqaro "o'zini o'zi band qilish"
-  orqali kuryer sifatida ro'yxatdan o'tadi, tashqi kompaniya shart emas. Kuryer
+  sigʻim boʻyicha guruhlash, oddiy nearest-neighbour marshrut.
+- **Kuryerlik — yangi bandlik manbai:** mahalliy fuqaro "oʻzini oʻzi band qilish"
+  orqali kuryer sifatida roʻyxatdan oʻtadi, tashqi kompaniya shart emas. Kuryer
   ham eskrou orqali haq oladi, uning ham reytingi bor.
 - Har topshirish nuqtasida QR skan + foto + vaqt = `Handover` yozuvi.
 
 ### K. BOSHQARMA DASHBOARDI
 
-"Toshkent viloyati Kambag'allikni qisqartirish va bandlik boshqarmasi,
-Nurafshon shahar bo'limi" uchun real vaqtli panel.
+"Toshkent viloyati Kambagʻallikni qisqartirish va bandlik boshqarmasi,
+Nurafshon shahar boʻlimi" uchun real vaqtli panel.
 
 **Kutilayotgan natija:**
 - "Temir daftar" / "Ayollar daftari" / "Yoshlar daftari"dagi fuqarolar sonini
-  qisqartirish → panelda: nechta fuqaro ro'yxatdan chiqdi (oy kesimida).
-- Norasmiy uy mehnatini rasmiylashtirish → "o'zini o'zi band qilgan" maqomini
+  qisqartirish → panelda: nechta fuqaro roʻyxatdan chiqdi (oy kesimida).
+- Norasmiy uy mehnatini rasmiylashtirish → "oʻzini oʻzi band qilgan" maqomini
   olganlar soni, ularning jami rasmiy daromadi.
 - Har oy aniq raqamli hisobot → PDF/XLSX eksport, avtomatik oylik snapshot.
-- KSB korxonalarning barqaror ishlashiga ko'maklashish → faol korxona soni,
-  e'lon qilingan/bajarilgan vazifa nisbati (fill rate).
+- KSB korxonalarning barqaror ishlashiga koʻmaklashish → faol korxona soni,
+  eʼlon qilingan/bajarilgan vazifa nisbati (fill rate).
 
-**KPI'lar** (mahalla / tuman / soha / jins / yosh kesimida filtrlanadi):
-ro'yxatdan o'tgan fuqaro · maqom olgan fuqaro · faol ijrochi (30 kun) · e'lon
-qilingan vazifa · bajarilgan vazifa · o'rtacha bajarilish vaqti · jami to'langan
-summa · ijrochining o'rtacha oylik daromadi · faol korxona · vazifa fill rate ·
+**KPIʼlar** (mahalla / tuman / soha / jins / yosh kesimida filtrlanadi):
+roʻyxatdan oʻtgan fuqaro · maqom olgan fuqaro · faol ijrochi (30 kun) · eʼlon
+qilingan vazifa · bajarilgan vazifa · oʻrtacha bajarilish vaqti · jami toʻlangan
+summa · ijrochining oʻrtacha oylik daromadi · faol korxona · vazifa fill rate ·
 nizo ulushi · registrdan chiqqanlar · kuryer soni va yetkazishlar
 
-Grafiklar: vaqt qatori (oylik), mahalla bo'yicha reyting jadvali, soha bo'yicha
+Grafiklar: vaqt qatori (oylik), mahalla boʻyicha reyting jadvali, soha boʻyicha
 taqsimot. Eksport: XLSX + PDF (rasmiy blank formatida).
 
-**Maxfiylik:** boshqarma foydalanuvchisi shaxsiy ma'lumotni ko'rmaydi — faqat
+**Maxfiylik:** boshqarma foydalanuvchisi shaxsiy maʼlumotni koʻrmaydi — faqat
 agregat; 5 tadan kam yozuvli kesim yashiriladi (k-anonimlik). Har eksport
 `AuditLog`da.
 
@@ -281,54 +281,54 @@ agregat; 5 tadan kam yozuvli kesim yashiriladi (k-anonimlik). Har eksport
 
 Har biri uchun `packages/integrations/<name>` ichida: `interface` +
 `MockProvider` (MVP uchun ishlaydigan) + `RealProvider` (stub). ENV flag orqali
-almashadi. **Hech qanday integratsiya yo'qligi MVPni to'xtatmasin.**
+almashadi. **Hech qanday integratsiya yoʻqligi MVPni toʻxtatmasin.**
 
 | Adapter | Vazifasi |
 |---|---|
 | `IdentityProvider` | OneID / IIV passport tekshiruvi |
-| `TaxProvider` | Soliq qo'mitasi: STIR, "o'zini o'zi band qilish" maqomi, daromad |
+| `TaxProvider` | Soliq qoʻmitasi: STIR, "oʻzini oʻzi band qilish" maqomi, daromad |
 | `LivenessProvider` | Yuz orqali jonli tekshirish |
-| `PaymentProvider` | Payme / Click / Uzum (to'lov qabul qilish + payout) |
+| `PaymentProvider` | Payme / Click / Uzum (toʻlov qabul qilish + payout) |
 | `SmsProvider` | Eskiz.uz / Play Mobile |
 | `TelegramBot` | Bildirishnoma + oddiy vazifa qabul qilish |
-| `RegistryProvider` | "Temir daftar" / "ayollar" / "yoshlar" ro'yxati importi |
+| `RegistryProvider` | "Temir daftar" / "ayollar" / "yoshlar" roʻyxati importi |
 
 > **MUHIM OGOHLANTIRISH (kodga izoh sifatida yoziladi):**
-> Haqiqiy eskrou (uchinchi shaxs pulini ushlab turish) O'zbekistonda bank yoki
-> to'lov tashkiloti litsenziyasini talab qiladi. Shuning uchun pul harakati
+> Haqiqiy eskrou (uchinchi shaxs pulini ushlab turish) Oʻzbekistonda bank yoki
+> toʻlov tashkiloti litsenziyasini talab qiladi. Shuning uchun pul harakati
 > `LedgerService` (double-entry) orqali abstraksiya qilinadi; MVPda "virtual
 > hamyon + mock provider", ishlab chiqarishda esa hamkor bank/PSP hisobi
-> ulanadi. Kodda bu chegara aniq ajratilgan bo'lsin.
+> ulanadi. Kodda bu chegara aniq ajratilgan boʻlsin.
 
 ### M. KELAJAK STRATEGIYASI
 
-Xitoy tajribasi ("Sharq–G'arb hamkorligi", 1996-yildan): rivojlangan sharqiy
-provinsiyalar kambag'al g'arbiy provinsiyalar bilan yagona "chiqish hududi –
-kirish hududi" axborot tizimi orqali bog'langan (5 mln+ qishloq ishchisi band
-bo'ldi, ~800 qo'shma sanoat zonasi, 30 yil sinovdan o'tgan tizim).
+Xitoy tajribasi ("Sharq–Gʻarb hamkorligi", 1996-yildan): rivojlangan sharqiy
+provinsiyalar kambagʻal gʻarbiy provinsiyalar bilan yagona "chiqish hududi –
+kirish hududi" axborot tizimi orqali bogʻlangan (5 mln+ qishloq ishchisi band
+boʻldi, ~800 qoʻshma sanoat zonasi, 30 yil sinovdan oʻtgan tizim).
 
-Bizning yo'l:
-- **1-bosqich:** Nurafshon pilot (to'qimachilik/qadoqlash, 3 oy).
-- **2-bosqich:** respublika miqyosi — yagona ma'lumotlar bazasi asosida, masalan
-  Farg'ona vodiysining ortiqcha ishchi kuchini Toshkent/Sirdaryo sanoat zonalari
-  bilan bog'lash.
+Bizning yoʻl:
+- **1-bosqich:** Nurafshon pilot (toʻqimachilik/qadoqlash, 3 oy).
+- **2-bosqich:** respublika miqyosi — yagona maʼlumotlar bazasi asosida, masalan
+  Fargʻona vodiysining ortiqcha ishchi kuchini Toshkent/Sirdaryo sanoat zonalari
+  bilan bogʻlash.
 
-**Arxitektura talabi:** markazlashgan, ko'p-hududli (multi-region tenancy).
-Boshidanoq har bir yozuvda `regionId/districtId/mahallaId` bo'lsin, RBAC hudud
-bo'yicha cheklansin, va "ortiqcha ishchi kuchi hududi ↔ talab hududi"ni
-moslashtirish uchun `LaborSupplyDemandIndex` (hudud × soha × ko'nikma kesimida
-taklif/talab balansi) modeli oldindan ko'zda tutilsin.
+**Arxitektura talabi:** markazlashgan, koʻp-hududli (multi-region tenancy).
+Boshidanoq har bir yozuvda `regionId/districtId/mahallaId` boʻlsin, RBAC hudud
+boʻyicha cheklansin, va "ortiqcha ishchi kuchi hududi ↔ talab hududi"ni
+moslashtirish uchun `LaborSupplyDemandIndex` (hudud × soha × koʻnikma kesimida
+taklif/talab balansi) modeli oldindan koʻzda tutilsin.
 
 ### N. ISH USLUBI TALABLARI
 
-- Har bosqichda: to'liq ishlaydigan kod, migratsiya, seed va qisqa test.
+- Har bosqichda: toʻliq ishlaydigan kod, migratsiya, seed va qisqa test.
 - TypeScript strict, `any` ishlatilmaydi. Har service uchun Zod sxema.
 - Biznes mantiq `src/server/services/*` da, Route Handler faqat yupqa qatlam.
-- Fayl yozishdan oldin qaysi fayllar yaratilayotgani ro'yxat qilinadi.
-- Taxmin qilish kerak bo'lsa — taxmin ochiq yoziladi, ish to'xtamaydi.
+- Fayl yozishdan oldin qaysi fayllar yaratilayotgani roʻyxat qilinadi.
+- Taxmin qilish kerak boʻlsa — taxmin ochiq yoziladi, ish toʻxtamaydi.
 - Har javob oxirida: "Keyingi qadam" va tekshirish buyruqlari.
-- UI matnlari faqat o'zbek tilida (lotin), tarjima fayli orqali.
-- Seed ma'lumot real bo'lsin: Nurafshon shahri mahallalari, to'qimachilik/
+- UI matnlari faqat oʻzbek tilida (lotin), tarjima fayli orqali.
+- Seed maʼlumot real boʻlsin: Nurafshon shahri mahallalari, toʻqimachilik/
   qadoqlash vazifa namunalari, 2 ta test korxona, 10 ta test fuqaro.
 
 ---
@@ -355,41 +355,41 @@ Yarat:
 Oxirida: `pnpm dev` bilan ishga tushirish va OTP orqali kirishni qanday sinash
 kerakligini yozib ber.
 
-### Bosqich 2 — Profillar, KYC/KYB, "O'zini o'zi band qilish"
+### Bosqich 2 — Profillar, KYC/KYB, "Oʻzini oʻzi band qilish"
 
-- `WorkerProfile`: ko'nikmalar (`Skill` katalogi), daraja, haftalik bo'sh vaqt,
+- `WorkerProfile`: koʻnikmalar (`Skill` katalogi), daraja, haftalik boʻsh vaqt,
   uy sharoiti (tikuv mashinasi, joy hajmi va h.k.), maksimal yuk, mahalla
-- `CompanyProfile`: STIR/INN, yuridik manzil, soha, mas'ul shaxs
-- `CourierProfile`: transport turi, sig'im, xizmat hududi
+- `CompanyProfile`: STIR/INN, yuridik manzil, soha, masʼul shaxs
+- `CourierProfile`: transport turi, sigʻim, xizmat hududi
 - `KycVerification`: passport/ID + PINFL. PINFL OCHIQ SAQLANMAYDI —
   `pinflHash = HMAC-SHA256(pinfl, SECRET)` unique indeks. Provider interfeysi
-  + `MockIdentityProvider` (test PINFL'lar ro'yxati bilan)
+  + `MockIdentityProvider` (test PINFLʼlar roʻyxati bilan)
 - `KybVerification`: `MockTaxProvider` orqali STIR tekshiruvi
 - `SelfEmploymentRegistration`: ariza formasi → status oqimi → maqom hujjati.
-  **GATE:** maqom `VERIFIED` bo'lmaguncha foydalanuvchi to'lovli vazifa QABUL
+  **GATE:** maqom `VERIFIED` boʻlmaguncha foydalanuvchi toʻlovli vazifa QABUL
   QILA OLMAYDI (service qatlamida majburiy tekshiruv + test)
 - `RegistryFlag`: temir daftar / ayollar / yoshlar daftari — CSV import (admin)
   va fuqaro registrdan chiqqanida `exitedAt` yozilishi
-- `ConsentRecord`: shaxsiy ma'lumotga rozilik (matn versiyasi bilan)
-- `MAHALLA_COORDINATOR` uchun panel: fuqaroni ro'yxatga olish/tasdiqlash
+- `ConsentRecord`: shaxsiy maʼlumotga rozilik (matn versiyasi bilan)
+- `MAHALLA_COORDINATOR` uchun panel: fuqaroni roʻyxatga olish/tasdiqlash
 
-`AuditLog` barcha maqom o'zgarishlarida yozilsin.
+`AuditLog` barcha maqom oʻzgarishlarida yozilsin.
 
 ### Bosqich 3 — Vazifalar bozori (P1: ishlab chiqarish autsorsingi)
 
 - `Task` modeli: sarlavha, soha, tavsif, birlik narxi, miqdor, jami summa,
   muddat, xomashyo kim tomonidan, olib ketish/yetkazish nuqtasi, sifat mezoni
-  (checklist), foto dalil talabi, kerakli ko'nikmalar, minimal reyting
-- `TaskBatch`/`TaskItem`: katta buyurtmani bo'laklarga bo'lish (masalan 10 000
-  dona qadoq → 100 tadan 100 ta bo'lak)
-- **Korxona oqimi:** e'lon yaratish sehrgari (wizard) → ko'rib chiqish → e'lon
-  qilish (e'lon qilishda eskrou hold talab qilinadi — hozircha mock)
-- **Fuqaro oqimi:** lenta (yaqin mahalla + ko'nikma bo'yicha saralangan), filtr,
+  (checklist), foto dalil talabi, kerakli koʻnikmalar, minimal reyting
+- `TaskBatch`/`TaskItem`: katta buyurtmani boʻlaklarga boʻlish (masalan 10 000
+  dona qadoq → 100 tadan 100 ta boʻlak)
+- **Korxona oqimi:** eʼlon yaratish sehrgari (wizard) → koʻrib chiqish → eʼlon
+  qilish (eʼlon qilishda eskrou hold talab qilinadi — hozircha mock)
+- **Fuqaro oqimi:** lenta (yaqin mahalla + koʻnikma boʻyicha saralangan), filtr,
   vazifa kartasi, "Olaman" tugmasi → `Application` → `Assignment`
-- `MatchingService`: ko'nikma mosligi, masofa (mahalla), reyting, oldingi tajriba,
-  yuklama — 0..1 ball. Qanday hisoblanganini izohlab ko'rsat ("nega menga
-  ko'rsatildi")
-- Holat mashinasi `transitions.ts` deklarativ; to'g'ridan-to'g'ri status UPDATE
+- `MatchingService`: koʻnikma mosligi, masofa (mahalla), reyting, oldingi tajriba,
+  yuklama — 0..1 ball. Qanday hisoblanganini izohlab koʻrsat ("nega menga
+  koʻrsatildi")
+- Holat mashinasi `transitions.ts` deklarativ; toʻgʻridan-toʻgʻri status UPDATE
   taqiqlangan
 - Bildirishnoma: yangi mos vazifa, ariza qabul qilindi, muddat yaqinlashdi
 
@@ -399,54 +399,54 @@ UI: juda sodda. Fuqaro uchun 3 ta ekran — "Ishlar", "Mening ishlarim", "Hamyon
 
 - `Submission`: ijrochi ishni topshiradi — foto/video dalil (S3), izoh, miqdor
 - `QcReview`: korxona qabul qiladi / qayta ishlashga qaytaradi / rad etadi.
-  Sabab kodlari ro'yxati. Qayta ishlash maksimum 2 marta.
+  Sabab kodlari roʻyxati. Qayta ishlash maksimum 2 marta.
 - **Avtomatik qabul:** korxona N kun (default 5) javob bermasa — avtomatik
   `ACCEPTED` (BullMQ kechiktirilgan vazifa)
-- `Dispute`: nizo ochish, xabar almashish, dalil qo'shish, `MODERATOR` qarori:
-  ijrochi foydasiga / korxona foydasiga / bo'lib berish (`SPLIT`). Qaror
-  eskrouga bevosita ta'sir qiladi.
+- `Dispute`: nizo ochish, xabar almashish, dalil qoʻshish, `MODERATOR` qarori:
+  ijrochi foydasiga / korxona foydasiga / boʻlib berish (`SPLIT`). Qaror
+  eskrouga bevosita taʼsir qiladi.
 - **Ish tarixi:** har bir yakunlangan vazifa fuqaroning "raqamli mehnat tarixi"ga
-  yoziladi (kelajakda rasmiy ish yoki o'z biznesiga zamin)
-- Barcha o'tishlar `AuditLog`da
+  yoziladi (kelajakda rasmiy ish yoki oʻz biznesiga zamin)
+- Barcha oʻtishlar `AuditLog`da
 
-### Bosqich 5 — Hamyon, eskrou, komissiya, to'lovlar
+### Bosqich 5 — Hamyon, eskrou, komissiya, toʻlovlar
 
 > Eng ehtiyotkorlik talab qiladigan qism.
 
-- `LedgerService`: **DOUBLE-ENTRY**. `LedgerEntry` o'chirilmaydi/o'zgartirilmaydi,
+- `LedgerService`: **DOUBLE-ENTRY**. `LedgerEntry` oʻchirilmaydi/oʻzgartirilmaydi,
   faqat qarama-qarshi yozuv (reversal). Hisoblar: `company_wallet`,
   `worker_wallet`, `courier_wallet`, `escrow_account`, `platform_commission`,
   `gateway`
 - `EscrowHold`: `PENDING → FUNDED → HELD → RELEASED | REFUNDED | SPLIT`
-  - vazifa e'lon qilinganda hold; `ACCEPTED` bo'lganda release;
-    `CANCELLED`/rad bo'lganda refund; nizo `SPLIT` bo'lsa bo'linadi
-- `CommissionPolicy`: soha bo'yicha foiz + minimal summa; komissiya
-  **KORXONADAN** olinadi (davlat byudjetidan mablag' talab qilinmaydi).
+  - vazifa eʼlon qilinganda hold; `ACCEPTED` boʻlganda release;
+    `CANCELLED`/rad boʻlganda refund; nizo `SPLIT` boʻlsa boʻlinadi
+- `CommissionPolicy`: soha boʻyicha foiz + minimal summa; komissiya
+  **KORXONADAN** olinadi (davlat byudjetidan mablagʻ talab qilinmaydi).
   Har chegirma `CommissionCharge` sifatida yoziladi.
-- `PaymentProvider` interfeysi + `MockPaymentProvider` (to'lov qabul qilish,
+- `PaymentProvider` interfeysi + `MockPaymentProvider` (toʻlov qabul qilish,
   payout, webhook). Webhook idempotent (`PaymentProviderEvent` unique eventId).
 - `Payout`: ijrochi pul yechadi → `LivenessCheck` talab qilinadi (birinchi payout,
-  limitdan katta summa yoki yangi qurilma bo'lsa)
+  limitdan katta summa yoki yangi qurilma boʻlsa)
 - Barcha pul endpointlari `Idempotency-Key` header talab qiladi
 - Hamyon UI: balans, kutilayotgan (eskrouda), tarix, chek (PDF)
 - **Testlar majburiy:** eskrou hayot sikli, SPLIT, auto-release, ikki marta
-  to'lash (double-spend) muhofazasi
+  toʻlash (double-spend) muhofazasi
 
-### Bosqich 6 — Reyting, ishonch bali, antifrod, qora ro'yxat
+### Bosqich 6 — Reyting, ishonch bali, antifrod, qora roʻyxat
 
 - `Rating`: ikki tomonlama (korxona ↔ ijrochi), 1–5 + mezonlar (sifat, muddat,
   muloqot), izoh moderatsiyasi
-- `TrustScore`: 0–100. Formula (sozlanadigan og'irliklar bilan): bajarilgan
+- `TrustScore`: 0–100. Formula (sozlanadigan ogʻirliklar bilan): bajarilgan
   vazifa soni, muddatga rioya, qayta ishlash ulushi, nizo ulushi, KYC darajasi,
-  faoliyat davomiyligi, bekor qilishlar. Har komponentni alohida ko'rsat va
+  faoliyat davomiyligi, bekor qilishlar. Har komponentni alohida koʻrsat va
   "reytingni qanday oshirish mumkin" tavsiyasini chiqar.
 - **Avtomatik cheklovlar:** `TrustScore < X` → bir vaqtda 1 vazifa, katta summali
   vazifa taqiqi, majburiy moderatsiya
-- `Blacklist`: PINFL HASH bo'yicha. Blok yangi hisob ochishga ham tarqaladi.
-  Sabab, muddat, kim qo'ygan, `Appeal` (shikoyat) jarayoni
+- `Blacklist`: PINFL HASH boʻyicha. Blok yangi hisob ochishga ham tarqaladi.
+  Sabab, muddat, kim qoʻygan, `Appeal` (shikoyat) jarayoni
 - `FraudSignal` dvigateli (qoidalar):
-  - bir qurilma/IP'dan bir nechta hisob
-  - g'ayritabiiy tez qabul → topshirish
+  - bir qurilma/IPʼdan bir nechta hisob
+  - gʻayritabiiy tez qabul → topshirish
   - takroriy dalil fotosi (perceptual hash)
   - bozor narxidan keskin chetlanish
   - yangi hisob + katta summa
@@ -454,59 +454,59 @@ UI: juda sodda. Fuqaro uchun 3 ta ekran — "Ishlar", "Mening ishlarim", "Hamyon
   Har signal ball beradi, chegaradan oshsa moderator navbatiga tushadi.
 - `LivenessProvider` trigger qoidalari markazlashgan `RiskPolicy` da
 
-### Bosqich 7 — Logistika: 3 pog'onali tarmoq va kuryer
+### Bosqich 7 — Logistika: 3 pogʻonali tarmoq va kuryer
 
 - `Hub`: `REGION_WAREHOUSE` | `DISTRICT_POINT` | `MAHALLA_POINT`.
-  Ish vaqti, mas'ul, sig'im.
+  Ish vaqti, masʼul, sigʻim.
 - `Shipment` + `ShipmentLeg`: xomashyoni ijrochiga yetkazish VA tayyor
   mahsulotni korxonaga qaytarish — ikkalasi ham
-- `Handover`: har nuqtada QR skan + foto + GPS + vaqt + mas'ul shaxs
-- `RouteBatchingService`: hudud + sana + sig'im bo'yicha guruhlash, bir
+- `Handover`: har nuqtada QR skan + foto + GPS + vaqt + masʼul shaxs
+- `RouteBatchingService`: hudud + sana + sigʻim boʻyicha guruhlash, bir
   hududdagi BARCHA buyurtmalar (autsorsing + B2B + agro) bitta marshrutga
-  birlashtiriladi. Oddiy nearest-neighbour + qo'lda tartiblash imkoni.
+  birlashtiriladi. Oddiy nearest-neighbour + qoʻlda tartiblash imkoni.
 - `CourierProfile` + kuryer ekranlari: bugungi marshrut, skan, muammo belgilash
-- Kuryer haqi ham eskrou orqali; kuryer ham "o'zini o'zi band qilish" orqali
-  ro'yxatdan o'tgan bo'lishi shart
+- Kuryer haqi ham eskrou orqali; kuryer ham "oʻzini oʻzi band qilish" orqali
+  roʻyxatdan oʻtgan boʻlishi shart
 - `HUB_OPERATOR` paneli: kelgan/ketgan, inventarizatsiya
 
 ### Bosqich 8 — B2B bozori va Agro moduli
 
-**B2B (do'kon ↔ ta'minotchi, ochiq narx raqobati):**
-- `B2bProduct` katalogi (o'lchov birligi, kategoriya)
-- `Rfq`: do'kon talab e'lon qiladi (mahsulot, hajm, yetkazish sanasi, hudud)
-- `Quote`: ta'minotchilar taklif beradi (narx, muddat, sifat sharti).
-  Taqqoslash jadvali — narx/muddat/reyting. Do'kon tanlaydi → `PurchaseOrder`
+**B2B (doʻkon ↔ taʼminotchi, ochiq narx raqobati):**
+- `B2bProduct` katalogi (oʻlchov birligi, kategoriya)
+- `Rfq`: doʻkon talab eʼlon qiladi (mahsulot, hajm, yetkazish sanasi, hudud)
+- `Quote`: taʼminotchilar taklif beradi (narx, muddat, sifat sharti).
+  Taqqoslash jadvali — narx/muddat/reyting. Doʻkon tanlaydi → `PurchaseOrder`
 - Yetkazish 7-bosqichdagi birlashtirilgan marshrutdan foydalanadi
-- To'lov: eskrou orqali, qabul qilingach ozod qilinadi
+- Toʻlov: eskrou orqali, qabul qilingach ozod qilinadi
 
-**Agro (qishloq xo'jaligi va chorvachilik):**
-- `AgroListing`: yer/chorva egasi mahsulotni e'lon qiladi (tur, hajm, yig'im
+**Agro (qishloq xoʻjaligi va chorvachilik):**
+- `AgroListing`: yer/chorva egasi mahsulotni eʼlon qiladi (tur, hajm, yigʻim
   sanasi, sifat darajasi, foto)
 - `AgroDemand`: xaridor talabi
 - Moslashtirish: talab ↔ taklif (hudud, sana, hajm)
 - `AgroContract`: **KAFOLATLANGAN XARID** — oldindan kelishilgan narx va hajm,
-  qisman oldindan to'lov (eskrouda), yig'im-terimda yakuniy hisob-kitob
+  qisman oldindan toʻlov (eskrouda), yigʻim-terimda yakuniy hisob-kitob
 - Mavsumiy kalendar va ogohlantirishlar
 
 ### Bosqich 9 — Boshqarma dashboardi va hisobotlar
 
 > Loyihaning "sotuv" moduli — sifatli qilinadi.
 
-- KPI kartalari: ro'yxatdan o'tgan fuqaro · "o'zini o'zi band qilgan" maqomini
-  olganlar · faol ijrochi (30 kun) · e'lon qilingan/bajarilgan vazifa · fill rate
-  · jami to'langan summa · o'rtacha oylik daromad · faol korxona · nizo ulushi ·
+- KPI kartalari: roʻyxatdan oʻtgan fuqaro · "oʻzini oʻzi band qilgan" maqomini
+  olganlar · faol ijrochi (30 kun) · eʼlon qilingan/bajarilgan vazifa · fill rate
+  · jami toʻlangan summa · oʻrtacha oylik daromad · faol korxona · nizo ulushi ·
   **REGISTRDAN CHIQQANLAR** (temir daftar / ayollar / yoshlar — alohida va jami)
   · kuryer soni va yetkazishlar
-- Filtr: sana oralig'i, mahalla, tuman, soha, jins, yosh guruhi
+- Filtr: sana oraligʻi, mahalla, tuman, soha, jins, yosh guruhi
 - Grafiklar: oylik dinamika, mahalla reytingi, soha taqsimoti, daromad taqsimoti
-- Oylik avtomatik `ReportSnapshot` (BullMQ cron) — o'zgarmas tarixiy nusxa
-- Eksport: XLSX va PDF (rasmiy hisobot ko'rinishida, sarlavhada
-  "Toshkent viloyati Kambag'allikni qisqartirish va bandlik boshqarmasi,
-  Nurafshon shahar bo'limi" va hisobot davri)
-- **MAXFIYLIK:** boshqarma roli shaxsiy hujjat, telefon, karta, to'lov
-  tafsilotini KO'RMAYDI. Faqat agregat. 5 tadan kam yozuvli kesim yashiriladi
+- Oylik avtomatik `ReportSnapshot` (BullMQ cron) — oʻzgarmas tarixiy nusxa
+- Eksport: XLSX va PDF (rasmiy hisobot koʻrinishida, sarlavhada
+  "Toshkent viloyati Kambagʻallikni qisqartirish va bandlik boshqarmasi,
+  Nurafshon shahar boʻlimi" va hisobot davri)
+- **MAXFIYLIK:** boshqarma roli shaxsiy hujjat, telefon, karta, toʻlov
+  tafsilotini KOʻRMAYDI. Faqat agregat. 5 tadan kam yozuvli kesim yashiriladi
   (k-anonimlik). Har bir eksport `AuditLog`ga yoziladi.
-- `LaborSupplyDemandIndex`: hudud × soha × ko'nikma kesimida taklif/talab balansi
+- `LaborSupplyDemandIndex`: hudud × soha × koʻnikma kesimida taklif/talab balansi
 
 ### Bosqich 10 — Bildirishnomalar, Telegram bot, SMS
 
@@ -514,11 +514,11 @@ UI: juda sodda. Fuqaro uchun 3 ta ekran — "Ishlar", "Mening ishlarim", "Hamyon
   `PUSH | SMS | TELEGRAM | IN_APP`
 - Kanal tanlash siyosati: avval push/telegram, yetib bormasa SMS (narxni tejash)
 - Hodisalar: yangi mos vazifa · ariza qabul qilindi · muddat 24 soat qoldi ·
-  ish qabul qilindi · pul o'tkazildi · nizo ochildi/hal bo'ldi · yuk yetib keldi ·
+  ish qabul qilindi · pul oʻtkazildi · nizo ochildi/hal boʻldi · yuk yetib keldi ·
   maqom tasdiqlandi
-- Telegram bot: ro'yxatdan o'tish havolasi, yangi vazifa xabari, "Olaman"
+- Telegram bot: roʻyxatdan oʻtish havolasi, yangi vazifa xabari, "Olaman"
   tugmasi (deep link), hamyon balansi
-- BullMQ navbat + qayta urinish + o'chirilgan kanal sozlamalari
+- BullMQ navbat + qayta urinish + oʻchirilgan kanal sozlamalari
 - Foydalanuvchi sozlamalari: qaysi xabarni qaysi kanalda olish, "bezovta
   qilmang" vaqti
 
@@ -526,33 +526,33 @@ UI: juda sodda. Fuqaro uchun 3 ta ekran — "Ishlar", "Mening ishlarim", "Hamyon
 
 - **Vitest** (service qatlami): eskrou hayot sikli, holat mashinalari,
   komissiya hisobi, TrustScore, matching, k-anonimlik
-- **Playwright e2e** — 3 ta to'liq stsenariy:
-  1. Fuqaro ro'yxatdan o'tadi → maqom oladi → vazifa oladi → topshiradi →
+- **Playwright e2e** — 3 ta toʻliq stsenariy:
+  1. Fuqaro roʻyxatdan oʻtadi → maqom oladi → vazifa oladi → topshiradi →
      qabul qilinadi → pul oladi
-  2. Korxona e'lon beradi → eskrou → sifat rad → nizo → moderator SPLIT qarori
-  3. B2B: RFQ → 3 taklif → tanlov → yetkazish → to'lov
-- **Demo seed:** Nurafshon, 5 mahalla, 2 korxona (to'qimachilik + qadoqlash),
+  2. Korxona eʼlon beradi → eskrou → sifat rad → nizo → moderator SPLIT qarori
+  3. B2B: RFQ → 3 taklif → tanlov → yetkazish → toʻlov
+- **Demo seed:** Nurafshon, 5 mahalla, 2 korxona (toʻqimachilik + qadoqlash),
   20 fuqaro, 3 kuryer, 3 hub, 30 vazifa turli holatlarda, 3 oylik tarixiy
-  ma'lumot (dashboard bo'sh ko'rinmasligi uchun)
-- README (o'zbek tilida): o'rnatish, ENV, demo hisoblar, arxitektura sxemasi
+  maʼlumot (dashboard boʻsh koʻrinmasligi uchun)
+- README (oʻzbek tilida): oʻrnatish, ENV, demo hisoblar, arxitektura sxemasi
 - OpenAPI hujjati
 - GitHub Actions: lint + typecheck + test + build
 - Docker Compose (prod profil), migratsiya strategiyasi, backup eslatmasi
-- **XAVFSIZLIK CHEK-RO'YXATI:** 6 qatlamning har biri kodda qayerda amalga
+- **XAVFSIZLIK CHEK-ROʻYXATI:** 6 qatlamning har biri kodda qayerda amalga
   oshirilgani — fayl va funksiya nomi bilan jadval
 
 ---
 
-## 3. QO'SHIMCHA PROMPTLAR
+## 3. QOʻSHIMCHA PROMPTLAR
 
 ### Dizayn / UX
 
 Bandlik platformasining fuqaro ilovasi uchun UI kit va 5 ta asosiy ekran
 dizaynini ber. Auditoriya: 25–55 yosh, mahalla aholisi, arzon Android telefon,
 sekin internet, qisman past raqamli savodxonlik. Talab: katta tugma (min 48px),
-ikonka + matn, har ekranda bitta asosiy harakat, summa va muddat eng ko'zga
+ikonka + matn, har ekranda bitta asosiy harakat, summa va muddat eng koʻzga
 tashlanadigan element, holat rangi bilan aniq (kutilmoqda / bajarilmoqda /
-tasdiqlandi / to'landi). Rang palitrasi: davlat muassasasi bilan ishlash uchun
+tasdiqlandi / toʻlandi). Rang palitrasi: davlat muassasasi bilan ishlash uchun
 jiddiy, ammo iliq.
 
 ### Boshqarmaga texnik xulosa
@@ -564,6 +564,6 @@ yoz: arxitektura, xavfsizlikning 6 qatlami, byudjet talab qilinmasligi
 ### Xavfsizlik auditi
 
 Ushbu kodni quyidagi nuqtai nazardan tekshir: hisob "ijarasi", bir shaxs
-tomonidan bir necha hisob ochish, soxta korxona e'loni, eskroudan pul o'g'irlash,
+tomonidan bir necha hisob ochish, soxta korxona eʼloni, eskroudan pul oʻgʻirlash,
 sifat dalilini qayta ishlatish (foto takrori), boshqarma rolidan shaxsiy
-ma'lumot chiqib ketishi. Har bir xavf uchun: qayerda zaif, qanday tuzatish.
+maʼlumot chiqib ketishi. Har bir xavf uchun: qayerda zaif, qanday tuzatish.

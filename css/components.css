@@ -42,7 +42,7 @@
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 
-/* Summa — eng ko'zga tashlanadigan element */
+/* Summa — eng koʻzga tashlanadigan element */
 .pul-quti {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 16px; border-radius: var(--r-s);
@@ -69,7 +69,7 @@
 
 .vazifa-tana .tugma { margin-top: auto; }
 
-/* Moslik ko'rsatkichi */
+/* Moslik koʻrsatkichi */
 .moslik {
   display: flex; align-items: center; gap: 10px;
   font-size: 13px; color: var(--matn-2);

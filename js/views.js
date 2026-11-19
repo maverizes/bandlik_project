@@ -9,7 +9,7 @@ function esc(s) {
 }
 
 function pul(n) {
-  return new Intl.NumberFormat('uz-UZ').format(Math.round(n || 0)).replace(/,/g,' ') + " so'm";
+  return new Intl.NumberFormat('uz-UZ').format(Math.round(n || 0)).replace(/,/g,' ') + " soʻm";
 }
 function pulQisqa(n) {
   if (n >= 1_000_000) return (n / 1_000_000).toFixed(n >= 10_000_000 ? 0 : 1).replace('.0','') + ' mln';
@@ -30,10 +30,10 @@ function konikmaNomlari(ids) {
 function mahallaNomi(id) { return (MAHALLALAR.find(m => m.id === id) || {}).nom || '—'; }
 function hubNomi(id) { return (HUBLAR.find(h => h.id === id) || {}).nom || '—'; }
 
-/* Gorizontal bosqich ko'rsatkichi */
+/* Gorizontal bosqich koʻrsatkichi */
 function bosqichlar(holat) {
   const kalitlar = ['ASSIGNED','IN_PROGRESS','UNDER_REVIEW','PAID'];
-  const nomlar   = ['Olindi','Bajaryapman','Tekshiruvda',"To'landi"];
+  const nomlar   = ['Olindi','Bajaryapman','Tekshiruvda',"Toʻlandi"];
   let joriy = kalitlar.indexOf(holat);
   if (holat === 'REWORK' || holat === 'SUBMITTED') joriy = 1;
   if (holat === 'ACCEPTED') joriy = 3;
@@ -88,7 +88,7 @@ const V_Fuqaro = {
 
       ${royxat.length
         ? `<div class="setka setka-2 kirish-nav">${royxat.map(V_Fuqaro.vazifaKarta).join('')}</div>`
-        : bosh('Hozircha ish yo\'q', 'Yangi ish chiqqanda sizga SMS orqali xabar beramiz.')}
+        : bosh('Hozircha ish yoʻq', 'Yangi ish chiqqanda sizga SMS orqali xabar beramiz.')}
     </div>`;
   },
 
@@ -103,8 +103,8 @@ const V_Fuqaro = {
 
       <div class="gate">
         <div class="g-rasm">${Ill.hujjat(140)}</div>
-        <h2>${kutmoqda ? 'Arizangiz ko\'rib chiqilmoqda' : "\"O'zini o'zi band qilgan shaxs\" maqomi"}</h2>
-        <p>Qonun bo'yicha to'lovli ish qabul qilish uchun shu maqom kerak (PQ-4742).
+        <h2>${kutmoqda ? 'Arizangiz koʻrib chiqilmoqda' : "\"Oʻzini oʻzi band qilgan shaxs\" maqomi"}</h2>
+        <p>Qonun boʻyicha toʻlovli ish qabul qilish uchun shu maqom kerak (PQ-4742).
            Bepul va bir marta olinadi.</p>
 
         <div class="qadamlar">
@@ -118,14 +118,14 @@ const V_Fuqaro = {
         ${kutmoqda
           ? `<button class="tugma yashil keng" data-amal="maqom-tasdiq">Tasdiqni olish (demo)</button>
              <p style="font-size:13px;color:var(--matn-3);margin-top:12px">
-               Haqiqiy tizimda javob Soliq qo'mitasidan keladi</p>`
+               Haqiqiy tizimda javob Soliq qoʻmitasidan keladi</p>`
           : `<button class="tugma asos keng" data-amal="maqom-ariza">Ariza berish</button>`}
       </div>
 
       <div class="setka setka-3" style="margin-top:20px">
         ${[
-          ['💰', 'Soliq yo\'q', "Bu maqomda daromadingizdan jismoniy shaxs daromad solig'i olinmaydi"],
-          ['📋', 'Rasman band', "Ishsizlar ro'yxatidan chiqasiz, ijtimoiy maqomingiz o'zgaradi"],
+          ['💰', 'Soliq yoʻq', "Bu maqomda daromadingizdan jismoniy shaxs daromad soligʻi olinmaydi"],
+          ['📋', 'Rasman band', "Ishsizlar roʻyxatidan chiqasiz, ijtimoiy maqomingiz oʻzgaradi"],
           ['⭐', 'Mehnat tarixi', 'Bajargan ishlaringiz saqlanadi — kelajakda ishonch beradi']
         ].map(([i, s, m]) => `
           <div class="karta"><div class="karta-ich">
@@ -190,7 +190,7 @@ const V_Fuqaro = {
 
     if (!meniki.length) {
       return `<div class="kirish"><div class="sahifa-bosh"><h1>Mening ishlarim</h1></div>
-        ${bosh('Hali ish olmagansiz', '"Ishlar" bo\'limiga o\'ting va o\'zingizga mos ishni tanlang.')}</div>`;
+        ${bosh('Hali ish olmagansiz', '"Ishlar" boʻlimiga oʻting va oʻzingizga mos ishni tanlang.')}</div>`;
     }
 
     const faol = meniki.filter(v => v.holat !== 'PAID');
@@ -225,25 +225,25 @@ const V_Fuqaro = {
         ${v.holat === 'REWORK' ? `
           <div class="eslatma xato" style="margin-bottom:14px">
             <span class="ikon">↻</span>
-            <div><h4>Qayta ishlash so'ralgan (${v.qaytaIshlash}/2)</h4>
+            <div><h4>Qayta ishlash soʻralgan (${v.qaytaIshlash}/2)</h4>
               <p>${esc(v.rejectSabab || '')}</p></div>
           </div>` : ''}
         ${v.fotoTalab ? `
           <button class="tugma ${fotoBor ? 'yashil' : ''} keng" data-amal="foto" data-id="${v.id}"
                   style="margin-bottom:10px">
-            ${fotoBor ? `✓ ${v.foto.length} ta foto qo'shildi` : '📷 Ish fotosini qo\'shing'}
+            ${fotoBor ? `✓ ${v.foto.length} ta foto qoʻshildi` : '📷 Ish fotosini qoʻshing'}
           </button>` : ''}
         <button class="tugma asos keng" data-amal="topshir" data-id="${v.id}"
                 ${v.fotoTalab && !fotoBor ? 'disabled' : ''}>Ishni topshirish</button>
         ${v.fotoTalab && !fotoBor
           ? `<p style="font-size:13px;color:var(--matn-3);text-align:center;margin-top:8px">
-               Topshirish uchun avval foto qo'shing</p>` : ''}`;
+               Topshirish uchun avval foto qoʻshing</p>` : ''}`;
 
     } else if (v.holat === 'UNDER_REVIEW') {
       amal = `<div class="eslatma ogoh">
         <span class="ikon">⏳</span>
         <div><h4>Korxona tekshirmoqda</h4>
-          <p>${AUTO_RELEASE_KUN} kun ichida javob bermasa, pul avtomatik sizga o'tadi.</p></div></div>`;
+          <p>${AUTO_RELEASE_KUN} kun ichida javob bermasa, pul avtomatik sizga oʻtadi.</p></div></div>`;
 
     } else if (v.holat === 'PAID') {
       amal = `<div class="eslatma yaxshi">
@@ -254,7 +254,7 @@ const V_Fuqaro = {
     } else if (v.holat === 'DISPUTED') {
       amal = `<div class="eslatma xato">
         <span class="ikon">⚖️</span>
-        <div><h4>Nizo ochilgan</h4><p>Moderator ko'rib chiqmoqda. Pul eskrouda saqlanmoqda.</p></div></div>`;
+        <div><h4>Nizo ochilgan</h4><p>Moderator koʻrib chiqmoqda. Pul eskrouda saqlanmoqda.</p></div></div>`;
     }
 
     return `
@@ -307,7 +307,7 @@ const V_Fuqaro = {
         <div class="eslatma ogoh" style="margin-top:14px">
           <span class="ikon">🔐</span>
           <div><h4>Xavfsizlik tekshiruvi</h4>
-            <p>Pul chiqarishda yuz orqali tekshirish so'raladi — bu hisobingizni
+            <p>Pul chiqarishda yuz orqali tekshirish soʻraladi — bu hisobingizni
                begona shaxs ishlatishidan himoya qiladi.</p></div>
         </div>` : ''}
 
@@ -327,7 +327,7 @@ const V_Fuqaro = {
           }).join('')
         : `<div class="bosh">${Ill.hamyon(130)}
              <h3>Hali pul tushmagan</h3>
-             <p>Birinchi ishni bajarib topshiring — pul shu yerda ko'rinadi.</p></div>`}
+             <p>Birinchi ishni bajarib topshiring — pul shu yerda koʻrinadi.</p></div>`}
     </div>`;
   },
 
@@ -374,15 +374,15 @@ const V_Fuqaro = {
           <div class="qadamlar" style="max-width:none;margin:0 0 16px">
             <div class="qadam tayyor"><span class="n">✓</span><span>Telefon tasdiqlangan</span></div>
             <div class="qadam ${tasdiq ? 'tayyor' : ''}">
-              <span class="n">${tasdiq ? '✓' : '!'}</span><span>O'zini o'zi band qilgan shaxs</span></div>
+              <span class="n">${tasdiq ? '✓' : '!'}</span><span>Oʻzini oʻzi band qilgan shaxs</span></div>
             <div class="qadam ${tasdiq ? 'tayyor' : ''}">
               <span class="n">${tasdiq ? '✓' : '—'}</span><span>Shaxs tasdiqlangan (KYC)</span></div>
           </div>
 
-          <h3 style="font-size:16px;margin-bottom:10px">Ko'nikmalarim</h3>
+          <h3 style="font-size:16px;margin-bottom:10px">Koʻnikmalarim</h3>
           <div style="display:flex;flex-wrap:wrap;gap:7px">
             ${konikmaNomlari(men.konikma).map(k =>
-              `<span class="belgi kok">${esc(k)}</span>`).join('') || '<span class="belgi">Qo\'shilmagan</span>'}
+              `<span class="belgi kok">${esc(k)}</span>`).join('') || '<span class="belgi">Qoʻshilmagan</span>'}
           </div>
 
           ${men.registry && men.registry.length ? `
@@ -431,12 +431,12 @@ const V_Korxona = {
         <div class="eslatma ogoh" style="margin-bottom:16px">
           <span class="ikon">⏳</span>
           <div><h4>${kutayotgan.length} ta ish tekshiruvingizni kutmoqda</h4>
-            <p>${AUTO_RELEASE_KUN} kun ichida javob bermasangiz, to'lov avtomatik ijrochiga o'tadi.</p></div>
+            <p>${AUTO_RELEASE_KUN} kun ichida javob bermasangiz, toʻlov avtomatik ijrochiga oʻtadi.</p></div>
         </div>` : ''}
 
       ${meniki.length
         ? `<div class="setka kirish-nav">${kutayotgan.concat(boshqa).map(V_Korxona.karta).join('')}</div>`
-        : bosh('Hali vazifa yo\'q', "\"Yangi e'lon\" bo'limiga o'ting va birinchi vazifangizni e'lon qiling.")}
+        : bosh('Hali vazifa yoʻq', "\"Yangi eʼlon\" boʻlimiga oʻting va birinchi vazifangizni eʼlon qiling.")}
     </div>`;
   },
 
@@ -484,7 +484,7 @@ const V_Korxona = {
           </div>`;
         }).join('')}`
         : `<div class="eslatma"><span class="ikon">📢</span>
-             <div><p>Vazifa mos fuqarolarga ko'rsatilmoqda. Javob kelishi bilan xabar beramiz.</p></div>
+             <div><p>Vazifa mos fuqarolarga koʻrsatilmoqda. Javob kelishi bilan xabar beramiz.</p></div>
            </div>`) : ''}
 
       ${v.holat === 'UNDER_REVIEW' ? `
@@ -497,7 +497,7 @@ const V_Korxona = {
         ${v.fotoTalab ? `<p style="font-size:13.5px;color:var(--matn-3);margin:10px 0 14px">
           📷 Ijrochi ${((v.foto || []).length)} ta foto dalil yubordi</p>` : ''}
         <div class="tugma-qator">
-          <button class="tugma yashil" data-amal="qabul" data-id="${v.id}">✓ Qabul qilish va to'lash</button>
+          <button class="tugma yashil" data-amal="qabul" data-id="${v.id}">✓ Qabul qilish va toʻlash</button>
           <button class="tugma" data-amal="qayta" data-id="${v.id}">↻ Tuzatishga</button>
           <button class="tugma qizil" data-amal="nizo" data-id="${v.id}">Rad etish</button>
         </div>` : ''}
@@ -516,14 +516,14 @@ const V_Korxona = {
     <div class="kirish">
       <div class="sahifa-bosh">
         <h1>Yangi vazifa</h1>
-        <p>To'ldiring — tizim uni mos fuqarolarga ko'rsatadi.</p>
+        <p>Toʻldiring — tizim uni mos fuqarolarga koʻrsatadi.</p>
       </div>
 
       <div class="karta"><div class="karta-ich">
         <div class="maydon">
           <label for="f-nom">Ish nomi</label>
           <input class="kirit" id="f-nom" placeholder="Masalan: Futbolkaga yeng tikish">
-          <div class="yordam">Qisqa va aniq yozing — fuqaro shuni birinchi ko'radi</div>
+          <div class="yordam">Qisqa va aniq yozing — fuqaro shuni birinchi koʻradi</div>
         </div>
 
         <div class="maydon">
@@ -533,7 +533,7 @@ const V_Korxona = {
         </div>
 
         <div class="setka setka-3">
-          <div class="maydon"><label for="f-narx">1 dona uchun (so'm)</label>
+          <div class="maydon"><label for="f-narx">1 dona uchun (soʻm)</label>
             <input class="kirit" id="f-narx" type="number" inputmode="numeric" value="2000" min="100" step="100"></div>
           <div class="maydon"><label for="f-miqdor">Nechta?</label>
             <input class="kirit" id="f-miqdor" type="number" inputmode="numeric" value="500" min="1"></div>
@@ -542,7 +542,7 @@ const V_Korxona = {
         </div>
 
         <div class="setka setka-2">
-          <div class="maydon"><label for="f-konikma">Qanday ko'nikma kerak?</label>
+          <div class="maydon"><label for="f-konikma">Qanday koʻnikma kerak?</label>
             <select class="kirit" id="f-konikma">
               ${KONIKMALAR.map(k => `<option value="${k.id}">${esc(k.nom)}</option>`).join('')}
             </select></div>
@@ -556,7 +556,7 @@ const V_Korxona = {
           <label for="f-sifat">Sifat talablari</label>
           <textarea class="kirit" id="f-sifat"
             placeholder="Chok tekis va uzluksiz&#10;Ip rangi namunaga mos"></textarea>
-          <div class="yordam">Har qatorga bitta talab. Nizo chiqqanda shu ro'yxat hakam bo'ladi.</div>
+          <div class="yordam">Har qatorga bitta talab. Nizo chiqqanda shu roʻyxat hakam boʻladi.</div>
         </div>
 
         <div class="maydon">
@@ -569,7 +569,7 @@ const V_Korxona = {
         <div id="hisob-oyna"></div>
 
         <button class="tugma iliq keng" data-amal="vazifa-yarat" style="margin-top:16px">
-          E'lon qilish
+          Eʼlon qilish
         </button>
         <p style="font-size:13px;color:var(--matn-3);text-align:center;margin-top:10px">
           Summa hisobingizdan yechilib, ish tugaguncha eskrouda saqlanadi
@@ -596,15 +596,15 @@ const V_Korxona = {
     <div class="kirish">
       <div class="sahifa-bosh">
         <h1>Hisob-kitob</h1>
-        <p>Har bir so'm ikki yozuvli daftarda qayd etiladi — hech narsa yo'qolmaydi.</p>
+        <p>Har bir soʻm ikki yozuvli daftarda qayd etiladi — hech narsa yoʻqolmaydi.</p>
       </div>
 
       <div class="setka setka-4" style="margin-bottom:22px">
-        <div class="stat"><div class="q">${pulQisqa(k.balans)}</div><div class="y">Bo'sh hisob</div></div>
+        <div class="stat"><div class="q">${pulQisqa(k.balans)}</div><div class="y">Boʻsh hisob</div></div>
         <div class="stat"><div class="q" style="color:var(--sariq)">${pulQisqa(eskrouda)}</div>
           <div class="y">Eskrouda band</div></div>
         <div class="stat"><div class="q" style="color:var(--yashil)">${pulQisqa(jamiTolov)}</div>
-          <div class="y">Ijrochilarga to'langan</div></div>
+          <div class="y">Ijrochilarga toʻlangan</div></div>
         <div class="stat"><div class="q">${pulQisqa(jamiKom)}</div>
           <div class="y">Platforma komissiyasi</div>
           <div class="k">${KOMISSIYA.foiz}% · eng kami ${pulQisqa(KOMISSIYA.minimal)}</div></div>
@@ -617,7 +617,7 @@ const V_Korxona = {
       </div>
 
       <div class="bolim-bosh"><h2>Daftar</h2>
-        <span class="izoh">Yozuvlar o'chirilmaydi</span></div>
+        <span class="izoh">Yozuvlar oʻchirilmaydi</span></div>
 
       ${ledger.length
         ? ledger.slice().reverse().map(t => `
@@ -632,7 +632,7 @@ const V_Korxona = {
                 ${y.yonalish === 'DEBIT' ? '+' : '−'} ${pul(y.summa)}</span>
             </div>`).join('')}
           </div>`).join('')
-        : bosh('Daftar bo\'sh', 'Birinchi vazifani e\'lon qilganingizda yozuvlar shu yerda paydo bo\'ladi.')}
+        : bosh('Daftar boʻsh', 'Birinchi vazifani eʼlon qilganingizda yozuvlar shu yerda paydo boʻladi.')}
     </div>`;
   },
 
@@ -688,34 +688,34 @@ const V_Boshqarma = {
     <div class="kirish">
       <div class="sahifa-bosh">
         <h1>Bandlik monitoringi</h1>
-        <p>Toshkent viloyati Kambag'allikni qisqartirish va bandlik boshqarmasi,
-           Oʻrtachirchiq tuman bo'limi · Sentabr 2026</p>
+        <p>Toshkent viloyati Kambagʻallikni qisqartirish va bandlik boshqarmasi,
+           Oʻrtachirchiq tuman boʻlimi · Sentabr 2026</p>
       </div>
 
       <div class="maxfiy" style="margin-bottom:18px">
         <span class="mi">🔒</span>
-        <span>Bu panelda faqat umumlashtirilgan ma'lumot. Shaxsiy ma'lumot, telefon,
-              hujjat va to'lov tafsiloti ko'rinmaydi. 5 tadan kam yozuvli kesim yashiriladi.</span>
+        <span>Bu panelda faqat umumlashtirilgan maʼlumot. Shaxsiy maʼlumot, telefon,
+              hujjat va toʻlov tafsiloti koʻrinmaydi. 5 tadan kam yozuvli kesim yashiriladi.</span>
       </div>
 
       <div class="setka setka-4 kirish-nav">
         <div class="stat"><div class="q">${oxirgi.royxat}</div>
-          <div class="y">Ro'yxatdan o'tgan fuqaro</div>${osish(oxirgi.royxat, oldingi.royxat)}</div>
+          <div class="y">Roʻyxatdan oʻtgan fuqaro</div>${osish(oxirgi.royxat, oldingi.royxat)}</div>
         <div class="stat"><div class="q" style="color:var(--yashil)">${oxirgi.maqom}</div>
           <div class="y">Rasmiy maqom olgan</div>
           <div class="k">${Math.round(oxirgi.maqom / oxirgi.royxat * 100)}% konversiya</div></div>
         <div class="stat"><div class="q" style="color:var(--kok)">${oxirgi.registrChiqdi}</div>
           <div class="y">Registrdan chiqqanlar</div>${osish(oxirgi.registrChiqdi, oldingi.registrChiqdi)}</div>
         <div class="stat"><div class="q">${pulQisqa(jamiTolov)}</div>
-          <div class="y">Jami to'langan</div>${osish(oxirgi.tolov, oldingi.tolov)}</div>
+          <div class="y">Jami toʻlangan</div>${osish(oxirgi.tolov, oldingi.tolov)}</div>
       </div>
 
       <div class="setka setka-4" style="margin-top:13px">
-        <div class="stat"><div class="q">${oxirgi.vazifa}</div><div class="y">E'lon qilingan vazifa</div></div>
+        <div class="stat"><div class="q">${oxirgi.vazifa}</div><div class="y">Eʼlon qilingan vazifa</div></div>
         <div class="stat"><div class="q">${oxirgi.bajarilgan}</div><div class="y">Bajarilgan vazifa</div>
           <div class="k">Fill rate ${Math.round(oxirgi.bajarilgan / oxirgi.vazifa * 100)}%</div></div>
         <div class="stat"><div class="q">${pulQisqa(Math.round(oxirgi.tolov / oxirgi.maqom))}</div>
-          <div class="y">O'rtacha oylik daromad</div><div class="k">bir ijrochiga</div></div>
+          <div class="y">Oʻrtacha oylik daromad</div><div class="k">bir ijrochiga</div></div>
         <div class="stat"><div class="q" style="color:${nizoUlush > 10 ? 'var(--qizil)' : 'var(--yashil)'}">${nizoUlush}%</div>
           <div class="y">Nizo ulushi</div><div class="k">${nizolar} ta nizo</div></div>
       </div>
@@ -748,14 +748,14 @@ const V_Boshqarma = {
             </div>`;
           }).join('')}
           <p style="font-size:13px;color:var(--matn-3);margin-top:12px">
-            &lt;5 — k-anonimlik qoidasi bo'yicha yashirilgan</p>
+            &lt;5 — k-anonimlik qoidasi boʻyicha yashirilgan</p>
         </div>
       </div>
 
       <div class="bolim-bosh"><h2>Hisobot</h2></div>
       <div class="karta"><div class="karta-ich">
         <p style="font-size:15px;color:var(--matn-2);margin-bottom:16px">
-          Oylik hisobot avtomatik shakllanadi va o'zgarmas nusxa sifatida saqlanadi.
+          Oylik hisobot avtomatik shakllanadi va oʻzgarmas nusxa sifatida saqlanadi.
           Har bir eksport audit jurnaliga yoziladi.</p>
         <div class="tugma-qator">
           <button class="tugma asos" data-amal="eksport-csv">⬇ CSV yuklab olish</button>
@@ -774,15 +774,15 @@ const V_Boshqarma = {
     <div class="kirish">
       <div class="sahifa-bosh">
         <h1>Oylik hisobotlar</h1>
-        <p>Har oy avtomatik shakllanadigan o'zgarmas nusxalar</p>
+        <p>Har oy avtomatik shakllanadigan oʻzgarmas nusxalar</p>
       </div>
 
       <div class="jadval-orab">
         <table>
           <thead><tr>
-            <th>Davr</th><th class="raqam">Ro'yxat</th><th class="raqam">Maqom</th>
+            <th>Davr</th><th class="raqam">Roʻyxat</th><th class="raqam">Maqom</th>
             <th class="raqam">Vazifa</th><th class="raqam">Bajarildi</th>
-            <th class="raqam">To'lov</th><th class="raqam">Registrdan chiqdi</th><th class="raqam">Kuryer</th>
+            <th class="raqam">Toʻlov</th><th class="raqam">Registrdan chiqdi</th><th class="raqam">Kuryer</th>
           </tr></thead>
           <tbody>
             ${TARIX.slice().reverse().map(t => `<tr>
@@ -802,9 +802,9 @@ const V_Boshqarma = {
       <div class="eslatma yaxshi" style="margin-top:18px">
         <span class="ikon">📈</span>
         <div><h4>Pilot natijasi (3 oy)</h4>
-          <p>${ox.royxat} fuqaro ro'yxatdan o'tdi, ${ox.maqom} nafari rasmiy maqom oldi,
+          <p>${ox.royxat} fuqaro roʻyxatdan oʻtdi, ${ox.maqom} nafari rasmiy maqom oldi,
              ${jamiChiqdi} nafari ijtimoiy registrdan chiqdi. Ularga jami ${pul(jamiTolov)}
-             to'landi — davlat byudjetidan mablag' ajratilmagan holda.</p></div>
+             toʻlandi — davlat byudjetidan mablagʻ ajratilmagan holda.</p></div>
       </div>
     </div>`;
   }
@@ -827,7 +827,7 @@ const V_Moderator = {
       ${ochiq.length
         ? ochiq.map(V_Moderator.nizoKarta).join('')
         : `<div class="bosh">${Ill.muvaffaqiyat(140)}
-             <h3>Ochiq nizo yo'q</h3>
+             <h3>Ochiq nizo yoʻq</h3>
              <p>Barcha ishlar muammosiz yakunlanmoqda.</p></div>`}
 
       ${yopiq.length ? `
@@ -887,11 +887,11 @@ const V_Moderator = {
       <div class="ulush-tanlov">
         <button class="ulush" data-amal="nizo-hal" data-id="${n.id}" data-ulush="100">
           <span><span class="u-nom">Ijrochi foydasiga</span>
-            <span class="u-izoh">Ish to'liq qabul qilinadi</span></span>
+            <span class="u-izoh">Ish toʻliq qabul qilinadi</span></span>
           <span class="u-summa">${pulQisqa(summa)}<small>ijrochiga</small></span>
         </button>
         <button class="ulush" data-amal="nizo-hal" data-id="${n.id}" data-ulush="50">
-          <span><span class="u-nom">Bo'lib berish (50/50)</span>
+          <span><span class="u-nom">Boʻlib berish (50/50)</span>
             <span class="u-izoh">Ikkala tomon qisman haq</span></span>
           <span class="u-summa">${pulQisqa(summa / 2)}<small>har biriga</small></span>
         </button>
@@ -913,7 +913,7 @@ const V_Moderator = {
     <div class="kirish">
       <div class="sahifa-bosh">
         <h1>Logistika</h1>
-        <p>Uch pog'onali tarmoq — bir hududdagi barcha yuklar bitta marshrutga birlashtiriladi</p>
+        <p>Uch pogʻonali tarmoq — bir hududdagi barcha yuklar bitta marshrutga birlashtiriladi</p>
       </div>
 
       <div class="karta" style="margin-bottom:18px"><div class="karta-ich">
@@ -932,7 +932,7 @@ const V_Moderator = {
       </div></div>
 
       <div class="bolim-bosh"><h2>Kuryerlar</h2>
-        <span class="izoh">Kuryerlik — qo'shimcha bandlik manbai</span></div>
+        <span class="izoh">Kuryerlik — qoʻshimcha bandlik manbai</span></div>
       <div class="setka setka-3" style="margin-bottom:18px">
         ${KURYERLAR.map(k => `
           <div class="karta"><div class="karta-ich" style="display:flex;align-items:center;gap:12px">
@@ -947,7 +947,7 @@ const V_Moderator = {
           <div style="font-size:26px;margin-bottom:6px">➕</div>
           <div style="font-weight:650;font-size:14.5px;color:var(--matn-2)">Yangi kuryer</div>
           <div style="font-size:12.5px;color:var(--matn-3);margin-top:3px">
-            Mahalliy fuqaro ro'yxatdan o'tishi mumkin</div>
+            Mahalliy fuqaro roʻyxatdan oʻtishi mumkin</div>
         </div></div>
       </div>
 
@@ -961,7 +961,7 @@ const V_Moderator = {
               <td>${esc(mahallaNomi(v.mahalla))}</td>
               <td>${belgi(v.holat)}</td>
             </tr>`).join('')}</tbody></table></div>`
-        : bosh('Faol yuk yo\'q', 'Ish biriktirilganda yuklar shu yerda ko\'rinadi.')}
+        : bosh('Faol yuk yoʻq', 'Ish biriktirilganda yuklar shu yerda koʻrinadi.')}
     </div>`;
   },
 
@@ -971,12 +971,12 @@ const V_Moderator = {
     <div class="kirish">
       <div class="sahifa-bosh">
         <h1>Audit jurnali</h1>
-        <p>Har bir holat o'zgarishi qayd etiladi. Yozuvlar o'chirilmaydi.</p>
+        <p>Har bir holat oʻzgarishi qayd etiladi. Yozuvlar oʻchirilmaydi.</p>
       </div>
 
       ${st.audit.length
         ? `<div class="jadval-orab"><table>
-            <thead><tr><th>Vaqt</th><th>Kim</th><th>Amal</th><th>Obyekt</th><th>O'zgarish</th></tr></thead>
+            <thead><tr><th>Vaqt</th><th>Kim</th><th>Amal</th><th>Obyekt</th><th>Oʻzgarish</th></tr></thead>
             <tbody>${st.audit.slice(0, 60).map(a => `<tr>
               <td style="color:var(--matn-3);font-size:13px">${esc(a.vaqt)}</td>
               <td><span class="belgi">${esc(a.kim)}</span></td>
@@ -984,7 +984,7 @@ const V_Moderator = {
               <td style="white-space:normal;max-width:240px">${esc(a.obyekt)}</td>
               <td style="font-family:var(--mono);font-size:13px">${esc(a.eski)} → ${esc(a.yangi)}</td>
             </tr>`).join('')}</tbody></table></div>`
-        : bosh('Jurnal bo\'sh', 'Biror amal bajaring — u shu yerda qayd etiladi.')}
+        : bosh('Jurnal boʻsh', 'Biror amal bajaring — u shu yerda qayd etiladi.')}
     </div>`;
   }
 };

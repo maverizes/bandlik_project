@@ -3,15 +3,15 @@
 
    MUHIM QAROR: platforma auditoriyasi sekin internetli arzon telefonlarda.
    Shuning uchun barcha vizual element SVG — ular bir zumda chiziladi, tarmoq
-   talab qilmaydi va hech qachon "singan rasm" ko'rinmaydi.
+   talab qilmaydi va hech qachon "singan rasm" koʻrinmaydi.
 
-   Haqiqiy foto qo'shmoqchi bo'lsangiz: quyidagi FOTO obyektiga URL yozing.
+   Haqiqiy foto qoʻshmoqchi boʻlsangiz: quyidagi FOTO obyektiga URL yozing.
    Foto yuklanmasa, avtomatik illyustratsiyaga qaytadi — sayt buzilmaydi.
    ============================================================================= */
 
 const FOTO = {
   /* Misol: kasb: 'https://images.unsplash.com/photo-XXXX?w=600&q=70'
-     Bo'sh qoldirilsa — gradient + ikonka ishlatiladi. */
+     Boʻsh qoldirilsa — gradient + ikonka ishlatiladi. */
   tikuvchilik: '',
   qadoqlash:   '',
   yorliq:      '',
@@ -20,7 +20,7 @@ const FOTO = {
   montaj:      ''
 };
 
-/* Kasb bo'yicha vizual uslub */
+/* Kasb boʻyicha vizual uslub */
 const KASB_USLUB = {
   k1: { kalit: 'tikuvchilik', ikon: '🧵', grad: 'linear-gradient(135deg,var(--pushti),var(--binafsha))' },
   k2: { kalit: 'qadoqlash',   ikon: '📦', grad: 'linear-gradient(135deg,var(--zarg),var(--zarg-tim))' },
@@ -32,7 +32,7 @@ const KASB_USLUB = {
 
 const Rasm = {
 
-  /* Vazifa uchun bosh rasm: foto bo'lsa foto, bo'lmasa gradient + ikonka */
+  /* Vazifa uchun bosh rasm: foto boʻlsa foto, boʻlmasa gradient + ikonka */
   kasb(konikmaIds, balandlik) {
     const u = KASB_USLUB[(konikmaIds || [])[0]] || KASB_USLUB.k2;
     const h = balandlik || 128;
@@ -63,7 +63,7 @@ const Rasm = {
     </svg>`;
   },
 
-  /* Ism bo'yicha rangli avatar — tarmoq talab qilmaydi */
+  /* Ism boʻyicha rangli avatar — tarmoq talab qilmaydi */
   avatar(nom, olcham) {
     const s = olcham || 42;
     const ranglar = [
@@ -85,7 +85,7 @@ const Rasm = {
 
 const Ill = {
 
-  /* Xush kelibsiz: odam + korxona qo'l berishmoqda */
+  /* Xush kelibsiz: odam + korxona qoʻl berishmoqda */
   xushKelibsiz(w) {
     return `<svg viewBox="0 0 320 200" width="${w || 300}" role="img" aria-label="Bandlik platformasi">
       <defs>
@@ -109,7 +109,7 @@ const Ill = {
         <circle cx="63" cy="88" r="7" fill="#fff" opacity=".9"/>
       </g>
 
-      <!-- o'ng: korxona -->
+      <!-- oʻng: korxona -->
       <g>
         <rect x="222" y="74" width="76" height="82" rx="10" fill="#fff" stroke="var(--kok-yum)" stroke-width="2"/>
         <rect x="222" y="74" width="76" height="17" rx="9" fill="url(#xk2)"/>
@@ -120,7 +120,7 @@ const Ill = {
         <rect x="256" y="126" width="34" height="30" rx="4" fill="#fed7aa"/>
       </g>
 
-      <!-- bog'lovchi yo'l + harakatlanuvchi nuqtalar -->
+      <!-- bogʻlovchi yoʻl + harakatlanuvchi nuqtalar -->
       <path d="M104 126 Q160 92 222 116" stroke="var(--kok)" stroke-width="2.5"
             stroke-dasharray="7 7" fill="none" opacity=".55"/>
       <circle r="5" fill="var(--zarg)">
@@ -149,7 +149,7 @@ const Ill = {
       <circle cx="93" cy="49" r="2.6" fill="#fff"/><circle cx="107" cy="49" r="2.6" fill="#fff"/>
       <path d="M92 59 Q100 65 108 59" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
       <path d="M64 124 Q64 84 100 84 Q136 84 136 124 Z" fill="url(#iq)"/>
-      <!-- qo'ldagi telefon -->
+      <!-- qoʻldagi telefon -->
       <rect x="126" y="92" width="24" height="36" rx="5" fill="#fff" stroke="var(--kok)" stroke-width="2.2"
             transform="rotate(12 138 110)"/>
       <rect x="131" y="99" width="14" height="4" rx="2" fill="var(--kok-yum)" transform="rotate(12 138 110)"/>
@@ -176,10 +176,10 @@ const Ill = {
       <rect x="114" y="82" width="16" height="16" rx="3.5" fill="#ffe4d3"/>
       <rect x="70" y="106" width="16" height="16" rx="3.5" fill="#ffe4d3"/>
       <rect x="92" y="106" width="38" height="22" rx="4" fill="#fed7aa"/>
-      <!-- mo'ri -->
+      <!-- moʻri -->
       <rect x="120" y="34" width="12" height="20" rx="3" fill="#fdba74"/>
       <circle cx="126" cy="26" r="6" fill="#fff" opacity=".85"><animate attributeName="cy" values="26;16;26" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values=".85;0;.85" dur="3s" repeatCount="indefinite"/></circle>
-      <!-- qo'shish belgisi -->
+      <!-- qoʻshish belgisi -->
       <g transform="translate(152 48)">
         <circle r="17" fill="var(--kok)"/>
         <line x1="-8" y1="0" x2="8" y2="0" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/>
@@ -221,9 +221,9 @@ const Ill = {
     </svg>`;
   },
 
-  /* Bo'sh holat */
+  /* Boʻsh holat */
   bosh(w) {
-    return `<svg viewBox="0 0 160 130" width="${w || 140}" role="img" aria-label="Bo'sh">
+    return `<svg viewBox="0 0 160 130" width="${w || 140}" role="img" aria-label="Boʻsh">
       <ellipse cx="80" cy="112" rx="46" ry="8" fill="#e3e9f2"/>
       <rect x="44" y="44" width="72" height="58" rx="9" fill="#fff" stroke="#dbe3ef" stroke-width="2.4"/>
       <path d="M44 62 L116 62" stroke="#dbe3ef" stroke-width="2.4"/>

@@ -9,7 +9,7 @@ const Grafik = {
     const iw = W - P.l - P.r, ih = H - P.t - P.b;
 
     const seriyalar = [
-      { kalit: 'royxat',        nom: "Ro'yxatdan o'tgan", rang: 'var(--asos)' },
+      { kalit: 'royxat',        nom: "Roʻyxatdan oʻtgan", rang: 'var(--asos)' },
       { kalit: 'maqom',         nom: 'Maqom olgan',       rang: 'var(--yashil)' },
       { kalit: 'registrChiqdi', nom: 'Registrdan chiqdi', rang: 'var(--sariq)' }
     ];
@@ -20,7 +20,7 @@ const Grafik = {
     const x = i => P.l + (tarix.length === 1 ? iw / 2 : (i / (tarix.length - 1)) * iw);
     const y = v => P.t + ih - (v / yuqori) * ih;
 
-    /* Gorizontal to'r va o'q belgilari */
+    /* Gorizontal toʻr va oʻq belgilari */
     let tor = '';
     for (let i = 0; i <= 4; i++) {
       const qiymat = Math.round(yuqori * i / 4);

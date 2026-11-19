@@ -1,12 +1,12 @@
 /* =============================================================================
-   HUNAR — demo ma'lumotlari (seed)
+   HUNAR — demo maʼlumotlari (seed)
    Pilot: Oʻrtachirchiq tumani, Toshkent viloyati
    ============================================================================= */
 
 const MAHALLALAR = [
   { id: 'm1', nom: "Yangi hayot" },
-  { id: 'm2', nom: "Do'stlik" },
-  { id: 'm3', nom: "Navro'z" },
+  { id: 'm2', nom: "Doʻstlik" },
+  { id: 'm3', nom: "Navroʻz" },
   { id: 'm4', nom: "Bunyodkor" },
   { id: 'm5', nom: "Istiqlol" }
 ];
@@ -17,19 +17,19 @@ const KONIKMALAR = [
   { id: 'k3', nom: 'Yorliq yopishtirish', soha: 'Ishlab chiqarish' },
   { id: 'k4', nom: 'Saralash',           soha: 'Ishlab chiqarish' },
   { id: 'k5', nom: 'Kashtachilik',       soha: 'Ishlab chiqarish' },
-  { id: 'k6', nom: 'Yig\'ish (montaj)',  soha: 'Ishlab chiqarish' }
+  { id: 'k6', nom: 'Yigʻish (montaj)',  soha: 'Ishlab chiqarish' }
 ];
 
 const KORXONALAR = [
   {
     id: 'c1', nom: 'Toʻytepa Teks', stir: '301 456 789',
-    soha: 'To\'qimachilik', manzil: "Toʻytepa sh., Sanoat ko'chasi 12",
+    soha: 'Toʻqimachilik', manzil: "Toʻytepa sh., Sanoat koʻchasi 12",
     masul: 'Rustam Ochilov', tel: '+998 90 123 45 67',
     kyb: 'VERIFIED', balans: 48_500_000
   },
   {
     id: 'c2', nom: 'Oq Qadoq', stir: '302 778 114',
-    soha: 'Qadoqlash', manzil: "Toʻytepa sh., Bog' ko'chasi 4",
+    soha: 'Qadoqlash', manzil: "Toʻytepa sh., Bogʻ koʻchasi 4",
     masul: 'Nodira Ahmedova', tel: '+998 91 220 11 08',
     kyb: 'VERIFIED', balans: 22_100_000
   }
@@ -41,7 +41,7 @@ const FUQAROLAR = [
   { id: 'w1',  nom: 'Dilnoza Karimova',   mahalla: 'm1', yosh: 34, jins: 'F', konikma: ['k1','k5'], trust: 50, selfEmployment: 'NOT_STARTED', registry: ['ayollar'],           bajargan: 0,  daromad: 0 },
   { id: 'w2',  nom: 'Gulnora Tosheva',    mahalla: 'm1', yosh: 41, jins: 'F', konikma: ['k1','k3'], trust: 82, selfEmployment: 'VERIFIED',    registry: ['ayollar'],           bajargan: 14, daromad: 4_120_000 },
   { id: 'w3',  nom: 'Shahzod Umarov',     mahalla: 'm2', yosh: 23, jins: 'M', konikma: ['k2','k6'], trust: 74, selfEmployment: 'VERIFIED',    registry: ['yoshlar'],           bajargan: 9,  daromad: 2_640_000 },
-  { id: 'w4',  nom: 'Muqaddas Yo\'ldosheva', mahalla: 'm2', yosh: 29, jins: 'F', konikma: ['k1'],  trust: 91, selfEmployment: 'VERIFIED',    registry: ['temir','ayollar'],   bajargan: 22, daromad: 6_890_000 },
+  { id: 'w4',  nom: 'Muqaddas Yoʻldosheva', mahalla: 'm2', yosh: 29, jins: 'F', konikma: ['k1'],  trust: 91, selfEmployment: 'VERIFIED',    registry: ['temir','ayollar'],   bajargan: 22, daromad: 6_890_000 },
   { id: 'w5',  nom: 'Bekzod Rahimov',     mahalla: 'm3', yosh: 26, jins: 'M', konikma: ['k2','k4'], trust: 68, selfEmployment: 'VERIFIED',    registry: ['yoshlar'],           bajargan: 7,  daromad: 1_950_000 },
   { id: 'w6',  nom: 'Zulfiya Nazarova',   mahalla: 'm3', yosh: 38, jins: 'F', konikma: ['k5','k1'], trust: 77, selfEmployment: 'VERIFIED',    registry: ['ayollar'],           bajargan: 11, daromad: 3_310_000 },
   { id: 'w7',  nom: 'Jasur Qodirov',      mahalla: 'm4', yosh: 31, jins: 'M', konikma: ['k6'],     trust: 63, selfEmployment: 'PENDING',     registry: ['temir'],             bajargan: 3,  daromad: 720_000 },
@@ -73,18 +73,18 @@ const KURYERLAR = [
   { id: 'k-2', nom: 'Farrux Ismoilov', mahalla: 'm4', transport: 'Damas',            sigim: 700, trust: 74 }
 ];
 
-/* Yetkazib berish nuqtalari (3 pog'ona) */
+/* Yetkazib berish nuqtalari (3 pogʻona) */
 const HUBLAR = [
   { id: 'h1', tur: 'VILOYAT',  nom: 'Toshkent viloyat omborxonasi', manzil: 'Toʻytepa sh., Sanoat zonasi' },
-  { id: 'h2', tur: 'TUMAN',    nom: 'Oʻrtachirchiq tuman punkti',   manzil: "Toʻytepa sh., Markaziy ko'cha 1" },
+  { id: 'h2', tur: 'TUMAN',    nom: 'Oʻrtachirchiq tuman punkti',   manzil: "Toʻytepa sh., Markaziy koʻcha 1" },
   { id: 'h3', tur: 'MAHALLA',  nom: "Yangi hayot FYG binosi",       manzil: "Yangi hayot MFY" },
-  { id: 'h4', tur: 'MAHALLA',  nom: "Do'stlik FYG binosi",          manzil: "Do'stlik MFY" }
+  { id: 'h4', tur: 'MAHALLA',  nom: "Doʻstlik FYG binosi",          manzil: "Doʻstlik MFY" }
 ];
 
 /* Komissiya siyosati — platforma shu hisobdan yashaydi */
 const KOMISSIYA = { foiz: 5, minimal: 20_000 };
 
-/* Auto-release: korxona javob bermasa necha kundan keyin avtomatik to'lov */
+/* Auto-release: korxona javob bermasa necha kundan keyin avtomatik toʻlov */
 const AUTO_RELEASE_KUN = 5;
 
 /* ---------------------------------------------------------------------------
@@ -95,40 +95,40 @@ const AUTO_RELEASE_KUN = 5;
 const VAZIFALAR = [
   {
     id: 't1', korxona: 'c1', nom: 'Bolalar futbolkasi — yeng tikish',
-    tavsif: "Kesilgan bo'laklar tayyor. Yeng qismini overlok bilan tikish. Namuna va ip xomashyo bilan birga beriladi.",
+    tavsif: "Kesilgan boʻlaklar tayyor. Yeng qismini overlok bilan tikish. Namuna va ip xomashyo bilan birga beriladi.",
     konikma: ['k1'], birlik: 'dona', narx: 2_500, miqdor: 400, muddatKun: 6,
     xomashyo: 'Korxonadan', pickup: 'h3', mahalla: 'm1',
     sifat: ['Chok tekis va uzluksiz', 'Ip rangi namunaga mos', "Ortiqcha ip qirqilgan"],
     fotoTalab: true, minTrust: 50, holat: 'PUBLISHED'
   },
   {
-    id: 't2', korxona: 'c2', nom: 'Choy qutilarini yig\'ish va qadoqlash',
-    tavsif: "Tayyor kartonni yig'ib, ichiga 25 dona paket joylash va yopishtirish.",
+    id: 't2', korxona: 'c2', nom: 'Choy qutilarini yigʻish va qadoqlash',
+    tavsif: "Tayyor kartonni yigʻib, ichiga 25 dona paket joylash va yopishtirish.",
     konikma: ['k2'], birlik: 'dona', narx: 900, miqdor: 1200, muddatKun: 4,
     xomashyo: 'Korxonadan', pickup: 'h4', mahalla: 'm2',
     sifat: ['Quti shakli buzilmagan', 'Paket soni aniq 25 ta', 'Yopishtirish mustahkam'],
     fotoTalab: true, minTrust: 0, holat: 'PUBLISHED'
   },
   {
-    id: 't3', korxona: 'c1', nom: 'Ko\'ylakka yorliq yopishtirish',
-    tavsif: "Tayyor ko'ylaklarning bo'yin qismiga brend yorlig'ini tikish.",
+    id: 't3', korxona: 'c1', nom: 'Koʻylakka yorliq yopishtirish',
+    tavsif: "Tayyor koʻylaklarning boʻyin qismiga brend yorligʻini tikish.",
     konikma: ['k3','k1'], birlik: 'dona', narx: 1_200, miqdor: 600, muddatKun: 5,
     xomashyo: 'Korxonadan', pickup: 'h3', mahalla: 'm1',
-    sifat: ["Yorliq to'g'ri joyda", 'Tikuv ko\'rinmaydi'],
+    sifat: ["Yorliq toʻgʻri joyda", 'Tikuv koʻrinmaydi'],
     fotoTalab: true, minTrust: 60, holat: 'PUBLISHED'
   },
   {
-    id: 't4', korxona: 'c2', nom: 'Mahsulotni saralash va tarozida o\'lchash',
-    tavsif: "Kelgan mahsulotni sifat bo'yicha saralab, 5 kg lik paketlarga bo'lish.",
+    id: 't4', korxona: 'c2', nom: 'Mahsulotni saralash va tarozida oʻlchash',
+    tavsif: "Kelgan mahsulotni sifat boʻyicha saralab, 5 kg lik paketlarga boʻlish.",
     konikma: ['k4'], birlik: 'kg', narx: 700, miqdor: 800, muddatKun: 3,
     xomashyo: 'Korxonadan', pickup: 'h4', mahalla: 'm2',
     sifat: ['Vazn ±50 g aniqlikda', 'Sifatsiz mahsulot ajratilgan'],
     fotoTalab: false, minTrust: 0, holat: 'PUBLISHED'
   },
-  /* --- allaqachon jarayonda bo'lgan vazifalar (demo uchun) --- */
+  /* --- allaqachon jarayonda boʻlgan vazifalar (demo uchun) --- */
   {
-    id: 't5', korxona: 'c1', nom: 'Kashtali ro\'mol — naqsh tikish',
-    tavsif: "Qo'lda kashta. Naqsh namunasi beriladi.",
+    id: 't5', korxona: 'c1', nom: 'Kashtali roʻmol — naqsh tikish',
+    tavsif: "Qoʻlda kashta. Naqsh namunasi beriladi.",
     konikma: ['k5'], birlik: 'dona', narx: 14_000, miqdor: 40, muddatKun: 10,
     xomashyo: 'Korxonadan', pickup: 'h3', mahalla: 'm1',
     sifat: ['Naqsh namunaga mos', 'Orqa tomon toza'],
@@ -136,8 +136,8 @@ const VAZIFALAR = [
     ijrochi: 'w6', topshirilgan: true
   },
   {
-    id: 't6', korxona: 'c2', nom: 'Sovun qutilarini yig\'ish',
-    tavsif: "Karton qutilarni yig'ish.",
+    id: 't6', korxona: 'c2', nom: 'Sovun qutilarini yigʻish',
+    tavsif: "Karton qutilarni yigʻish.",
     konikma: ['k2'], birlik: 'dona', narx: 800, miqdor: 900, muddatKun: 4,
     xomashyo: 'Korxonadan', pickup: 'h4', mahalla: 'm2',
     sifat: ['Quti shakli buzilmagan'],
@@ -145,27 +145,27 @@ const VAZIFALAR = [
     ijrochi: 'w3'
   },
   {
-    id: 't7', korxona: 'c1', nom: 'Ayollar ko\'ylagi — chok tikish',
+    id: 't7', korxona: 'c1', nom: 'Ayollar koʻylagi — chok tikish',
     tavsif: "Yon choklarni tikish.",
     konikma: ['k1'], birlik: 'dona', narx: 3_100, miqdor: 250, muddatKun: 7,
     xomashyo: 'Korxonadan', pickup: 'h3', mahalla: 'm1',
-    sifat: ['Chok tekis', "O'lcham namunaga mos"],
+    sifat: ['Chok tekis', "Oʻlcham namunaga mos"],
     fotoTalab: true, minTrust: 60, holat: 'PAID',
     ijrochi: 'w4'
   },
   {
     id: 't8', korxona: 'c2', nom: 'Yorliq bosish va yopishtirish',
-    tavsif: "Tayyor qutilarga shtrix-kod yorlig'ini yopishtirish.",
+    tavsif: "Tayyor qutilarga shtrix-kod yorligʻini yopishtirish.",
     konikma: ['k3'], birlik: 'dona', narx: 450, miqdor: 2000, muddatKun: 5,
     xomashyo: 'Korxonadan', pickup: 'h4', mahalla: 'm4',
-    sifat: ['Yorliq tekis', 'Shtrix-kod o\'qiladi'],
+    sifat: ['Yorliq tekis', 'Shtrix-kod oʻqiladi'],
     fotoTalab: true, minTrust: 0, holat: 'DISPUTED',
     ijrochi: 'w8'
   }
 ];
 
 /* ---------------------------------------------------------------------------
-   Dashboard uchun 3 oylik tarix (panel bo'sh ko'rinmasligi uchun)
+   Dashboard uchun 3 oylik tarix (panel boʻsh koʻrinmasligi uchun)
    --------------------------------------------------------------------------- */
 const TARIX = [
   { oy: 'Iyun',    royxat: 18, maqom: 11, vazifa: 14, bajarilgan: 12, tolov: 8_400_000,  registrChiqdi: 4,  kuryer: 1 },
@@ -181,8 +181,8 @@ const NIZOLAR = [
     sabab: "Korxona 2000 donadan 180 tasini 'yorliq qiyshiq' deb rad etdi. Ijrochi rozi emas.",
     xabarlar: [
       { kim: 'w8',  matn: "Barcha yorliqlar namunaga qarab yopishtirildi. Rad etilgan qutilarning fotosi menda bor.", vaqt: '2 kun oldin' },
-      { kim: 'c2',  matn: "180 ta qutida yorliq 3 mm dan ko'proq qiyshaygan. Mijoz qabul qilmaydi.", vaqt: '1 kun oldin' },
-      { kim: 'w8',  matn: "Sifat mezonida aniq chegara ko'rsatilmagan edi.", vaqt: '22 soat oldin' }
+      { kim: 'c2',  matn: "180 ta qutida yorliq 3 mm dan koʻproq qiyshaygan. Mijoz qabul qilmaydi.", vaqt: '1 kun oldin' },
+      { kim: 'w8',  matn: "Sifat mezonida aniq chegara koʻrsatilmagan edi.", vaqt: '22 soat oldin' }
     ]
   }
 ];

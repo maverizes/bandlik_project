@@ -7,14 +7,14 @@
 
 const HOLAT_MATN = {
   DRAFT:        { matn: 'Qoralama',           rang: 'kul' },
-  PUBLISHED:    { matn: "E'lon qilingan",     rang: 'kok' },
+  PUBLISHED:    { matn: "Eʼlon qilingan",     rang: 'kok' },
   ASSIGNED:     { matn: 'Biriktirilgan',      rang: 'kok' },
   IN_PROGRESS:  { matn: 'Bajarilmoqda',       rang: 'sariq' },
   SUBMITTED:    { matn: 'Topshirilgan',       rang: 'sariq' },
   UNDER_REVIEW: { matn: 'Tekshiruvda',        rang: 'sariq' },
   REWORK:       { matn: 'Qayta ishlashga',    rang: 'qizil' },
   ACCEPTED:     { matn: 'Qabul qilindi',      rang: 'yashil' },
-  PAID:         { matn: "To'landi",           rang: 'yashil' },
+  PAID:         { matn: "Toʻlandi",           rang: 'yashil' },
   DISPUTED:     { matn: 'Nizoda',             rang: 'qizil' },
   REJECTED:     { matn: 'Rad etildi',         rang: 'qizil' },
   CANCELLED:    { matn: 'Bekor qilindi',      rang: 'kul' }
@@ -24,26 +24,26 @@ const ESKROU_MATN = {
   PENDING:  'Kutilmoqda',
   FUNDED:   "Pul kiritildi",
   HELD:     'Eskrouda saqlanmoqda',
-  RELEASED: "Ijrochiga o'tkazildi",
+  RELEASED: "Ijrochiga oʻtkazildi",
   REFUNDED: 'Korxonaga qaytarildi',
-  SPLIT:    "Bo'lib berildi"
+  SPLIT:    "Boʻlib berildi"
 };
 
-/* Deklarativ o'tish jadvali: kim huquqli + qanday shart.
-   Holatni to'g'ridan-to'g'ri o'zgartirish taqiqlangan — faqat shu orqali. */
+/* Deklarativ oʻtish jadvali: kim huquqli + qanday shart.
+   Holatni toʻgʻridan-toʻgʻri oʻzgartirish taqiqlangan — faqat shu orqali. */
 const OTISHLAR = {
   DRAFT: {
     PUBLISHED: {
       rol: ['korxona'],
       shart: (v) => v.eskrou && v.eskrou.holat === 'HELD',
-      xato: "E'lon qilish uchun avval eskrouga pul kiritilishi kerak"
+      xato: "Eʼlon qilish uchun avval eskrouga pul kiritilishi kerak"
     }
   },
   PUBLISHED: {
     ASSIGNED: {
       rol: ['korxona'],
       shart: (v, ctx) => ctx.ijrochi && ctx.ijrochi.selfEmployment === 'VERIFIED',
-      xato: "Ijrochi \"o'zini o'zi band qilgan\" maqomiga ega bo'lishi shart"
+      xato: "Ijrochi \"oʻzini oʻzi band qilgan\" maqomiga ega boʻlishi shart"
     },
     CANCELLED: { rol: ['korxona'], shart: () => true }
   },
@@ -84,10 +84,10 @@ function otish(vazifa, yangiHolat, rol, ctx) {
   const qoida = (OTISHLAR[joriy] || {})[yangiHolat];
 
   if (!qoida) {
-    return { ok: false, xato: `"${HOLAT_MATN[joriy].matn}" holatidan "${HOLAT_MATN[yangiHolat].matn}" ga o'tib bo'lmaydi` };
+    return { ok: false, xato: `"${HOLAT_MATN[joriy].matn}" holatidan "${HOLAT_MATN[yangiHolat].matn}" ga oʻtib boʻlmaydi` };
   }
   if (qoida.rol.indexOf(rol) === -1) {
-    return { ok: false, xato: `Bu amal uchun sizda ruxsat yo'q (${rol})` };
+    return { ok: false, xato: `Bu amal uchun sizda ruxsat yoʻq (${rol})` };
   }
   if (!qoida.shart(vazifa, ctx)) {
     return { ok: false, xato: qoida.xato || 'Shart bajarilmadi' };
@@ -107,7 +107,7 @@ function komissiyaHisobla(summa) {
   return Math.max(foizdan, KOMISSIYA.minimal);
 }
 
-/* Double-entry: har amal ikki yozuv — debit va kredit. Hech qachon o'chirilmaydi. */
+/* Double-entry: har amal ikki yozuv — debit va kredit. Hech qachon oʻchirilmaydi. */
 function ledgerYoz(store, tur, yozuvlar, izoh) {
   const tranzaksiya = {
     id: 'tx' + (store.ledger.length + 1),
@@ -140,7 +140,7 @@ const Eskrou = {
     if (e.holat !== 'PENDING') return { ok: false, xato: 'Eskrou allaqachon faollashtirilgan' };
     const korxona = store.korxonalar.find(c => c.id === v.korxona);
     if (!korxona) return { ok: false, xato: 'Korxona topilmadi' };
-    if (korxona.balans < e.summa) return { ok: false, xato: 'Korxona hisobida mablag\' yetarli emas' };
+    if (korxona.balans < e.summa) return { ok: false, xato: 'Korxona hisobida mablagʻ yetarli emas' };
 
     korxona.balans -= e.summa;
     e.holat = 'HELD';
@@ -217,8 +217,8 @@ function trustHisobla(f, store) {
 /* Cheklovlar — past ishonch bali avtomatik cheklanadi */
 function cheklov(trust) {
   if (trust < 40) return { maksVazifa: 1, maksSumma: 300_000,   izoh: 'Past ishonch bali — cheklangan rejim' };
-  if (trust < 65) return { maksVazifa: 2, maksSumma: 1_500_000, izoh: "O'rtacha ishonch bali" };
-  return { maksVazifa: 5, maksSumma: 99_000_000, izoh: 'Yuqori ishonch bali — cheklov yo\'q' };
+  if (trust < 65) return { maksVazifa: 2, maksSumma: 1_500_000, izoh: "Oʻrtacha ishonch bali" };
+  return { maksVazifa: 5, maksSumma: 99_000_000, izoh: 'Yuqori ishonch bali — cheklov yoʻq' };
 }
 
 /* --------------------------------------------------------- moslik (matching) */
@@ -229,7 +229,7 @@ function moslikBali(vazifa, fuqaro) {
   const kerakli = vazifa.konikma || [];
   const bor = kerakli.filter(k => fuqaro.konikma.indexOf(k) !== -1).length;
   const konikmaBall = kerakli.length ? bor / kerakli.length : 1;
-  qismlar.push({ nom: 'Ko\'nikma mosligi', qiymat: konikmaBall, ogirlik: 0.40 });
+  qismlar.push({ nom: 'Koʻnikma mosligi', qiymat: konikmaBall, ogirlik: 0.40 });
 
   const masofaBall = vazifa.mahalla === fuqaro.mahalla ? 1 : 0.4;
   qismlar.push({ nom: 'Mahalla yaqinligi', qiymat: masofaBall, ogirlik: 0.25 });
