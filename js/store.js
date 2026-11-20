@@ -22,7 +22,7 @@ const Store = (function () {
     const st = {
       onboardingTugadi: false,
       rol: 'fuqaro',
-      menFuqaro: 'w1',          // Dilnoza — maqomi hali yo'q (gate demosi)
+      menFuqaro: 'w1',          // Dilnoza — maqomi hali yoʻq (gate demosi)
       menKorxona: 'c1',
       vazifalar,
       fuqarolar: FUQAROLAR.map(f => Object.assign({}, f)),
@@ -41,7 +41,7 @@ const Store = (function () {
 
   /* Seed vazifalari uchun eskrouni HAQIQATAN moliyalashtiramiz:
      korxona hisobidan pul yechiladi va ledgerga yozuv tushadi.
-     Aks holda daftar boshidan nomutanosib bo'lib qoladi. */
+     Aks holda daftar boshidan nomutanosib boʻlib qoladi. */
   function seedEskrou(st) {
     st.vazifalar.forEach(v => {
       if (!v.eskrou) return;
@@ -122,7 +122,7 @@ const Store = (function () {
       const v = this.vazifa(vazifaId);
       const f = this.menFuqaro();
       if (f.selfEmployment !== 'VERIFIED') {
-        return { ok: false, xato: "Avval \"o'zini o'zi band qilgan shaxs\" maqomini oling" };
+        return { ok: false, xato: "Avval \"oʻzini oʻzi band qilgan shaxs\" maqomini oling" };
       }
       if (v.minTrust && f.trust < v.minTrust) {
         return { ok: false, xato: `Bu vazifa uchun kamida ${v.minTrust} ishonch bali kerak (sizda ${f.trust})` };
@@ -223,7 +223,7 @@ const Store = (function () {
       n.holat = 'HAL_QILINDI';
       n.qaror = ulushFoiz === 100 ? 'Ijrochi foydasiga'
               : ulushFoiz === 0   ? 'Korxona foydasiga'
-              : `Bo'lib berildi (ijrochiga ${ulushFoiz}%)`;
+              : `Boʻlib berildi (ijrochiga ${ulushFoiz}%)`;
       audit('NIZO_QARORI', v.nom, 'DISPUTED', n.qaror);
       saqla();
       return { ok: true, natija };
@@ -285,7 +285,7 @@ const Store = (function () {
           nom: ma.korxonaNom || 'Yangi korxona',
           stir: ma.stir || '000 000 000',
           soha: 'Ishlab chiqarish',
-          manzil: 'Nurafshon sh.',
+          manzil: 'Toʻytepa sh.',
           masul: '—',
           tel: '+998 ' + (ma.telefon || ''),
           kyb: 'VERIFIED',

@@ -5,7 +5,7 @@
 const App = (function () {
   'use strict';
 
-  /* Rol → bo'limlar. Ikonka mobil pastki navigatsiya uchun. */
+  /* Rol → boʻlimlar. Ikonka mobil pastki navigatsiya uchun. */
   const ROLLAR = {
     fuqaro: { nom: 'Fuqaro', belgicha: '👤', tablar: [
       ['ishlar',         'Ishlar',         '🔍'],
@@ -15,7 +15,7 @@ const App = (function () {
     ]},
     korxona: { nom: 'Korxona', belgicha: '🏢', tablar: [
       ['vazifalar',  'Vazifalar',   '📦'],
-      ['yangi',      "Yangi e'lon", '➕'],
+      ['yangi',      "Yangi eʼlon", '➕'],
       ['hisobKitob', 'Hisob-kitob', '💰']
     ]},
     boshqarma: { nom: 'Boshqarma', belgicha: '📊', tablar: [
@@ -57,7 +57,7 @@ const App = (function () {
     const st = Store.get();
     el('rol-tanlov').innerHTML = Object.keys(ROLLAR).map(k =>
       `<button class="rol-btn ${st.rol === k ? 'faol' : ''}" data-rol="${k}"
-               title="${ROLLAR[k].nom} ko'rinishi">
+               title="${ROLLAR[k].nom} koʻrinishi">
          <span>${ROLLAR[k].belgicha}</span><span>${ROLLAR[k].nom}</span>
        </button>`).join('');
   }
@@ -106,7 +106,7 @@ const App = (function () {
     if (st.rol === 'korxona' && joriyTab === 'yangi') hisobYangila();
   }
 
-  /* ------------------------------------------------------ e'lon hisoblagich */
+  /* ------------------------------------------------------ eʼlon hisoblagich */
 
   function hisobYangila() {
     const oyna = el('hisob-oyna');
@@ -136,7 +136,7 @@ const App = (function () {
       ${!yetarli
         ? `<div class="eslatma xato" style="margin-top:12px">
              <span class="ikon">⚠️</span>
-             <div><h4>Mablag' yetarli emas</h4>
+             <div><h4>Mablagʻ yetarli emas</h4>
                <p>Hisobingizda ${pul(k.balans)} bor. Miqdorni kamaytiring.</p></div></div>`
         : ''}`;
   }
@@ -174,7 +174,7 @@ const App = (function () {
       const v = Store.vazifa(t.dataset.id);
       v.foto = (v.foto && v.foto.length) ? [] : ['dalil-1.jpg', 'dalil-2.jpg'];
       Store.saqla();
-      toast(v.foto.length ? '2 ta foto qo\'shildi' : 'Fotolar olib tashlandi');
+      toast(v.foto.length ? '2 ta foto qoʻshildi' : 'Fotolar olib tashlandi');
       chiz();
     },
 
@@ -187,13 +187,13 @@ const App = (function () {
 
     'qabul'(t) {
       const r = Store.sifatQabul(t.dataset.id);
-      if (r.ok) toast(`To'landi: ${pul(r.natija.ijrochiga)} ijrochiga`, 'yaxshi');
+      if (r.ok) toast(`Toʻlandi: ${pul(r.natija.ijrochiga)} ijrochiga`, 'yaxshi');
       else toast(r.xato, 'xato');
       chiz();
     },
 
     'qayta'(t) {
-      const sabab = prompt('Nima to\'g\'rilanishi kerak?', 'Sifat mezoniga to\'liq mos emas');
+      const sabab = prompt('Nima toʻgʻrilanishi kerak?', 'Sifat mezoniga toʻliq mos emas');
       if (sabab === null) return;
       const r = Store.qaytaIshlash(t.dataset.id, sabab);
       toast(r.ok ? 'Qayta ishlashga qaytarildi' : r.xato, r.ok ? null : 'xato');
@@ -204,7 +204,7 @@ const App = (function () {
       const sabab = prompt('Rad etish sababi:', 'Sifat talabga javob bermaydi');
       if (sabab === null) return;
       const r = Store.nizoOch(t.dataset.id, sabab);
-      toast(r.ok ? 'Nizo ochildi — moderator ko\'rib chiqadi' : r.xato, r.ok ? null : 'xato');
+      toast(r.ok ? 'Nizo ochildi — moderator koʻrib chiqadi' : r.xato, r.ok ? null : 'xato');
       chiz();
     },
 
@@ -217,7 +217,7 @@ const App = (function () {
     'pul-yech'() {
       const men = Store.menFuqaro();
       const b = Store.balans(men.id);
-      toast('Yuz orqali tekshirish (demo: o\'tkazib yuborildi)');
+      toast('Yuz orqali tekshirish (demo: oʻtkazib yuborildi)');
       Store.balansQosh(men.id, -b);
       Store.saqla();
       setTimeout(() => { toast(`${pul(b)} kartangizga yuborildi`, 'yaxshi'); chiz(); }, 1000);
@@ -245,7 +245,7 @@ const App = (function () {
       });
 
       if (!r.ok) { toast(r.xato, 'xato'); return; }
-      toast("E'lon qilindi va pul eskrouga bloklandi", 'yaxshi');
+      toast("Eʼlon qilindi va pul eskrouga bloklandi", 'yaxshi');
       joriyTab = 'vazifalar';
       chiz();
     },
@@ -256,7 +256,7 @@ const App = (function () {
       const blob = new Blob(['﻿' + q.map(r => r.join(';')).join('\n')], { type: 'text/csv;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'nurafshon-bandlik-hisobot.csv';
+      a.download = 'ortachirchiq-bandlik-hisobot.csv';
       a.click();
       URL.revokeObjectURL(a.href);
       Store.audit('HISOBOT_EKSPORT', 'Oylik hisobot CSV', '-', 'yuklandi');
@@ -269,7 +269,7 @@ const App = (function () {
     'tab'(t) { joriyTab = t.dataset.tab; chiz(); },
 
     'tozala'() {
-      if (!confirm('Demo boshidan boshlansinmi? Kirish oqimi ham qaytadan ko\'rsatiladi.')) return;
+      if (!confirm('Demo boshidan boshlansinmi? Kirish oqimi ham qaytadan koʻrsatiladi.')) return;
       Store.tozala();
       joriyTab = null;
       boshla();
@@ -316,7 +316,7 @@ const App = (function () {
 })();
 
 document.getElementById('tozala-btn').addEventListener('click', function () {
-  if (!confirm('Demo boshidan boshlansinmi? Kirish oqimi ham qaytadan ko\'rsatiladi.')) return;
+  if (!confirm('Demo boshidan boshlansinmi? Kirish oqimi ham qaytadan koʻrsatiladi.')) return;
   Store.tozala();
   App.boshla();
 });

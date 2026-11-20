@@ -298,7 +298,7 @@ td.raqam, th.raqam { text-align: right; font-variant-numeric: tabular-nums; }
 .eslatma.yaxshi { background: var(--yashil-och); border-color: #bfe9d7; }
 .eslatma.yaxshi h4 { color: var(--yashil); }
 
-/* ========================================================== BO'SH ======= */
+/* ========================================================== BOʻSH ======= */
 
 .bosh { text-align: center; padding: 48px 22px; }
 .bosh svg { margin: 0 auto 18px; display: block; }

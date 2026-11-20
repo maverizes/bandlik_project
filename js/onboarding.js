@@ -2,20 +2,20 @@
    KIRISH OQIMI (onboarding)
 
    Tartib:  xush → rol tanlash → telefon → SMS kod → ism/korxona
-            → (fuqaro) mahalla → (fuqaro) ko'nikma → tayyor
+            → (fuqaro) mahalla → (fuqaro) koʻnikma → tayyor
 
    Tamoyil: bitta ekranda bitta savol. Foydalanuvchi hech qachon
-   "endi nima qilaman?" deb o'ylab qolmasligi kerak.
+   "endi nima qilaman?" deb oʻylab qolmasligi kerak.
    ============================================================================= */
 
 const Onboarding = (function () {
 
-  let ma = {};          // yig'ilayotgan ma'lumot
+  let ma = {};          // yigʻilayotgan maʼlumot
   let qadam = 0;
   let root = null;
   let tugagachCB = null;
 
-  /* Qadamlar ro'yxati rolga qarab o'zgaradi */
+  /* Qadamlar roʻyxati rolga qarab oʻzgaradi */
   function qadamlar() {
     const asos = ['xush', 'rol'];
     if (!ma.rol) return asos;
@@ -28,8 +28,8 @@ const Onboarding = (function () {
   function hozir() { return qadamlar()[qadam]; }
 
   /* Progress nuqtalari.
-     "xush" va "rol" qadamlarida ko'rsatilmaydi: rol tanlanmaguncha oqim
-     uzunligi noma'lum, 1 ta nuqta ko'rsatib keyin 6 taga sakrash chalg'itadi. */
+     "xush" va "rol" qadamlarida koʻrsatilmaydi: rol tanlanmaguncha oqim
+     uzunligi nomaʼlum, 1 ta nuqta koʻrsatib keyin 6 taga sakrash chalgʻitadi. */
   function nuqtalar() {
     const e = hozir();
     if (e === 'xush' || e === 'rol') return '';
@@ -47,13 +47,13 @@ const Onboarding = (function () {
       return `
         <div class="ob-qadam" style="text-align:center">
           <div class="ob-rasm">${Ill.xushKelibsiz(300)}</div>
-          <h1 class="ob-sarlavha">Ishga yaqinroq bo'ling</h1>
+          <h1 class="ob-sarlavha">Ishga yaqinroq boʻling</h1>
           <p class="ob-izoh">
-            HUNAR — mahallangizdagi korxonalar bilan sizni bog'laydigan platforma.
+            HUNAR — mahallangizdagi korxonalar bilan sizni bogʻlaydigan platforma.
             Uyingizdan chiqmasdan ish toping, ishingiz uchun kafolatlangan haq oling.
           </p>
           <button class="tugma asos keng" data-ob="keyingi">Boshlash</button>
-          <p class="ob-eslatma">Ro'yxatdan o'tish bepul · 2 daqiqa vaqt oladi</p>
+          <p class="ob-eslatma">Roʻyxatdan oʻtish bepul · 2 daqiqa vaqt oladi</p>
         </div>`;
     },
 
@@ -61,7 +61,7 @@ const Onboarding = (function () {
       return `
         <div class="ob-qadam">
           <h1 class="ob-sarlavha">Nima qilmoqchisiz?</h1>
-          <p class="ob-izoh">Sizga mos ekranlarni ko'rsatishimiz uchun tanlang.</p>
+          <p class="ob-izoh">Sizga mos ekranlarni koʻrsatishimiz uchun tanlang.</p>
 
           <div class="rol-kartalar">
             <button class="rol-karta" data-ob="rol" data-qiymat="fuqaro">
@@ -77,13 +77,13 @@ const Onboarding = (function () {
               <span class="rol-karta-rasm">${Ill.ishBeruvchi()}</span>
               <span class="rol-karta-matn">
                 <h3>Ishchi qidiryapman</h3>
-                <p>Korxonam uchun ishni bo'laklarga bo'lib, bajaruvchi topaman</p>
+                <p>Korxonam uchun ishni boʻlaklarga boʻlib, bajaruvchi topaman</p>
               </span>
               <span class="strelka">→</span>
             </button>
           </div>
 
-          <p class="ob-eslatma">Keyinroq buni o'zgartirishingiz mumkin</p>
+          <p class="ob-eslatma">Keyinroq buni oʻzgartirishingiz mumkin</p>
         </div>`;
     },
 
@@ -91,7 +91,7 @@ const Onboarding = (function () {
       return `
         <div class="ob-qadam">
           <h1 class="ob-sarlavha">Telefon raqamingiz</h1>
-          <p class="ob-izoh">Kirish uchun SMS kod yuboramiz. Raqamingiz boshqalarga ko'rinmaydi.</p>
+          <p class="ob-izoh">Kirish uchun SMS kod yuboramiz. Raqamingiz boshqalarga koʻrinmaydi.</p>
 
           <div class="maydon">
             <div class="tel-kirit">
@@ -117,7 +117,7 @@ const Onboarding = (function () {
           </p>
 
           <div class="demo-kod">
-            Demo rejimi — kod avtomatik ko'rsatiladi
+            Demo rejimi — kod avtomatik koʻrsatiladi
             <b>${ma.kod}</b>
           </div>
 
@@ -129,7 +129,7 @@ const Onboarding = (function () {
           <div class="ob-pastki">
             <button class="tugma asos keng" data-ob="keyingi" id="ob-kod-btn" disabled>Tasdiqlash</button>
             <button class="tugma shaffof keng" data-ob="avto" style="margin-top:8px">
-              Kodni avtomatik to'ldirish
+              Kodni avtomatik toʻldirish
             </button>
           </div>
         </div>`;
@@ -139,7 +139,7 @@ const Onboarding = (function () {
       return `
         <div class="ob-qadam">
           <h1 class="ob-sarlavha">Ismingiz kim?</h1>
-          <p class="ob-izoh">Korxonalar sizni shu ism bilan ko'radi.</p>
+          <p class="ob-izoh">Korxonalar sizni shu ism bilan koʻradi.</p>
 
           <div class="maydon">
             <label for="ob-ism">Ism va familiya</label>
@@ -157,7 +157,7 @@ const Onboarding = (function () {
       return `
         <div class="ob-qadam">
           <h1 class="ob-sarlavha">Qaysi mahalladasiz?</h1>
-          <p class="ob-izoh">Sizga eng yaqin ishlarni ko'rsatamiz — yo'lga vaqt ketmasin.</p>
+          <p class="ob-izoh">Sizga eng yaqin ishlarni koʻrsatamiz — yoʻlga vaqt ketmasin.</p>
 
           <div class="royxat-tanlov">
             ${MAHALLALAR.map(m => `
@@ -180,7 +180,7 @@ const Onboarding = (function () {
       return `
         <div class="ob-qadam">
           <h1 class="ob-sarlavha">Nima ish qila olasiz?</h1>
-          <p class="ob-izoh">Bittadan ko'p tanlash mumkin. Bilmasangiz ham mayli — keyin qo'shasiz.</p>
+          <p class="ob-izoh">Bittadan koʻp tanlash mumkin. Bilmasangiz ham mayli — keyin qoʻshasiz.</p>
 
           <div class="tanlov-setka">
             ${KONIKMALAR.map(k => {
@@ -196,7 +196,7 @@ const Onboarding = (function () {
 
           <div class="ob-pastki">
             <button class="tugma asos keng" data-ob="keyingi">
-              ${tanlangan.length ? 'Davom etish' : "Hozir o'tkazib yuborish"}
+              ${tanlangan.length ? 'Davom etish' : "Hozir oʻtkazib yuborish"}
             </button>
           </div>
         </div>`;
@@ -205,12 +205,12 @@ const Onboarding = (function () {
     korxona() {
       return `
         <div class="ob-qadam">
-          <h1 class="ob-sarlavha">Korxona ma'lumoti</h1>
-          <p class="ob-izoh">Bu ma'lumot Soliq qo'mitasi bazasidan tekshiriladi.</p>
+          <h1 class="ob-sarlavha">Korxona maʼlumoti</h1>
+          <p class="ob-izoh">Bu maʼlumot Soliq qoʻmitasi bazasidan tekshiriladi.</p>
 
           <div class="maydon">
             <label for="ob-knom">Korxona nomi</label>
-            <input class="kirit" id="ob-knom" placeholder="Masalan: Nurafshon Teks"
+            <input class="kirit" id="ob-knom" placeholder="Masalan: Toʻytepa Teks"
                    value="${esc(ma.korxonaNom || '')}">
           </div>
 
@@ -238,7 +238,7 @@ const Onboarding = (function () {
           <p class="ob-izoh">
             ${fuqaroMi
               ? "Hisobingiz ochildi. Endi bitta qadam qoldi — rasmiy maqom olish."
-              : "Korxona hisobi ochildi. Endi birinchi vazifangizni e'lon qiling."}
+              : "Korxona hisobi ochildi. Endi birinchi vazifangizni eʼlon qiling."}
           </p>
 
           <div class="xulosa">
@@ -256,7 +256,7 @@ const Onboarding = (function () {
                 <span class="x-qiymat">${esc((MAHALLALAR.find(m => m.id === ma.mahalla) || {}).nom || '—')}</span>
               </div>
               ${konikmaNom ? `<div class="xulosa-qator">
-                <span class="x-yorliq">Ko'nikma</span>
+                <span class="x-yorliq">Koʻnikma</span>
                 <span class="x-qiymat">${esc(konikmaNom)}</span>
               </div>` : ''}`
             : `<div class="xulosa-qator">
@@ -266,7 +266,7 @@ const Onboarding = (function () {
           </div>
 
           <button class="tugma ${fuqaroMi ? 'asos' : 'iliq'} keng" data-ob="tugat">
-            ${fuqaroMi ? 'Ishlarni ko\'rish' : "Vazifa e'lon qilish"}
+            ${fuqaroMi ? 'Ishlarni koʻrish' : "Vazifa eʼlon qilish"}
           </button>
         </div>`;
     }
@@ -377,7 +377,7 @@ const Onboarding = (function () {
     if (ekran === 'kod') {
       const kiritilgan = [...document.querySelectorAll('.otp-xona')].map(x => x.value).join('');
       if (kiritilgan !== ma.kod) {
-        App.toast('Kod noto\'g\'ri. Demo kodi: ' + ma.kod, 'xato');
+        App.toast('Kod notoʻgʻri. Demo kodi: ' + ma.kod, 'xato');
         return;
       }
     }

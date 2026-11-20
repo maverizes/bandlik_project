@@ -7,24 +7,24 @@
 **Modulli monolit, monorepo ichida.** Mikroservis emas.
 
 Sabab: pilot 3 oy, jamoa kichik, domenlar (vazifa ↔ eskrou ↔ logistika) bir-biri
-bilan tranzaksion bog'langan. Mikroservisda eskrou va vazifa holati orasida
-taqsimlangan tranzaksiya muammosi paydo bo'ladi — bu pilot uchun ortiqcha xavf.
+bilan tranzaksion bogʻlangan. Mikroservisda eskrou va vazifa holati orasida
+taqsimlangan tranzaksiya muammosi paydo boʻladi — bu pilot uchun ortiqcha xavf.
 Modullar `packages/core` ichida aniq chegaralangani uchun keyinchalik ajratish
 mumkin.
 
 ## 2. Monorepo tuzilmasi
 
-Brifdagi tuzilmaga **2 ta qo'shimcha** kiritdim (sababi bilan):
+Brifdagi tuzilmaga **2 ta qoʻshimcha** kiritdim (sababi bilan):
 
 ```
 hunar/
 ├── apps/
 │   ├── web/                    Next.js 15 — UI + Route Handlers
-│   └── worker/                 (QO'SHILDI) BullMQ jarayonlari alohida process
+│   └── worker/                 (QOʻSHILDI) BullMQ jarayonlari alohida process
 │
 ├── packages/
 │   ├── db/                     Prisma schema, migratsiya, seed, client
-│   ├── core/                   (QO'SHILDI) domen mantiqi: state machine, policy
+│   ├── core/                   (QOʻSHILDI) domen mantiqi: state machine, policy
 │   ├── ui/                     shadcn/ui asosidagi umumiy komponentlar
 │   ├── integrations/           tashqi adapterlar (interface + mock + real)
 │   ├── i18n/                   tarjima xabarlari
@@ -38,11 +38,11 @@ hunar/
 **Nega `apps/worker` alohida:** eskrou auto-release, oylik hisobot, marshrut
 hisobi va SMS navbati — bular uzoq ishlaydigan vazifalar. Ularni Next.js
 serverless-mos jarayonida ushlab turish ishonchsiz. Alohida process gorizontal
-kengayadi va web'ni sekinlashtirmaydi.
+kengayadi va webʼni sekinlashtirmaydi.
 
 **Nega `packages/core` alohida:** holat mashinalari va siyosatlar (`RiskPolicy`,
-`CommissionPolicy`, `TrustScore` formulasi) sof funksiyalar — DB va HTTP'ga
-bog'liq emas. Ularni ajratish: (a) `apps/web` va `apps/worker` ikkalasi
+`CommissionPolicy`, `TrustScore` formulasi) sof funksiyalar — DB va HTTPʼga
+bogʻliq emas. Ularni ajratish: (a) `apps/web` va `apps/worker` ikkalasi
 ishlatadi, (b) test yozish oson, (c) kelajakdagi mobil ilova ham qayta ishlatadi.
 
 ## 3. `apps/web` ichki tuzilmasi
@@ -53,18 +53,18 @@ apps/web/src/
 │   ├── [locale]/
 │   │   ├── (public)/           landing, kirish, ommaviy oferta
 │   │   ├── (worker)/           ishlar · mening ishlarim · hamyon · profil
-│   │   ├── (company)/          e'lon berish · nomzodlar · sifat · hisob-kitob
+│   │   ├── (company)/          eʼlon berish · nomzodlar · sifat · hisob-kitob
 │   │   ├── (courier)/          bugungi marshrut · skan
 │   │   ├── (hub)/              kelgan/ketgan · inventarizatsiya
-│   │   ├── (mahalla)/          fuqaroni ro'yxatga olish · tasdiqlash
+│   │   ├── (mahalla)/          fuqaroni roʻyxatga olish · tasdiqlash
 │   │   ├── (dept)/             boshqarma dashboardi · hisobot eksporti
-│   │   ├── (moderator)/        nizolar · qora ro'yxat · fraud navbati
+│   │   ├── (moderator)/        nizolar · qora roʻyxat · fraud navbati
 │   │   └── (admin)/            sozlamalar · foydalanuvchilar · seed
 │   └── api/                    Route Handlers (yupqa qatlam)
 │
 ├── server/
 │   ├── services/               ★ BIZNES MANTIQ SHU YERDA
-│   ├── repositories/           Prisma so'rovlari (service ularni chaqiradi)
+│   ├── repositories/           Prisma soʻrovlari (service ularni chaqiradi)
 │   ├── rbac/                   requireRole(), ruxsat matritsasi
 │   ├── validation/             Zod sxemalari (har input uchun)
 │   ├── errors/                 RFC 7807 problem+json
@@ -84,17 +84,17 @@ Route Handler  →  Service  →  Repository  →  Prisma
 
 | Qoida | Nima uchun |
 |---|---|
-| Route Handler'da biznes mantiq **yo'q** — faqat auth, Zod parse, service chaqirish, javob formatlash | Mantiq testlanadigan va qayta ishlatiladigan bo'lib qoladi |
-| Service'dan tashqarida `prisma.*.update({ status })` **taqiqlangan** | Holat faqat state machine orqali o'zgaradi |
-| Har bir service metodi — bitta biznes amal, bitta tranzaksiya | Yarim bajarilgan holat bo'lmaydi |
-| Har bir pul amali `Idempotency-Key` talab qiladi | Takroriy so'rov ikki marta to'lamaydi |
+| Route Handlerʼda biznes mantiq **yoʻq** — faqat auth, Zod parse, service chaqirish, javob formatlash | Mantiq testlanadigan va qayta ishlatiladigan boʻlib qoladi |
+| Serviceʼdan tashqarida `prisma.*.update({ status })` **taqiqlangan** | Holat faqat state machine orqali oʻzgaradi |
+| Har bir service metodi — bitta biznes amal, bitta tranzaksiya | Yarim bajarilgan holat boʻlmaydi |
+| Har bir pul amali `Idempotency-Key` talab qiladi | Takroriy soʻrov ikki marta toʻlamaydi |
 
 ## 4. Holat mashinasi — texnik yechim
 
 Har domen uchun `packages/core/src/<domain>/transitions.ts`:
 
 ```ts
-// Namuna — deklarativ ta'rif, kod emas
+// Namuna — deklarativ taʼrif, kod emas
 export const taskTransitions: TransitionTable<TaskStatus, TaskContext> = {
   PUBLISHED: {
     ASSIGNED: {
@@ -110,61 +110,61 @@ export const taskTransitions: TransitionTable<TaskStatus, TaskContext> = {
 ```
 
 `TransitionService.apply(entity, nextStatus, actor)` — yagona kirish nuqtasi:
-ruxsatni tekshiradi → guard'ni bajaradi → tranzaksiyada statusni yangilaydi →
+ruxsatni tekshiradi → guardʼni bajaradi → tranzaksiyada statusni yangilaydi →
 `AuditLog` yozadi → hodisa (event) chiqaradi.
 
-> Shu sababli "holatni to'g'ridan-to'g'ri UPDATE qilish taqiqlangan" qoidasi
+> Shu sababli "holatni toʻgʻridan-toʻgʻri UPDATE qilish taqiqlangan" qoidasi
 > texnik jihatdan majburlanadi, shunchaki kelishuv emas.
 
 ## 5. RBAC matritsasi (asosiy resurslar)
 
-`✓` = ruxsat · `A` = faqat agregat (shaxsiy ma'lumotsiz) · `O` = faqat o'ziniki
-· `H` = faqat o'z hududi · bo'sh = ruxsat yo'q
+`✓` = ruxsat · `A` = faqat agregat (shaxsiy maʼlumotsiz) · `O` = faqat oʻziniki
+· `H` = faqat oʻz hududi · boʻsh = ruxsat yoʻq
 
 | Resurs | WORKER | COMPANY_* | COURIER | HUB_OP | MAHALLA_COORD | DEPT_ANALYST | DEPT_ADMIN | MODERATOR | SUPER_ADMIN |
 |---|---|---|---|---|---|---|---|---|---|
-| Vazifa — ko'rish | ✓ | O | | | H(A) | A | A | ✓ | ✓ |
+| Vazifa — koʻrish | ✓ | O | | | H(A) | A | A | ✓ | ✓ |
 | Vazifa — yaratish | | ✓ | | | | | | | ✓ |
 | Ariza berish | ✓ | | | | | | | | |
 | Sifat qabul qilish | | ✓ | | | | | | ✓ | ✓ |
 | Hamyon / balans | O | O | O | | | | | | ✓ |
-| Pul o'tkazmasi | O | O | O | | | | | | ✓ |
+| Pul oʻtkazmasi | O | O | O | | | | | | ✓ |
 | Shaxsiy hujjat (KYC skan) | O | | O | | | | | ✓ | ✓ |
-| Fuqaroni ro'yxatga olish | | | | | H | | | | ✓ |
+| Fuqaroni roʻyxatga olish | | | | | H | | | | ✓ |
 | Maqom tasdiqlash | | | | | H | | | ✓ | ✓ |
 | Yuk / handover | O | O | O | H | | | A | | ✓ |
 | Nizo hal qilish | | | | | | | | ✓ | ✓ |
-| Qora ro'yxat | | | | | | | | ✓ | ✓ |
+| Qora roʻyxat | | | | | | | | ✓ | ✓ |
 | Dashboard KPI | | | | | H(A) | A | A | | ✓ |
 | Hisobot eksporti | | | | | | A | A | | ✓ |
 | Tizim sozlamalari | | | | | | | | | ✓ |
 
 **Qattiq qoida:** `DEPT_ANALYST` va `DEPT_ADMIN` uchun kod darajasida
-`personalDataGuard` — bu rollar telefon, PINFL, passport, karta, to'lov
-tafsilotiga so'rov yubora olmaydi. Faqat `*.aggregate.*` service metodlari ochiq.
+`personalDataGuard` — bu rollar telefon, PINFL, passport, karta, toʻlov
+tafsilotiga soʻrov yubora olmaydi. Faqat `*.aggregate.*` service metodlari ochiq.
 
 ## 6. Tashqi integratsiyalar — adapter namunasi
 
 ```
 packages/integrations/<name>/
-├── index.ts          export { createProvider }  ← ENV flag bo'yicha tanlaydi
+├── index.ts          export { createProvider }  ← ENV flag boʻyicha tanlaydi
 ├── types.ts          interface + Zod sxema
-├── mock.ts           MockProvider — MVPda TO'LIQ ISHLAYDI
+├── mock.ts           MockProvider — MVPda TOʻLIQ ISHLAYDI
 └── real.ts           RealProvider — stub, TODO bilan
 ```
 
 ENV: `IDENTITY_PROVIDER=mock|oneid`, `PAYMENT_PROVIDER=mock|payme|click`,
 `SMS_PROVIDER=mock|eskiz`, va h.k.
 
-> **Qoida:** hech qanday integratsiya yo'qligi MVPni to'xtatmaydi. `pnpm dev`
-> toza mashinada, hech qanday tashqi kalit bo'lmasa ham to'liq ishlaydi.
+> **Qoida:** hech qanday integratsiya yoʻqligi MVPni toʻxtatmaydi. `pnpm dev`
+> toza mashinada, hech qanday tashqi kalit boʻlmasa ham toʻliq ishlaydi.
 
-## 7. Ko'p-hududlilik (multi-region tenancy)
+## 7. Koʻp-hududlilik (multi-region tenancy)
 
 - Deyarli har bir asosiy modelda `regionId`, `districtId`, `mahallaId`.
-- RBAC middleware foydalanuvchi hududini so'rovga avtomatik qo'shadi
+- RBAC middleware foydalanuvchi hududini soʻrovga avtomatik qoʻshadi
   (`scopeToRegion`), `H` belgili rollar uchun majburiy.
-- `LaborSupplyDemandIndex` — hudud × soha × ko'nikma kesimida taklif/talab
+- `LaborSupplyDemandIndex` — hudud × soha × koʻnikma kesimida taklif/talab
   balansi. Pilotda bitta shahar, lekin model kengayishga tayyor.
 
 ## 8. Xavfsizlikning 6 qatlami — qayerda joylashadi
@@ -175,26 +175,26 @@ ENV: `IDENTITY_PROVIDER=mock|oneid`, `PAYMENT_PROVIDER=mock|payme|click`,
 | 2 | Liveness | `integrations/liveness` + `core/risk/RiskPolicy.ts` (trigger qoidalari) |
 | 3 | Eskrou | `services/escrow.service.ts` + `core/escrow/transitions.ts` |
 | 4 | Reyting / TrustScore | `core/trust/score.ts` + `services/rating.service.ts` |
-| 5 | Qora ro'yxat (PINFL hash) | `services/blacklist.service.ts`, `Blacklist.pinflHash` unique |
+| 5 | Qora roʻyxat (PINFL hash) | `services/blacklist.service.ts`, `Blacklist.pinflHash` unique |
 | 6 | KYB | `integrations/tax` + `services/kyb.service.ts` |
 
-Ro'yxatning to'liq, fayl-funksiya darajasidagi varianti 11-bosqichda
+Roʻyxatning toʻliq, fayl-funksiya darajasidagi varianti 11-bosqichda
 `docs/security-checklist.md` sifatida chiqariladi.
 
 ## 9. Nofunksional talablarning texnik aksi
 
 | Talab | Yechim |
 |---|---|
-| Sekin internet | RSC + minimal klient JS, rasm `next/image` lazy, ro'yxatlar kursor-paginatsiya |
+| Sekin internet | RSC + minimal klient JS, rasm `next/image` lazy, roʻyxatlar kursor-paginatsiya |
 | Offline-tolerant forma | Forma holati `localStorage` da draft sifatida, qayta yuborish tugmasi |
 | Past raqamli savodxonlik | Har ekranda 1 ta asosiy harakat, `min-height: 48px` tugma, ikonka + matn, qadam indikatori |
-| SMS fallback | `NotificationService` kanal zanjiri: TELEGRAM → IN_APP → SMS (narx bo'yicha) |
-| Data residency | Barcha servis O'zbekiston hududidagi infratuzilmada; S3 mos ombor lokal |
-| Shaxsiy ma'lumot qonuni | `ConsentRecord` (matn versiyasi bilan), saqlash muddati `Setting`da, o'chirish so'rovi oqimi |
+| SMS fallback | `NotificationService` kanal zanjiri: TELEGRAM → IN_APP → SMS (narx boʻyicha) |
+| Data residency | Barcha servis Oʻzbekiston hududidagi infratuzilmada; S3 mos ombor lokal |
+| Shaxsiy maʼlumot qonuni | `ConsentRecord` (matn versiyasi bilan), saqlash muddati `Setting`da, oʻchirish soʻrovi oqimi |
 
-## 10. Ochiq savollar (javob kerak, lekin ishni to'xtatmaydi)
+## 10. Ochiq savollar (javob kerak, lekin ishni toʻxtatmaydi)
 
 1. Komissiya foizi qancha? (MVPda `Setting` orqali, default 5% taklif qilaman)
-2. Boshqarma hisoboti qaysi rasmiy blank formatida bo'lishi kerak? (namuna kerak)
+2. Boshqarma hisoboti qaysi rasmiy blank formatida boʻlishi kerak? (namuna kerak)
 3. Mahalla nuqtasi sifatida qaysi bino ishlatiladi — FYG binosimi?
-4. Kuryer haqi kim tomonidan to'lanadi: korxonami yoki platformami?
+4. Kuryer haqi kim tomonidan toʻlanadi: korxonami yoki platformami?

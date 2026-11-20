@@ -1,0 +1,169 @@
+/* ==========================================================================
+   HUNAR — "Oson Ish" uslubidagi tema qatlami
+   --------------------------------------------------------------------------
+   Bu fayl mavjud style.css / components.css / onboarding.css USTIDAN yoziladi.
+   Hech qanday eski qoida oʻchirilmagan — bu linkni index.html dan olib
+   tashlasangiz, sayt avvalgi koʻrinishiga qaytadi.
+
+   Dizayn manbasi: osonish.uz dan olingan dizayn tili (rang harorati,
+   tipografika, radius va soya tizimi). Logotip, nom va brend belgilari
+   koʻchirilmagan — HUNAR oʻz identifikatsiyasini saqlaydi.
+   ========================================================================== */
+
+:root {
+  /* ---------- brend: teal oila ---------- */
+  --kok:          #0099b5;   /* asosiy brend rangi */
+  --kok-tim:      #007c94;
+  --kok-och:      #e9f7fa;
+  --kok-yum:      #c6e9f1;
+
+  --binafsha:     #004754;   /* chuqur teal — ikkilamchi, toʻq yuzalar */
+  --binafsha-och: #e3f0f2;
+
+  --zarg:         #e34d5e;   /* iliq urgʻu — asosiy harakat va diqqat */
+  --zarg-tim:     #c93a4b;
+  --zarg-och:     #fdeef0;
+
+  --yashil:       #0e9f6e;
+  --yashil-och:   #e6f7f0;
+  --sariq:        #c2830f;
+  --sariq-och:    #fdf4e3;
+  --qizil:        #d64550;
+  --qizil-och:    #fceef0;
+  --pushti:       #d63384;
+  --pushti-och:   #fbedf4;
+
+  /* ---------- yuzalar ---------- */
+  --fon:          #f4f8f9;
+  --panel:        #ffffff;
+  --panel-2:      #f8fbfc;
+  --chuqur:       #edf3f5;
+  --chiziq:       #e2eaed;
+  --chiziq-och:   #eef3f5;
+
+  /* ---------- matn ---------- */
+  --matn:         #191f2f;
+  --matn-2:       #5a6678;
+  --matn-3:       #98a2b3;
+
+  /* ---------- shakl: yumaloqroq ---------- */
+  --r-xl: 20px;
+  --r:    16px;
+  --r-s:  12px;
+  --r-xs: 8px;
+
+  /* ---------- soya: yumshoq, qatlamli ---------- */
+  --soya-s:   0 1px 3px rgba(16,24,40,.08), 0 1px 2px -1px rgba(16,24,40,.06);
+  --soya:     0 10px 15px -3px rgba(16,24,40,.07), 0 4px 6px -4px rgba(16,24,40,.06);
+  --soya-k:   0 20px 25px -5px rgba(16,24,40,.10), 0 8px 10px -6px rgba(16,24,40,.06);
+  --soya-kok: 0 6px 20px rgba(0,153,181,.26);
+  --soya-zarg:0 6px 20px rgba(227,77,94,.26);
+
+  --grad-kok:    linear-gradient(135deg, #0099b5, #004754);
+  --grad-zarg:   linear-gradient(135deg, #e34d5e, #f0845d);
+  --grad-yashil: linear-gradient(135deg, #0e9f6e, #12b1a0);
+
+  --font: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- tipografika ---------- */
+
+h1, h2, h3, h4 { letter-spacing: -.022em; }
+.sahifa-bosh h1 { font-weight: 800; }
+
+/* ---------- yuqori panel ---------- */
+
+.top {
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid var(--chiziq);
+}
+.logo-belgi {
+  border-radius: 50%;
+  background: var(--kok);
+  box-shadow: 0 4px 14px rgba(0,153,181,.32);
+  font-size: 18px;
+}
+.logo-nom { letter-spacing: -.025em; }
+.logo-tag { color: var(--kok-tim); font-weight: 600; }
+
+.dumaloq-btn,
+.demo-panel { border-radius: 12px; }
+
+/* ---------- tablar ---------- */
+
+.tab.faol { color: var(--kok); }
+.tab.faol::after { background: var(--kok); }
+
+/* ---------- tugmalar ---------- */
+
+.tugma { border-radius: 12px; font-weight: 700; }
+
+.tugma.asos {
+  background: var(--kok);
+  box-shadow: 0 6px 18px rgba(0,153,181,.28);
+}
+.tugma.asos:hover { background: var(--kok-tim); filter: none; }
+
+.tugma.iliq {
+  background: var(--zarg);
+  box-shadow: 0 6px 18px rgba(227,77,94,.26);
+}
+.tugma.iliq:hover { background: var(--zarg-tim); filter: none; }
+
+.tugma.shaffof:hover { background: var(--kok-och); color: var(--kok-tim); }
+
+/* ---------- kartalar ---------- */
+
+.karta { border-radius: var(--r-xl); }
+.karta:hover { box-shadow: var(--soya); }
+
+.vazifa { border-radius: var(--r-xl); }
+.vazifa:hover { box-shadow: var(--soya); border-color: var(--kok-yum); }
+
+.stat { border-radius: var(--r-xl); }
+
+/* ---------- onboarding: teal fon ---------- */
+
+.ob::before {
+  background:
+    radial-gradient(760px 420px at 12% -8%,  rgba(0,153,181,.17), transparent 62%),
+    radial-gradient(660px 380px at 92%  8%,  rgba(0,71,84,.13),   transparent 60%),
+    radial-gradient(700px 400px at 48% 108%, rgba(227,77,94,.10), transparent 62%);
+}
+
+.ob-sarlavha { font-weight: 800; letter-spacing: -.03em; }
+
+.ob-nuqta.tayyor,
+.ob-nuqta.joriy { background: var(--kok); }
+
+.rol-karta { border-radius: var(--r-xl); }
+.rol-karta::after {
+  background: linear-gradient(135deg, rgba(0,153,181,.07), rgba(0,71,84,.07));
+}
+.rol-karta.iliq:hover::after {
+  background: linear-gradient(135deg, rgba(227,77,94,.08), rgba(240,132,93,.08));
+}
+.rol-karta:hover { border-color: var(--kok-yum); box-shadow: var(--soya); }
+
+.otp-xona { border-radius: 12px; }
+.otp-xona:focus { border-color: var(--kok); box-shadow: 0 0 0 4px var(--kok-och); }
+
+.tel-kirit { border-radius: 12px; }
+
+/* ---------- forma elementlari ---------- */
+
+input, select, textarea { border-radius: 12px; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--kok);
+  box-shadow: 0 0 0 4px var(--kok-och);
+  outline: none;
+}
+
+/* ---------- hamyon: chuqur teal ---------- */
+
+.hamyon { background: var(--grad-kok); border-radius: var(--r-xl); }
+
+/* ---------- past navigatsiya ---------- */
+
+.past-nav { border-top: 1px solid var(--chiziq); }
